@@ -1,0 +1,27 @@
+Aihe: Tetris peli
+
+Tarkoitus olisi toteuttaa perinteinen tetris peli. 
+
+Pelist‰ tulee perinteinen v‰rillinen versio. Palkit tippuvat alas ruudussa ja pelaajan pit‰‰ j‰rjestell‰ ne niin, ett‰ ne t‰ytt‰v‰t kokonaisen rivin. 
+Kun Rivi t‰yttyy se h‰vi‰‰ ja pelaaja saa pisteit‰. Jos ruutu t‰yttyy ylˆs asti palkeilla pelaaja h‰vi‰‰ pelin.
+
+K‰ytt‰j‰t: Kuka vaan joka haluu pelat tetrist‰
+
+Toiminnot: 
+-Pelaaja voi ohjata tippuvia palkkeja sivulle pelikent‰n sis‰ll‰
+-Pelaaja voi kiert‰‰ tippuvia palkkeja
+-Pelaaja voi tiputtaa palkit nopeammin (nimike soft drop)
+-pelaaja saa pisteit‰ rivin tyhjent‰misest‰
+-pelaaja saa pisteit‰ jokaisesta palasta riippuen miten paljon k‰ytt‰‰ soft droppia
+-pelaaja n‰kee seuraavan palkin ruudun sivusta
+-pelaaja voi laittaa tauon p‰‰lle
+-pelaaja n‰kee tason ja pisteens‰
+
+
+
+Toiminnot jos aika riitt‰‰:
+-Highscore: 
+	-Pelaaja saa pelin j‰lkeen nimens‰ highscoreen jos tulos on tarpeeksi hyv‰.
+	-Higscoren voi tyhjent‰‰
+
+-Pelaaja voi alkaa milt‰ tahansa tasolta
