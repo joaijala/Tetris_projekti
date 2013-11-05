@@ -1,3 +1,7 @@
 Tuntikirjanpito
 
 30.10  Projektin aloittaminen, repostorin luominen mm 2h
+31.10  mm Pajassa suunnitella koodia 2h
+1.11   1 h J‰rjest‰‰ git toimimaan toiselle koneelle
+3.11   3 h Koodaamisen aloittaminen suuri osa tetromino luokast tehty
+4.11   5 h Loput tetromino luokast valmiiks ja testien tekoa
