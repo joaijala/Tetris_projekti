@@ -7,7 +7,7 @@ import java.lang.Math;
 /**
  *
  * @author joaijala
- * This class makes the Tetromino pieces
+ * This class makes the Tetromino 
  */
 public class Tetromino {
     
@@ -45,6 +45,8 @@ public class Tetromino {
     
     //Constructor that make new tetromino using shape number (for testing)
     public Tetromino(int shape){
+        if (shape>7||shape<0)
+            return;
         this.tetromino_cords = new int[4][2];
         Shape [] shapes=Shape.values();
         set_tetromino_cords(shapes[shape]);

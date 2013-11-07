@@ -9,7 +9,13 @@ package tetris_game;
 /**
  *
  * @author Järjestelmänvalvoja
+ * This class will take care of the gameboard
  */
 public class Board {
     
+    private int [][] board;
+    
+    public Board(){
+        this.board= new int [20][10];
+    }
 }

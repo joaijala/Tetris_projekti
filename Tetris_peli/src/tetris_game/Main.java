@@ -11,7 +11,7 @@ package tetris_game;
  * @author Johanna
  */
 import tetris_game.Tetromino.Shape;
-public class Tetris_peli {
+public class Main {
   
     /**
      * @param args the command line arguments

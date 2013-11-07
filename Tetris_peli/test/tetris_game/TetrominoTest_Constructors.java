@@ -88,7 +88,7 @@ public class TetrominoTest_Constructors {
             assertEquals(Shape.I_shape,tetromino.get_Shape());      
     }
     
-        @Test
+    @Test
     public void test_creating_new_T_shape_Tetromino(){
             Tetromino tetromino= new Tetromino(Shape.T_shape);
             int right_cordinates[][]={ { -1, 0 },  { 0, 0 },   { 1, 0 },   { 0, 1 } };
@@ -97,7 +97,7 @@ public class TetrominoTest_Constructors {
             assertEquals(Shape.T_shape,tetromino.get_Shape());      
     }
     
-        @Test
+    @Test
     public void test_creating_new_O_shape_Tetromino(){
             Tetromino tetromino= new Tetromino(Shape.O_shape);
             int right_cordinates[][]={ { 0, 0 },   { 1, 0 },   { 0, 1 },   { 1, 1 } };
@@ -106,7 +106,7 @@ public class TetrominoTest_Constructors {
             assertEquals(Shape.O_shape,tetromino.get_Shape());      
     }
     
-        @Test
+    @Test
     public void test_creating_new_L_shape_Tetromino(){
             Tetromino tetromino= new Tetromino(Shape.L_shape);
             int right_cordinates[][]={ { -1, -1 }, { 0, -1 },  { 0, 0 },   { 0, 1 } };
@@ -181,7 +181,7 @@ public class TetrominoTest_Constructors {
             assertEquals(Shape.O_shape,tetromino.get_Shape());      
     }
     
-        @Test
+    @Test
     public void test_creating_new_L_shape_Tetromino_Number(){
             Tetromino tetromino= new Tetromino(6);
             int right_cordinates[][]={ { -1, -1 }, { 0, -1 },  { 0, 0 },   { 0, 1 } };
@@ -197,6 +197,13 @@ public class TetrominoTest_Constructors {
             int [][] cordinates=get_cordinate_table_of_tetromino(tetromino);
             Assert.assertArrayEquals(right_cordinates, cordinates);
             assertEquals("wrong shape",Shape.J_shape,tetromino.get_Shape());      
+    }
+    
+    @Test
+    public void test_creating_do_nothing_if_number_is_wrong(){
+            Tetromino tetromino= new Tetromino(8);
+            assertEquals(tetromino, null);
+
     }
     // selvittää tetrominon kordinaatiotaulukon testiä varten
     public int[][] get_cordinate_table_of_tetromino(Tetromino tetromino){
