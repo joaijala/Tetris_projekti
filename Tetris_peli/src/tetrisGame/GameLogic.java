@@ -4,18 +4,12 @@
  * and open the template in the editor.
  */
 
-package tetris_game;
+package tetrisGame;
 
 /**
  *
  * @author Järjestelmänvalvoja
- * This class will take care of the gameboard
  */
-public class Board {
+public class GameLogic {
     
-    private int [][] board;
-    
-    public Board(){
-        this.board= new int [20][10];
-    }
 }
