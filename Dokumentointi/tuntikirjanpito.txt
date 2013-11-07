@@ -5,3 +5,5 @@ Tuntikirjanpito
 1.11   1 h J‰rjest‰‰ git toimimaan toiselle koneelle
 3.11   3 h Koodaamisen aloittaminen suuri osa tetromino luokast tehty
 4.11   5 h Loput tetromino luokast valmiiks ja testien tekoa
+7.11   2 h Pajassa nimien refactorointi, boardin aloitus, uusi luokkakaavio
+7.11   30 min tuntikirjanpitoa, luokkakaavio gittiin...
