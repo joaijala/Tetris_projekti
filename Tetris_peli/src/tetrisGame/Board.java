@@ -14,10 +14,20 @@ package tetrisGame;
 public class Board {
     
     private int [][] board;
+    private boolean[] isRowFilled;
     
     public Board(){
         this.board= new int [20][10];
         setAllToZero();
+        this.isRowFilled= new boolean[19];
+        setIsRowFilledFalse();
+    }
+    
+    //alustaa kaikki isRowFilled osat falseks;
+    public void setIsRowFilledFalse(){
+        for (int i=0;i<19;i++){
+            this.isRowFilled[i]=false;
+        }
     }
     
     //nolla koko talukon, niin että siinä on Empty tetromiinoja eli 0
@@ -32,6 +42,9 @@ public class Board {
     //palauttaa boardin tilanteen (eli board taulukon)
     public int[][] getBoardStatus(){
         return this.board;
+    }
+    public boolean[] getIsRowFilledStatus(){
+        return this.isRowFilled;
     }
     
     //asettaa boardin ruutuun halutun arvon 
@@ -55,6 +68,57 @@ public class Board {
             int helpY=globalY+y;
 
             setNumberToBoard(helpX,helpY, shape);
+        }
+    }
+    //Tyhentää rivin, joka on täynnä. Palauttaa tyhjennettyyjen rivien määrän. Ei siirrä ylläolevia rivejä alas
+    public int clearFullLines(){
+        int clearedLines=0;
+        boolean isFull=true;
+        for(int i=0;i<19;i++){
+            for(int j=0;j<9;i++){
+                if(this.board[i][j]==0){
+                    isFull=false;
+                }
+            }
+            if(isFull){
+                clearedLines++;
+                clearLine(i);
+            }
+            isFull=true;
+        }
+        
+        
+        return clearedLines;
+    }
+    //Tyhjentää annetun rivin
+    public void clearLine(int line){
+        for(int i=0;i<9;i++){
+            this.board[line][i]=0;
+        }
+    }
+    
+    //poistaa tyhjenetyn rivin (alhaalta alkaen kunnes on poistettu kaikki äsken tyhjennetyt tyhjät rivit)
+    public void removeClearedLine(int amountOfLines){
+        boolean isEmpty=true;
+        for(int i=19;i>0;i--){
+            for(int j=0;j<9;i++){
+                if(this.board[i][j]!=0){
+                    isEmpty=false;
+                }
+            }
+            dropDownToLine(i);
+        }
+    }
+    
+    //tiputtaa alas rivit annetun rivin yläpuolelta
+    public void dropDownToLine(int line){
+        for (int i=line;i>1;i--){
+            for(int j=0;j<9;i++){
+                this.board[i][j]=this.board[(i-1)][j];
+            }
+        }
+        for(int i=0;i<9;i++){
+            this.board[0][i]=0;
         }
     }
 }

@@ -18,6 +18,16 @@ public class BoardTest {
     
     public BoardTest() {
     }
+        private final int[][][] cordinateTable=new int[][][] { //muotojen kordinaatit alutilassa
+            { { 0, 0 },   { 0, 0 },   { 0, 0 },   { 0, 0 } },
+            { { 0, -1 },  { 0, 0 },   { -1, 0 },  { -1, 1 } },
+            { { 0, -1 },  { 0, 0 },   { 1, 0 },   { 1, 1 } },
+            { { 0, -1 },  { 0, 0 },   { 0, 1 },   { 0, 2 } },
+            { { -1, 0 },  { 0, 0 },   { 1, 0 },   { 0, 1 } },
+            { { 0, 0 },   { 1, 0 },   { 0, 1 },   { 1, 1 } },
+            { { -1, -1 }, { 0, -1 },  { 0, 0 },   { 0, 1 } },
+            { { 1, -1 },  { 0, -1 },  { 0, 0 },   { 0, 1 } }
+    };
     
     @Before
     public void setUp() {
@@ -36,6 +46,15 @@ public class BoardTest {
             for(int j=0; j<10;j++){
                 assertEquals(boardStatus[i][j], 0);
             }
+        }
+    }
+    //testaa, että isRowFilled on false joka rivillä
+    @Test
+    public void testNewBoardNoRowFilled(){
+        Board board=new Board();
+        boolean [] isRowFull=board.getIsRowFilledStatus();
+        for(int i=0;i<19;i++){
+            assertEquals(false, isRowFull[i]);
         }
     }
     //testaa, että setNumberToBoard ei tee mitään, jos x on liian suuri tai pieni
@@ -90,6 +109,20 @@ public class BoardTest {
         for (int i=0; i<20;i++){
             for(int j=0; j<10;j++){
                 assertEquals(boardStatus[i][j], 0);
+            }
+        }
+    }
+    //testaa, että tetrominon asettaminnen boardiin onnistuu
+    @Test
+    public void testSetTetrominoToBoardVork(){
+        for(int i=0;i<7;i++){
+            Board board=new Board();
+            Tetromino tetromino=new Tetromino(i);
+            board.setTetrominoToBoard(5, 5, tetromino);
+            int [][] boardStatus =board.getBoardStatus();
+            for (int j=0; j<4;j++){
+                
+                    assertEquals(boardStatus[(cordinateTable[i][j][1])+5][(cordinateTable[i][j][0])+5], i);
             }
         }
     }
