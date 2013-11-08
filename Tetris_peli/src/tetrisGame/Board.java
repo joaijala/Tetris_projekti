@@ -19,13 +19,13 @@ public class Board {
     public Board(){
         this.board= new int [20][10];
         setAllToZero();
-        this.isRowFilled= new boolean[19];
+        this.isRowFilled= new boolean[20];
         setIsRowFilledFalse();
     }
     
     //alustaa kaikki isRowFilled osat falseks;
     public void setIsRowFilledFalse(){
-        for (int i=0;i<19;i++){
+        for (int i=0;i<20;i++){
             this.isRowFilled[i]=false;
         }
     }
@@ -70,50 +70,46 @@ public class Board {
             setNumberToBoard(helpX,helpY, shape);
         }
     }
-    //Tyhentää rivin, joka on täynnä. Palauttaa tyhjennettyyjen rivien määrän. Ei siirrä ylläolevia rivejä alas
-    public int clearFullLines(){
+    //Tarkistaa, mitkä rivit ovat täynnä, palauttaa täysien rivien määrän
+    public int checkWhatLinesAreFull(){
         int clearedLines=0;
         boolean isFull=true;
-        for(int i=0;i<19;i++){
-            for(int j=0;j<9;i++){
+        for(int i=0;i<20;i++){
+            for(int j=0;j<10;j++){
                 if(this.board[i][j]==0){
                     isFull=false;
                 }
             }
             if(isFull){
+                this.isRowFilled[i]=true;
                 clearedLines++;
-                clearLine(i);
             }
             isFull=true;
         }
-        
-        
         return clearedLines;
     }
-    //Tyhjentää annetun rivin
-    public void clearLine(int line){
-        for(int i=0;i<9;i++){
-            this.board[line][i]=0;
-        }
-    }
-    
-    //poistaa tyhjenetyn rivin (alhaalta alkaen kunnes on poistettu kaikki äsken tyhjennetyt tyhjät rivit)
-    public void removeClearedLine(int amountOfLines){
-        boolean isEmpty=true;
-        for(int i=19;i>0;i--){
-            for(int j=0;j<9;i++){
-                if(this.board[i][j]!=0){
-                    isEmpty=false;
-                }
+    /*En tiedä onko tarpeen
+    *Tyhjentää annetun rivin
+    *public void clearLine(int line){
+    *    for(int i=0;i<9;i++){
+    *        this.board[line][i]=0;
+    *    }
+    *}
+    */
+    //poistaa täysinäiset rivit jotka on määritelty isRowFull talukossa
+    public int removeFullLines(){
+        for(int i=0; i<20;i++){
+            if(this.isRowFilled[i]=true){
+                dropDownToLine(i);
             }
-            dropDownToLine(i);
         }
+        return 0;
     }
     
-    //tiputtaa alas rivit annetun rivin yläpuolelta
+    //tiputtaa alas rivit annetun rivin yläpuolelta (täten poistaa rivin)
     public void dropDownToLine(int line){
-        for (int i=line;i>1;i--){
-            for(int j=0;j<9;i++){
+        for (int i=line;i>0;i--){
+            for(int j=0;j<10;i++){
                 this.board[i][j]=this.board[(i-1)][j];
             }
         }

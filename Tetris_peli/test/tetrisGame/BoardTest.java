@@ -53,7 +53,7 @@ public class BoardTest {
     public void testNewBoardNoRowFilled(){
         Board board=new Board();
         boolean [] isRowFull=board.getIsRowFilledStatus();
-        for(int i=0;i<19;i++){
+        for(int i=0;i<20;i++){
             assertEquals(false, isRowFull[i]);
         }
     }
@@ -115,7 +115,7 @@ public class BoardTest {
     //testaa, että tetrominon asettaminnen boardiin onnistuu
     @Test
     public void testSetTetrominoToBoardVork(){
-        for(int i=0;i<7;i++){
+        for(int i=0;i<8;i++){
             Board board=new Board();
             Tetromino tetromino=new Tetromino(i);
             board.setTetrominoToBoard(5, 5, tetromino);
@@ -126,6 +126,65 @@ public class BoardTest {
             }
         }
     }
+    
+    //Testaa, että chekWhatLinesAreFull pitää kaikk tyhjänä jos buard on tyhjä
+    @Test
+    public void testChekWhatLinesAreFalseWorkWithEmptyBoard(){
+        Board board=new Board();
+        board.checkWhatLinesAreFull();
+        boolean[] isFull=board.getIsRowFilledStatus();
+        for(int i=0;i<20;i++){
+            assertEquals(false,isFull[i]);
+        }
+    }
+    
+    //Testaa, että chekWhatLinesAreFull ei anna true arvoja kun rivi on puolitäynnä
+    @Test
+    public void testCheckWhatLinesAreFullWorkWhitHalfullLines(){
+        Board board=new Board();
+        for(int i=0;i>9;i++){
+            board.setNumberToBoard(i, 5, 1);
+        }
+        board.checkWhatLinesAreFull();
+        boolean[] isFull=board.getIsRowFilledStatus();
+        for(int i=0;i<20;i++){
+            assertEquals(false,isFull[i]);
+        }
+    }
+    //Testaa, että chekWhatLinesAreFull huomaa 1 täysinäisen rivin
+    @Test
+    public void testCheckWhatLinesAreFullWorkWith1FullLine(){
+        Board board=new Board();
+        for(int i=0;i<10;i++){
+            board.setNumberToBoard(i, 0, 1);
+        }
+        int rowsFull=board.checkWhatLinesAreFull();
+        boolean[] isFull=board.getIsRowFilledStatus();
+        assertEquals(true,isFull[0]);
+        assertEquals(1,rowsFull);
+        for(int i=1;i<20;i++){
+            assertEquals(false,isFull[i]);
+        }
+    }
+    //Testaa, että chekWhatLinesAreFull toimii kun kaikki rivit ovat täynnä
+    @Test
+    public void testCheckWhatLinesAreFullWorkWhenAllRowsAreFull(){
+        Board board=new Board();
+        for (int i=0; i<20;i++){
+            for(int j=0; j<10;j++){
+                board.setNumberToBoard(j, i, 1);
+            }
+        }
+        int rowsFull=board.checkWhatLinesAreFull();
+        boolean[] isFull=board.getIsRowFilledStatus();
+        assertEquals(20,rowsFull);
+        for(int i=1;i<20;i++){
+            assertEquals(true,isFull[i]);
+        }
+    }
+    
+    
+    
 
     
 }
