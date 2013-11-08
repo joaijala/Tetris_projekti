@@ -6,13 +6,26 @@
 
 package tetrisGame;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 /**
  *
  * @author Johanna
  */
-public class TimerManager {
-    private TimerManager timer;
+public class TimerManager implements ActionListener {
+    public Timer timer;
+    public GameLogic game;
     
-    public TimerManager
+    public TimerManager(int delay, GameLogic game){
+        this.timer=new Timer(400,this);
+        this.game=game;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        game.GameLoop();
+    }
     
 }

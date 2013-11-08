@@ -20,7 +20,7 @@ public class GameLogic {
     private int globalY;
     private Tetromino fallingTetromino;
     private Board board;
-    private Timer timer;
+    private TimerManager timer;
     private boolean isPaused=false;
     private boolean isTetrominoFalling=false;
     private boolean isGameStarted=false;
@@ -28,7 +28,14 @@ public class GameLogic {
     public GameLogic(){
         this.board=new Board();
         this.fallingTetromino=new Tetromino();
-        timer =new Timer(400, this);
+        this.timer=new TimerManager(400, this);
+        this.timer.timer.start();
+        
+    }
+    
+    public void GameLoop(){
 
+            
+        
     }
 }
