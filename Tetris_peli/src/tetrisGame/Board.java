@@ -99,17 +99,21 @@ public class Board {
     //poistaa täysinäiset rivit jotka on määritelty isRowFull talukossa
     public int removeFullLines(){
         for(int i=0; i<20;i++){
-            if(this.isRowFilled[i]=true){
+            if(this.isRowFilled[i]==true){
                 dropDownToLine(i);
+                this.isRowFilled[i]=false;
             }
         }
         return 0;
     }
     
-    //tiputtaa alas rivit annetun rivin yläpuolelta (täten poistaa rivin)
+    //tiputtaa alas rivit annetun rivin yläpuolelta (täten poistaa rivin) (koordinaatistossa päinvastoin)
     public void dropDownToLine(int line){
-        for (int i=line;i>0;i--){
-            for(int j=0;j<10;i++){
+        if (line>19|| line<0){
+            return;
+        }
+        for (int i=line;i>1;i--){
+            for(int j=0;j<10;j++){
                 this.board[i][j]=this.board[(i-1)][j];
             }
         }

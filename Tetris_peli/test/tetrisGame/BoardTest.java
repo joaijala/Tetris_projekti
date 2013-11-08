@@ -5,6 +5,7 @@
 package tetrisGame;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -181,6 +182,58 @@ public class BoardTest {
         for(int i=1;i<20;i++){
             assertEquals(true,isFull[i]);
         }
+    }
+    
+    //Testaa, että drop line down toimii 
+    @Test
+    public void testDropOneLineDownWorks(){
+        Board board=new Board();
+        Tetromino tetromino=new Tetromino(1);
+        board.setTetrominoToBoard(5, 5, tetromino);
+        board.dropDownToLine(7);
+        int [][] boardStatus =board.getBoardStatus();
+        for (int j=0; j<4;j++){
+                
+             assertEquals(boardStatus[(cordinateTable[1][j][1])+6][(cordinateTable[1][j][0])+5], 1);
+        }
+    }
+    //Testaa että täysinäinen rivi poistuu oikein
+    @Test
+    public void testRemovingLine(){
+        Board board=new Board();
+        Tetromino tetromino=new Tetromino(1);
+        board.setTetrominoToBoard(5, 5, tetromino);
+        for(int i=0;i<10;i++){
+            board.setNumberToBoard(i, 7, 1);
+        }
+        board.checkWhatLinesAreFull();
+        board.removeFullLines();
+        int [][] expectedBoard=new int[20][10];
+        for (int j=0; j<4;j++){
+             expectedBoard[(cordinateTable[1][j][1])+6][(cordinateTable[1][j][0])+5]=1;   
+        }
+        Assert.assertArrayEquals(expectedBoard,board.getBoardStatus());
+
+    }
+    //Testaa, että useamman rivin poistaminen kerralla onnistuu
+    @Test
+    public void TestRemoving2Lines(){
+        Board board=new Board();
+        Tetromino tetromino=new Tetromino(1);
+        board.setTetrominoToBoard(5, 5, tetromino);
+        for(int i=0;i<10;i++){
+            board.setNumberToBoard(i, 7, 1);
+        }
+         for(int i=0;i<10;i++){
+            board.setNumberToBoard(i, 8, 1);
+        }
+        board.checkWhatLinesAreFull();
+        board.removeFullLines();
+        int [][] expectedBoard=new int[20][10];
+        for (int j=0; j<4;j++){
+             expectedBoard[(cordinateTable[1][j][1])+7][(cordinateTable[1][j][0])+5]=1;   
+        }
+        Assert.assertArrayEquals(expectedBoard,board.getBoardStatus());
     }
     
     
