@@ -109,7 +109,7 @@ public class TetrominoTest {
         }
     }
     
-    //testaa, että palikat ovat samat koko kierroksen jälkeen vase,,aööe
+    //testaa, että palikat ovat samat koko kierroksen jälkeen tulos on sama kuin slussa
     @Test
     public void testRotateLeftWorkFor1Cycle(){
         for(int i=1;i<=7;i++){
@@ -180,6 +180,28 @@ public class TetrominoTest {
             int [][] cordinatesLeft=getCordinateTableOfTetromino(tetromino2);
             Assert.assertArrayEquals(cordinatesLeft, cordinatesRight);
             
+        }
+    }
+    //Testaa, että set random shape ei tee Empty muotoja
+    @Test
+    public void setRandomShapeDoNotSetEmptyShape(){
+        Tetromino tetromino =new Tetromino();
+        for(int i=0;i<1000;i++){
+              tetromino.setRandomShape();
+              Shape shape=tetromino.getShape();
+              assertFalse(shape==Shape.Empty);
+        }        
+    }
+    //Testaa, että muoto ja kordinaatit vastaavat toisiaan uuden muodon asettamisen jälkeen
+    @Test
+    public void setRandomShapeGivesRightShapeAndCordinates(){
+        Tetromino tetromino =new Tetromino();
+        for(int i=0; i<1000;i++){
+            tetromino.setRandomShape();
+            Shape shape =tetromino.getShape();
+            int [][] cords=getCordinateTableOfTetromino(tetromino);
+            int [][] expectedCordinates=getCordinatesOfRow(shape.ordinal(),cordinateTable);
+            Assert.assertArrayEquals(expectedCordinates,cords);
         }
     }
     

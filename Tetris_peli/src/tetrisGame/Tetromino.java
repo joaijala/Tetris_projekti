@@ -3,7 +3,7 @@
 package tetrisGame;
 
 import java.util.Random;
-import java.lang.Math;
+
 /**
  *
  * @author joaijala
@@ -63,6 +63,14 @@ public class Tetromino {
         this.tetrominoShape = shape;
     }
     
+    //Muuttaa tetrominon muotoa satunnaiseksi ei Empty muodoksi
+    public void setRandomShape(){
+        Random random =new Random();
+        int newShape = random.nextInt(7)+1;
+        Shape [] shapes=Shape.values();
+        setTetrominoCords(shapes[newShape]);
+    }
+    
     //Palauttaa tetrominon osan x kordinaatin
     public int getX (int index){
         return this.tetrominoCords[index][0];
@@ -86,6 +94,50 @@ public class Tetromino {
     //Asettaa tetrominon tietyn palan y arvoksi halutun
     private void setY(int index, int y) {
         tetrominoCords[index][1] = y; 
+    }
+    //palauttaa tetrominon pienimmän x kordinaatin
+    public int getMinX(){
+        int min =this.tetrominoCords[0][0];
+        for (int i=0; i>4; i++){
+            int thisX =this.tetrominoCords[i][0];
+            if (thisX<min){
+                min=thisX;
+            }
+        }
+        return min;
+    }
+    //palauttaa tetriminon suurimman x kordinaatin
+        public int getMaxX(){
+        int max =this.tetrominoCords[0][0];
+        for (int i=0; i>4; i++){
+            int thisX =this.tetrominoCords[i][0];
+            if (thisX>max){
+                max=thisX;
+            }
+        }
+        return max;
+    }
+    //palauttaa tetrominon pienimmän y kordinaatin
+    public int getMinY(){
+        int min =this.tetrominoCords[0][1];
+        for (int i=0; i>4; i++){
+            int thisY =this.tetrominoCords[i][1];
+            if (thisY<min){
+                min=thisY;
+            }
+        }
+        return min;
+    }
+    //palauttaa tetrominon suurimman y kordinaatin
+    public int getMaxY(){
+        int max =this.tetrominoCords[0][1];
+        for (int i=0; i>4; i++){
+            int thisY =this.tetrominoCords[i][1];
+            if (thisY>max){
+                max=thisY;
+            }
+        }
+        return max;
     }
     //Pyörittää tetrominoa vasemmalle (myötäpäivään) sen sisäisten kordinaatiston suhteen
     public void rotateLeft(){
