@@ -11,6 +11,7 @@ package tetrisGame;
  * @author Johanna
  */
 import tetrisGame.Tetromino.Shape;
+import userInterface.GameScreen;
 public class Main {
   
     /**
@@ -19,14 +20,14 @@ public class Main {
     
     public static void main(String[] args) {
         GameLogic game=new GameLogic();
-        int i=1;
-        while(0!=i){
+        game.GameLoop();
+
              
     }
         
         
         
-}
+
 }
     
 

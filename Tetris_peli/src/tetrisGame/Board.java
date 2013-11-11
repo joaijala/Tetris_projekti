@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package tetrisGame;
 
@@ -22,15 +18,17 @@ public class Board {
         this.isRowFilled= new boolean[20];
         setIsRowFilledFalse();
     }
-    
-    //alustaa kaikki isRowFilled osat falseks;
+   /** 
+    *alustaa kaikki isRowFilled osat falseks;
+    */
     public void setIsRowFilledFalse(){
         for (int i=0;i<20;i++){
             this.isRowFilled[i]=false;
         }
     }
-    
-    //nolla koko talukon, niin että siinä on Empty tetromiinoja eli 0
+    /**
+    *nolla koko talukon, niin että siinä on Empty tetromiinoja eli 0
+    */
     public void setAllToZero(){
         for (int i=0; i<20;i++){
             for(int j=0; j<10;j++){
@@ -38,27 +36,32 @@ public class Board {
             }
         }
     }
-    
-    //palauttaa boardin tilanteen (eli board taulukon)
+    /**
+    *palauttaa boardin tilanteen (eli board taulukon)
+    */
     public int[][] getBoardStatus(){
         return this.board;
     }
     public boolean[] getIsRowFilledStatus(){
         return this.isRowFilled;
     }
-    
-    //asettaa boardin ruutuun halutun arvon 
+    /**
+    *asettaa boardin ruutuun halutun arvon 
+    */
     public void setNumberToBoard(int x, int y, int number){
         if(y>19||x>9||y<0||x<0){
-                return;  //jos y ja x ovat boardin ulkopuolel ei tapahdu mitään
+                return;  /**jos y ja x ovat boardin ulkopuolel ei tapahdu mitään*/
         }
         if(number<0||number>7){
-            return; //jos numero ei ole 0-7 (shape eunumin sisällä) ei tapahdu mitää
+            return; /**jos numero ei ole 0-7 (shape eunumin sisällä) ei tapahdu 
+            * mitää*/
         }
         this.board[y][x]=number;
     }
-    
-    //asettaa annetun tetrominon boardiin niin, että tetrominon origo (pala 0,0) on kohdassa globalX,globalY
+    /**
+    *asettaa annetun tetrominon boardiin niin, että tetrominon origo (pala 0,0) 
+    * on kohdassa globalX,globalY
+    */
     public void setTetrominoToBoard(int globalX, int globalY, Tetromino tetromino){
         int shape =tetromino.getShape().ordinal();
         for (int i =0; i<4;i++){
@@ -70,7 +73,9 @@ public class Board {
             setNumberToBoard(helpX,helpY, shape);
         }
     }
-    //Tarkistaa, mitkä rivit ovat täynnä, palauttaa täysien rivien määrän
+    /**
+    *Tarkistaa, mitkä rivit ovat täynnä, palauttaa täysien rivien määrän
+    */
     public int checkWhatLinesAreFull(){
         int clearedLines=0;
         boolean isFull=true;
@@ -96,7 +101,10 @@ public class Board {
     *    }
     *}
     */
-    //poistaa täysinäiset rivit jotka on määritelty isRowFull talukossa
+    
+    /**
+    *poistaa täysinäiset rivit jotka on määritelty isRowFull talukossa
+    */
     public int removeFullLines(){
         for(int i=0; i<20;i++){
             if(this.isRowFilled[i]==true){
@@ -106,8 +114,10 @@ public class Board {
         }
         return 0;
     }
-    
-    //tiputtaa alas rivit annetun rivin yläpuolelta (täten poistaa rivin) (koordinaatistossa päinvastoin)
+    /**
+    *tiputtaa alas rivit annetun rivin yläpuolelta (täten poistaa rivin) 
+    *(koordinaatistossa päinvastoin)
+    */
     public void dropDownToLine(int line){
         if (line>19|| line<0){
             return;
