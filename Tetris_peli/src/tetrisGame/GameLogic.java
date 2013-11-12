@@ -37,6 +37,7 @@ public class GameLogic {
     private double timeOfLastDrop;
     private double dropIntervall;
     private GameScreen gameScreen;
+    private ControllListener contollistener;
 
     public GameLogic() {
         this.board = new Board();
@@ -46,7 +47,7 @@ public class GameLogic {
         this.cleardRows = 0;
         this.dropIntervall = 1000;
         this.gameScreen = new GameScreen(this);
-
+        this.contollistener= new ControllListener(this);
     }
 
     /**
@@ -63,6 +64,20 @@ public class GameLogic {
             }
             if (this.isTetrominoFalling && getCurrentTimeInMilliseconds() > (this.dropIntervall + this.timeOfLastDrop)) {
                 dropOneLineDown();
+            }
+            if(isMoved!=0){
+                if(isMoved>0){
+                    if(isMovePossible(this.fallingTetromino,this.globalX+1,this.globalY)){
+                        globalX++;
+                        isMoved--;
+                    }
+                }
+                if(isMoved<0){
+                    if(isMovePossible(this.fallingTetromino,this.globalX-1,this.globalY)){
+                        globalX--;
+                        isMoved++;
+                    }
+                }
             }
 
         }
