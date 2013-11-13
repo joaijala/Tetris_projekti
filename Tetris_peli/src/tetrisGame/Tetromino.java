@@ -118,14 +118,14 @@ public class Tetromino {
      * Asettaa tetrominontietyn palan x arvoksi halutun
      */
     private void setX(int index, int x) {
-        tetrominoCords[index][0] = x;
+        this.tetrominoCords[index][0] = x;
     }
 
     /**
      * Asettaa tetrominon tietyn palan y arvoksi halutun
      */
     private void setY(int index, int y) {
-        tetrominoCords[index][1] = y;
+        this.tetrominoCords[index][1] = y;
     }
 
     /**

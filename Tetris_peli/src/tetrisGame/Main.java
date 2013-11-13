@@ -12,6 +12,7 @@ package tetrisGame;
  */
 import tetrisGame.Tetromino.Shape;
 import userInterface.GameScreen;
+import userInterface.UserInterface;
 public class Main {
   
     /**
@@ -19,8 +20,8 @@ public class Main {
      */
     
     public static void main(String[] args) {
-        GameLogic game=new GameLogic();
-        game.GameLoop();
+        UserInterface UI =new UserInterface();
+        UI.run();
 
              
     }

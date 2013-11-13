@@ -12,55 +12,55 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import tetrisGame.Tetromino;
 import tetrisGame.Board;
 import tetrisGame.GameLogic;
 import tetrisGame.Tetromino.Shape;
+import tetrisGame.ControllListener;
 
 /**
  *
  * @author Johanna
  */
-public class GameScreen extends JFrame {
-
-    JLabel statusbar;
-    private final GameLogic game;
+public class GameScreen extends JPanel {
+    
+    
+    public GameLogic game;
     private final Color colors[] = {new Color(255, 255, 255), new Color(240, 0, 0),
                           new Color(0, 240,0), new Color(0, 240, 240),
                           new Color(160, 0, 240), new Color(240, 240, 0),
                           new Color(240, 160, 0), new Color(0, 0, 240)
         };
+    public ControllListener listener;
 
-    public GameScreen(GameLogic game) {
-        this.game = game;
+    public GameScreen() {
+        this.game=new GameLogic(this);
 
-        statusbar = new JLabel();
-        add(statusbar, BorderLayout.SOUTH);
-
-        setSize(218, 438);
-        setTitle("Tetris");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setFocusable(true);
-        setVisible(true);
+        
     }
     /**
      * paint piirtää ensin pelilaudan ja sen jälkeen pelilaudan päälle tetrominon 
      * @param graphics 
      */
+    
     @Override
     public void paint(Graphics graphics) {
+        graphics.setColor(new Color(0,0,0));
+        graphics.fillRect(0, 0, 210, 410);
+        
         Tetromino tetromino = game.getTetromino();
         int[][] boardStatus = game.getBoard().getBoardStatus();
         Dimension size = getSize();
-        int boardTop = (int) size.getHeight() - 400-8;
+        int boardTop=5;
 
         for (int i = 0; i < 20; ++i) {
             for (int j = 0; j < 10; ++j) {
                 int shape = boardStatus[i][j];
 
-                drawSquare(graphics,9+ j * 20,
-                        boardTop + i * 20, shape);
+                drawSquare(graphics,5+ j * 20,
+                      5+ i * 20, shape);
 
             }
         }
@@ -68,8 +68,8 @@ public class GameScreen extends JFrame {
         for (int i = 0; i < 4; ++i) {
             int x = game.getGlobalX() + tetromino.getX(i);
             int y = game.getGlobalY() + tetromino.getY(i);
-            drawSquare(graphics,9+ x * 20,
-                    boardTop + y * 20,
+            drawSquare(graphics,5+x * 20,
+                     5+y * 20,
                     tetromino.getShape().ordinal());
 
         }

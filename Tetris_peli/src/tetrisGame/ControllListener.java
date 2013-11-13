@@ -6,18 +6,21 @@
 
 package tetrisGame;
 
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 
 /**
  *
  * @author Johanna
  */
 public class ControllListener implements KeyListener {
+    private int isMoved;
     private GameLogic game;
-    
     public ControllListener(GameLogic game){
         this.game=game;
+        
     }
 
     @Override
@@ -27,17 +30,49 @@ public class ControllListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        if (ke.getKeyCode()==KeyEvent.VK_A){
-            this.game.isMoved--;
+        if(ke.getKeyCode()==KeyEvent.VK_LEFT){
+            game.setIsMoved(-1);
         }
         else if(ke.getKeyCode()==KeyEvent.VK_RIGHT){
-            this.game.isMoved++;
+            game.setIsMoved(1);
         }
+        else if(ke.getKeyCode()==KeyEvent.VK_UP||ke.getKeyCode()==KeyEvent.VK_X){
+            game.setIsRotated(1);
+        }
+        else if(ke.getKeyCode()==KeyEvent.VK_Z){
+            game.setIsRotated(-1);
+        }
+        else if (ke.getKeyCode()==KeyEvent.VK_DOWN){
+            game.setSoftDrop(1);
+        }
+        /*
+        else if(ke.getKeyCode()==KeyEvent.VK_P){
+            if(game.isPaused==true){
+                game.isPaused=false;
+            }
+            else{
+                game.isPaused=true;
+            }
+        }
+        */
+        else if(ke.getKeyCode()==KeyEvent.VK_P){
+            game.setIsPaused();
+        }
+        
+        
+        
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        
+       
     }
+
+    public int getIsMoved(){
+        return this.isMoved;
+    }
+
+
+
     
 }

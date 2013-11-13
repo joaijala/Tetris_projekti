@@ -77,7 +77,7 @@ public class Board {
     *Tarkistaa, mitkä rivit ovat täynnä, palauttaa täysien rivien määrän
     */
     public int checkWhatLinesAreFull(){
-        int clearedLines=0;
+        int fullLines=0;
         boolean isFull=true;
         for(int i=0;i<20;i++){
             for(int j=0;j<10;j++){
@@ -87,11 +87,11 @@ public class Board {
             }
             if(isFull){
                 this.isRowFilled[i]=true;
-                clearedLines++;
+                fullLines++;
             }
             isFull=true;
         }
-        return clearedLines;
+        return fullLines;
     }
     /*En tiedä onko tarpeen
     *Tyhjentää annetun rivin
