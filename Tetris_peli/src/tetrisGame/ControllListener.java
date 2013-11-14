@@ -45,17 +45,11 @@ public class ControllListener implements KeyListener {
         else if (ke.getKeyCode()==KeyEvent.VK_DOWN){
             game.setSoftDrop(1);
         }
-        /*
-        else if(ke.getKeyCode()==KeyEvent.VK_P){
-            if(game.isPaused==true){
-                game.isPaused=false;
-            }
-            else{
-                game.isPaused=true;
-            }
+        else if (ke.getKeyCode()==KeyEvent.VK_SPACE){
+            game.setDropDownTrue();
         }
-        */
-        else if(ke.getKeyCode()==KeyEvent.VK_P){
+        
+        if(ke.getKeyCode()==KeyEvent.VK_P){
             game.setIsPaused();
         }
         
