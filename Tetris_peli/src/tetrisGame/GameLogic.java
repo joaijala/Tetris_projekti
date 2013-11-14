@@ -51,7 +51,7 @@ public class GameLogic {
         this.board = new Board();
         this.fallingTetromino = new Tetromino();
         this.cleardRows = 0;
-        this.dropIntervall = 500;
+        this.dropIntervall = 200;
         this.gameScreen = gameScreen;
 
     }
@@ -347,6 +347,37 @@ public class GameLogic {
      */
     public int getGlobalY() {
         return this.globalY;
+    }
+    /**
+     * returns the amount of cleared rows
+     * @return clearedRows
+     */
+    public int getClearedRows(){
+        return this.cleardRows;
+    }
+    /**
+     * returns wheter the game is paused or not
+     * @return isPaused
+     */
+    public boolean getIsPaused(){
+        return this.isPaused;
+    }
+    /**
+     * returns if the game is running
+     * @return isGameRunning
+     */
+    public boolean getIsGameRunning(){
+        return this.isGameRunning;
+    }
+    /**
+     * returns wheter the tetromino is falling
+     * @return isTetrominoFalling
+     */
+    public boolean getIsTetrominoFalling(){
+        return this.isTetrominoFalling;
+    }
+    public boolean getDropDown(){
+        return this.dropDown;
     }
 
     /**

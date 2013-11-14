@@ -29,7 +29,7 @@ public class UserInterface implements Runnable{
 
     @Override
     public void run() {
-         frame =new JFrame("");
+         frame =new JFrame("Tetris");
          frame.setPreferredSize(new Dimension(500,500));
          frame.setResizable(false);
          frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
