@@ -1,0 +1,5 @@
+Siirrä tetrominoa sivulle vasen ja oikea nuolinäppäin
+pyörritä tetrominoa oikeaan nuoli ylös tai x
+pyörritä tetrominoa vasempaan z
+tiputa tetromino 1 askel alaspäin(soft drop) nuoli alas
+tiputa tetromino alas välilyönti

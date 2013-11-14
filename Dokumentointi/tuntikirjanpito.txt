@@ -7,3 +7,13 @@ Tuntikirjanpito
 4.11   5 h Loput tetromino luokast valmiiks ja testien tekoa
 7.11   2 h Pajassa nimien refactorointi, boardin aloitus, uusi luokkakaavio
 7.11   30 min tuntikirjanpitoa, luokkakaavio gittiin...
+8.11   4h?    Testien kirjoittamista, aloittaa gamelogikkia
+10.11  30 min kommenttien korjaus
+10.11  4 h  pelilogikkaa, käyttöliittymä alkuun
+12.11  1 h  näppäimistökuuntelian aloittamista
+13.11  8 h  pelilogiikkaa, näppäimistökuuntelua ja käyttöliittymää
+14.11  30 min pajassa kysymyksiä, pari pelilogiikka testiä
+14.11  1 h luokkakaavio, tuntikirjanpito.
+
+Suunnitteilla
+Perjantai 15.11 gameLogic testaus ajan tasalle

@@ -44,7 +44,7 @@ public class UserInterface implements Runnable{
     }
     public void createComponent(Container container){
         this.gameScreen =new GameScreen();
-        container.add(gameScreen);
+        //container.add(gameScreen);
     }
     public JFrame getFrame(){
         return frame;
