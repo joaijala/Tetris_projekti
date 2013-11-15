@@ -27,13 +27,20 @@ public class ControllListener implements KeyListener {
 
     }
 
+    /**
+     * Jos peli on pällä se kuuntelee aina pausen painamista, jos peli ei ole
+     * pausella se kuuntelee myös pelin ohjauspainkikkeita.
+     *
+     * @param ke =painettu näppäin
+     */
+
     @Override
     public void keyPressed(KeyEvent ke) {
         if (game.getIsGameRunning()) {
             if (ke.getKeyCode() == KeyEvent.VK_P) {
                 game.setIsPaused();
             }
-            //else if (!game.getIsPaused()) {
+            else if (!game.getIsPaused()) {
                 if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
                     game.setIsMoved(-1);
                 }
@@ -54,7 +61,7 @@ public class ControllListener implements KeyListener {
                 }
             }
 
-       // }
+        }
 
     }
 

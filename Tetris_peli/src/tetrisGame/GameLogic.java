@@ -138,7 +138,7 @@ public class GameLogic {
      * dropOneLineDown pudottaa tetrominon alaspäin jos se on mahdollista,
      * muuten asettaa uuden tetrominon
      */
-    private void dropOneLineDown() {
+    public void dropOneLineDown() {
         if (isMovePossible(this.fallingTetromino, this.globalX, this.globalY + 1)) {
             this.globalY++;
             this.timeOfLastDrop = getCurrentTimeInMilliseconds();
@@ -157,10 +157,11 @@ public class GameLogic {
      * Huolehtii täysinäisten rivien tarkistamisesta ja niiden poistamisesta
      * Tulevaisuudessa myös kertoo miten paljon pisteitä annetaan
      */
-    private void takeCareOfFullLines() {
+    public void takeCareOfFullLines() {
         int fullLines = this.board.checkWhatLinesAreFull();
         if (fullLines != 0) {
             this.board.removeFullLines();
+            this.cleardRows+=fullLines;
         }
     }
 

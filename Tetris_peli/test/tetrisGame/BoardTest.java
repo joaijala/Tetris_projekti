@@ -147,10 +147,10 @@ public class BoardTest {
     }
 
     /*
-     *Testaa, että chekWhatLinesAreFull pitää kaikk tyhjänä jos buard on tyhjä
+     *Testaa, että chekWhatLinesAreFull pitää kaikk tyhjänä jos board on tyhjä
      */
     @Test
-    public void testChekWhatLinesAreFalseWorkWithEmptyBoard() {
+    public void testChekWhatLinesAreFullWorkWithEmptyBoard() {
         Board board = new Board();
         board.checkWhatLinesAreFull();
         boolean[] isFull = board.getIsRowFilledStatus();

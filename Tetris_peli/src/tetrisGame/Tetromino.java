@@ -95,6 +95,8 @@ public class Tetromino {
 
     /**
      * Palauttaa tetrominon osan x kordinaatin
+     * @param index
+     * @return 
      */
     public int getX(int index) {
         return this.tetrominoCords[index][0];
@@ -102,6 +104,8 @@ public class Tetromino {
 
     /**
      * Palauttaa tetrominon osan y kordinaatin
+     * @param index
+     * @return 
      */
     public int getY(int index) {
         return this.tetrominoCords[index][1];
@@ -109,6 +113,7 @@ public class Tetromino {
 
     /**
      * Palauttaa tetrominon muodon
+     * @return 
      */
     public Shape getShape() {
         return this.tetrominoShape;
@@ -130,6 +135,7 @@ public class Tetromino {
 
     /**
      * palauttaa tetrominon pienimmän x kordinaatin
+     * @return 
      */
     public int getMinX() {
         int min = this.tetrominoCords[0][0];
@@ -144,6 +150,7 @@ public class Tetromino {
 
     /**
      * palauttaa tetriminon suurimman x kordinaatin
+     * @return 
      */
     public int getMaxX() {
         int max = this.tetrominoCords[0][0];
