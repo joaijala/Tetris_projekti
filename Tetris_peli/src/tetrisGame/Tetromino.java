@@ -10,6 +10,7 @@ import java.util.Random;
 public class Tetromino {
 
     public enum Shape {
+
         Empty, ZShape, SShape, IShape, TShape, OShape, LShape, JShape
     }
 
@@ -94,9 +95,21 @@ public class Tetromino {
     }
 
     /**
+     * asettaa tetrominolle halutun muodon tarvitaan kun laitetaan uudeksi
+     * tippubvaksi tetromiinoksi vanha seuraavaTetromino
+     *
+     * @param shape uusi tetrominon muoto
+     */
+    public void setShape(Shape shape) {
+        
+        setTetrominoCords(shape);
+    }
+
+    /**
      * Palauttaa tetrominon osan x kordinaatin
+     *
      * @param index
-     * @return 
+     * @return
      */
     public int getX(int index) {
         return this.tetrominoCords[index][0];
@@ -104,8 +117,9 @@ public class Tetromino {
 
     /**
      * Palauttaa tetrominon osan y kordinaatin
+     *
      * @param index
-     * @return 
+     * @return
      */
     public int getY(int index) {
         return this.tetrominoCords[index][1];
@@ -113,7 +127,8 @@ public class Tetromino {
 
     /**
      * Palauttaa tetrominon muodon
-     * @return 
+     *
+     * @return
      */
     public Shape getShape() {
         return this.tetrominoShape;
@@ -135,7 +150,8 @@ public class Tetromino {
 
     /**
      * palauttaa tetrominon pienimmän x kordinaatin
-     * @return 
+     *
+     * @return
      */
     public int getMinX() {
         int min = this.tetrominoCords[0][0];
@@ -150,7 +166,8 @@ public class Tetromino {
 
     /**
      * palauttaa tetriminon suurimman x kordinaatin
-     * @return 
+     *
+     * @return
      */
     public int getMaxX() {
         int max = this.tetrominoCords[0][0];

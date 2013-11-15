@@ -13,11 +13,12 @@ import userInterface.GameScreen;
  * pelin pyörittäminen
  */
 public class GameLogic {
-
+    private final int[] scoresFromRow={0,40,100,300,1200};
     private static final double NANOSEC_TO_MILLISEC = 0.000001;
     private int globalX;
     private int globalY;
     private final Tetromino fallingTetromino;
+    private final Tetromino nextTetromino;
     private final Board board;
     private boolean isPaused = false;
     private boolean isTetrominoFalling = false;
@@ -37,22 +38,32 @@ public class GameLogic {
      */
     private int softDrop;
     /**
+     * tells the number of soft drops done for tetormino
+     */
+    private int softDropsDone;
+    /**
      * dropDown antaa pelaajan tiputtaa tetrominon kokonaan alas
      *
      */
     private boolean dropDown;
-    private int cleardRows;
-    private double timeOfLastDrop;
+    private int clearedRows;
     private double dropIntervall;
+    private int level;
+    private int score;
+    private double timeOfLastDrop;
     private GameScreen gameScreen;
     private ControllListener contollistener;
 
     public GameLogic() {
         this.board = new Board();
         this.fallingTetromino = new Tetromino();
-        this.cleardRows = 0;
-        this.dropIntervall = 200;
+        this.nextTetromino = new Tetromino();
+        this.nextTetromino.setRandomShape();
+        this.clearedRows = 0;
+        this.dropIntervall = 500;
         this.gameScreen = new GameScreen(this);
+        this.level=0;
+        this.score=0;
 
     }
 
@@ -62,6 +73,7 @@ public class GameLogic {
     public void GameLoop() {
 
         this.isGameRunning = true;
+        
         setNewFallingTetromino();
         /*Pelilooppi*/
         while (this.isGameRunning) {
@@ -97,6 +109,7 @@ public class GameLogic {
              */
             if (softDrop > 0) {
                 dropOneLineDown();
+                this.softDropsDone++;
                 softDrop--;
             }
             /**
@@ -106,6 +119,7 @@ public class GameLogic {
             if (this.dropDown) {
                 while (dropDown) {
                     dropOneLineDown();
+                    this.softDropsDone++;
                 }
             }
 
@@ -114,13 +128,15 @@ public class GameLogic {
     }
 
     /**
-     * asettaa tetromiinolle uuden muodon ja laittaa sen pelikentän huipulle,
-     * sekä nollaa liikuttamiseen liittyvät muututjat
+     * asettaa fallingTetromiinolle seuraavan Tetrominon muodon,
+     * nexttetrominolle uuden random muodon sekä nollaa liikuttamiseen liittyvät
+     * muututjat
      */
     public void setNewFallingTetromino() {
         this.globalX = 4;
         this.globalY = 1;
-        this.fallingTetromino.setRandomShape();
+        this.fallingTetromino.setShape(this.nextTetromino.getShape());
+        this.nextTetromino.setRandomShape();
         /*peli loppuu jos ei voi laittaa uutta palikkaa*/
         if (!isMovePossible(this.fallingTetromino, globalX, globalY)) {
             this.isGameRunning = false;
@@ -128,6 +144,7 @@ public class GameLogic {
         this.isMoved = 0;
         this.isRotated = 0;
         this.softDrop = 0;
+        this.softDropsDone=0;
         this.dropDown = false;
         this.isTetrominoFalling = true;
         this.timeOfLastDrop = getCurrentTimeInMilliseconds();
@@ -155,14 +172,76 @@ public class GameLogic {
 
     /**
      * Huolehtii täysinäisten rivien tarkistamisesta ja niiden poistamisesta
-     * Tulevaisuudessa myös kertoo miten paljon pisteitä annetaan
+     * 
      */
     public void takeCareOfFullLines() {
         int fullLines = this.board.checkWhatLinesAreFull();
+        addScores(fullLines);
         if (fullLines != 0) {
             this.board.removeFullLines();
-            this.cleardRows+=fullLines;
+            this.clearedRows += fullLines;
+            seIfLevelChange();
         }
+    }
+    /**
+     * Antaa pisteitä aina kun pala on tippunut valmiiksi
+     * @param removedLines 
+     */
+    public void addScores(int removedLines){
+        int scores=this.scoresFromRow[removedLines];
+        this.score+=this.softDropsDone+(this.level+1)*score;
+    }
+    /**
+     * jos levelin vaihdon kriteeri täyttyy leveli vaihtuu ja vauti nopeutuu
+     */
+    public void seIfLevelChange(){
+        if(this.clearedRows>(this.level+1)/*10*/){
+            this.level++;
+            this.dropIntervall-=50;
+        }
+    }
+
+    /**
+     * MoveTetromino hoitaa tetrominon liikuttamisen
+     */
+    public void moveTetromino() {
+        if (this.isMoved > 0) {
+            if (isMovePossible(this.fallingTetromino, this.globalX + 1, this.globalY)) {
+                this.globalX++;
+                this.isMoved--;
+                gameScreen.repaint();
+            }
+        }
+        if (this.isMoved < 0) {
+            if (isMovePossible(this.fallingTetromino, this.globalX - 1, this.globalY)) {
+                this.globalX--;
+                this.isMoved++;
+                gameScreen.repaint();
+            }
+        }
+    }
+
+    /**
+     * isMovePossible tarkistaa, onko aijottu siirto mahdollinen, jos se ei ole
+     * mallinen palautuu false muuten true
+     */
+    private boolean isMovePossible(Tetromino tetromino, int origoX, int origoY) {
+        int[][] boardStatus = board.getBoardStatus();
+        boolean isTrue = true;
+        if (origoX > 9) {
+            return false;
+        }
+        for (int i = 0; i < 4; i++) {
+
+            if (((tetromino.getY(i) + origoY) > 19) || ((tetromino.getX(i) + origoX) > 9) || ((tetromino.getX(i) + origoX) < 0)) {
+                return false;
+            }
+            if (boardStatus[(tetromino.getY(i) + origoY)][(tetromino.getX(i) + origoX)] != 0) {
+                return false;
+            }
+
+        }
+        return isTrue;
     }
 
     /**
@@ -242,49 +321,6 @@ public class GameLogic {
     }
 
     /**
-     * MoveTetromino hoitaa tetrominon liikuttamisen
-     */
-    public void moveTetromino() {
-        if (this.isMoved > 0) {
-            if (isMovePossible(this.fallingTetromino, this.globalX + 1, this.globalY)) {
-                this.globalX++;
-                this.isMoved--;
-                gameScreen.repaint();
-            }
-        }
-        if (this.isMoved < 0) {
-            if (isMovePossible(this.fallingTetromino, this.globalX - 1, this.globalY)) {
-                this.globalX--;
-                this.isMoved++;
-                gameScreen.repaint();
-            }
-        }
-    }
-
-    /**
-     * isMovePossible tarkistaa, onko aijottu siirto mahdollinen, jos se ei ole
-     * mallinen palautuu false muuten true
-     */
-    private boolean isMovePossible(Tetromino tetromino, int origoX, int origoY) {
-        int[][] boardStatus = board.getBoardStatus();
-        boolean isTrue = true;
-        if (origoX > 9) {
-            return false;
-        }
-        for (int i = 0; i < 4; i++) {
-
-            if (((tetromino.getY(i) + origoY) > 19) || ((tetromino.getX(i) + origoX) > 9) || ((tetromino.getX(i) + origoX) < 0)) {
-                return false;
-            }
-            if (boardStatus[(tetromino.getY(i) + origoY)][(tetromino.getX(i) + origoX)] != 0) {
-                return false;
-            }
-
-        }
-        return isTrue;
-    }
-
-    /**
      * ei tee mitään niin kauan kuin peli on tauolla. Odottamisen tarkoitus on,
      * että näppäinkuuntelija pääsee väliin reagoimaan
      */
@@ -322,8 +358,15 @@ public class GameLogic {
      *
      * @return palauttaa juuri tippuvan tetrominon
      */
-    public Tetromino getTetromino() {
+    public Tetromino getFallingTetromino() {
         return this.fallingTetromino;
+    }
+    /**
+     * 
+     * @return palauttaa seuraavan tetorminon
+     */
+    public Tetromino getNextTetromino(){
+        return this.nextTetromino;
     }
 
     /**
@@ -349,48 +392,94 @@ public class GameLogic {
     public int getGlobalY() {
         return this.globalY;
     }
-    /**
-     * returns the amount of cleared rows
-     * @return clearedRows
-     */
-    public int getClearedRows(){
-        return this.cleardRows;
-    }
+
+   
+
     /**
      * returns wheter the game is paused or not
+     *
      * @return isPaused
      */
-    public boolean getIsPaused(){
+    public boolean getIsPaused() {
         return this.isPaused;
     }
+
     /**
      * returns if the game is running
+     *
      * @return isGameRunning
      */
-    public boolean getIsGameRunning(){
+    public boolean getIsGameRunning() {
         return this.isGameRunning;
     }
+
     /**
      * returns wheter the tetromino is falling
+     *
      * @return isTetrominoFalling
      */
-    public boolean getIsTetrominoFalling(){
+    public boolean getIsTetrominoFalling() {
         return this.isTetrominoFalling;
     }
-    public boolean getDropDown(){
+    /**
+     * returns status of drop down
+     * @return dropDown
+     */
+    public boolean getDropDown() {
         return this.dropDown;
     }
-    public GameScreen getGameScreen(){
+    /**
+     * returns game screen
+     * @return gameScreen
+     */
+
+    public GameScreen getGameScreen() {
         return this.gameScreen;
     }
-    public int getIsMoved(){
+    /**
+     * 
+     * @return isMoved
+     */
+    public int getIsMoved() {
         return this.isMoved;
     }
-    public int getIsRotated(){
+    /**
+     * 
+     * @return isRotated
+     */
+
+    public int getIsRotated() {
         return this.isRotated;
     }
-    public int getSoftDrop(){
+    /**
+     * 
+     * @return softDrop 
+     */
+
+    public int getSoftDrop() {
         return this.softDrop;
+    }
+    /**
+     * 
+     * @return getlevel 
+     */
+    public int getLevel(){
+        return this.level;
+    }
+    /**
+     * 
+     * @return getScore 
+     */
+    public int getScore(){
+        return this.score;
+    }
+    /**
+     * returns the amount of cleared rows
+     *
+     * @return clearedRows
+     */
+    public int getClearedRows() {
+        return this.clearedRows;
     }
 
     /**

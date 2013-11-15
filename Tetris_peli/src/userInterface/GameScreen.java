@@ -50,7 +50,7 @@ public class GameScreen extends JPanel {
         graphics.setColor(new Color(0,0,0));
         graphics.fillRect(0, 0, 210, 410);
         
-        Tetromino tetromino = game.getTetromino();
+        Tetromino tetromino = game.getFallingTetromino();
         int[][] boardStatus = game.getBoard().getBoardStatus();
         Dimension size = getSize();
         int boardTop=5;

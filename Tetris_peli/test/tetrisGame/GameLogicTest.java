@@ -17,7 +17,6 @@ import tetrisGame.Tetromino.Shape;
  * @author joaijala
  */
 public class GameLogicTest {
-    
 
     public GameLogicTest() {
     }
@@ -39,6 +38,8 @@ public class GameLogicTest {
         assertEquals(game.getGlobalX(), 0);
         assertEquals(game.getGlobalY(), 0);
         assertEquals(game.getClearedRows(), 0);
+        assertEquals(game.getScore(), 0);
+        assertEquals(game.getLevel(), 0);
         assertFalse(game.getIsPaused());
         assertFalse(game.getIsGameRunning());
         assertFalse(game.getIsTetrominoFalling());
@@ -59,7 +60,12 @@ public class GameLogicTest {
     @Test
     public void GameLogicConstructorIntitialisesNewEmptytetromino() {
         GameLogic game = new GameLogic();
-        Tetromino tetromino = game.getTetromino();
+        Tetromino tetromino = game.getFallingTetromino();
+        for (int i = 0; i > 4; i++) {
+            assertEquals(0, tetromino.getX(i));
+            assertEquals(0, tetromino.getY(i));
+        }
+        tetromino = game.getNextTetromino();
         for (int i = 0; i > 4; i++) {
             assertEquals(0, tetromino.getX(i));
             assertEquals(0, tetromino.getY(i));
@@ -85,6 +91,16 @@ public class GameLogicTest {
         assertEquals(game.getSoftDrop(), 0);
         assertEquals(game.getIsTetrominoFalling(), true);
     }
+    /**
+     * testaa että SetnewFallingTetromino laittaa uudeksi fallingTetrominoksi vanhan nexttetromino
+     */
+    @Test
+    public void TestSetNewFallingTetrominoSetsNextTetrominoToFallingTetromino(){
+        GameLogic game = new GameLogic();
+        int shape =game.getNextTetromino().getShape().ordinal();
+        game.setNewFallingTetromino();
+        assertEquals(shape, game.getFallingTetromino().getShape().ordinal());
+    }
 
     /**
      * testaa, että dropOneLineDown toimii kun alla ei ole mitään
@@ -102,32 +118,43 @@ public class GameLogicTest {
      */
     @Test
     public void TestDropOneLineDownWorkWhenTetrominoHitBottom() {
-        GameLogic game = new GameLogic();
-        game.setNewFallingTetromino();
-        Tetromino tetromino = game.getTetromino();
-        int shape = tetromino.getShape().ordinal();
-        int cordinates[][] = getCordinateTableOfTetromino(tetromino);
-        game.dropOneLineDown();
-        while (game.getGlobalY() != 1) {//kun globalY on 1 peli on luonut uuden tetrominon ylös
+        //testi tehdääm iseamman kerran, jotta kaikki tilantet testataan
+        for (int j = 0; j < 100; j++) {
+            GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
+            Tetromino tetromino = game.getFallingTetromino();
+            int shape = tetromino.getShape().ordinal();
+            int cordinates[][] = getCordinateTableOfTetromino(tetromino);
             game.dropOneLineDown();
-        }
-        int[][] board = game.getBoard().getBoardStatus();
-
-        for (int i = 0; i < 4; i++) {
-            assertEquals(board[18 + cordinates[i][1]][4 + cordinates[i][0]], shape);
+            while (game.getGlobalY() != 1) {//kun globalY on 1 peli on luonut uuden tetrominon ylös
+                game.dropOneLineDown();
+            }
+            int[][] board = game.getBoard().getBoardStatus();
+            if (shape != 3) {
+                for (int i = 0; i < 4; i++) {
+                    assertEquals(board[18 + cordinates[i][1]][4 + cordinates[i][0]], shape);
+                }
+            }
+            else {
+                for (int i = 0; i < 4; i++) {
+                    assertEquals(board[17 + cordinates[i][1]][4 + cordinates[i][0]], shape);
+                }
+            }
         }
     }
+
     /**
-     * testaa Että DropOneLineDown toimii kun se pysähtyy alla olevaan tetrominoon
+     * testaa Että DropOneLineDown toimii kun se pysähtyy alla olevaan
+     * tetrominoon
      */
     @Test
-    public void TestDropOneLineDownWorkWhenDroppingOnTetrominoOnBoard(){
+    public void TestDropOneLineDownWorkWhenDroppingOnTetrominoOnBoard() {
         GameLogic game = new GameLogic();
         game.getBoard().setTetrominoToBoard(4, 18, new Tetromino(3));
         game.getBoard().setTetrominoToBoard(3, 18, new Tetromino(3));
         game.getBoard().setTetrominoToBoard(5, 18, new Tetromino(3));
         game.setNewFallingTetromino();
-        Tetromino tetromino = game.getTetromino();
+        Tetromino tetromino = game.getFallingTetromino();
         int shape = tetromino.getShape().ordinal();
         int cordinates[][] = getCordinateTableOfTetromino(tetromino);
         game.dropOneLineDown();
@@ -137,11 +164,16 @@ public class GameLogicTest {
         int[][] board = game.getBoard().getBoardStatus();
 
         for (int i = 0; i < 4; i++) {
-            assertEquals(board[15+ cordinates[i][1]][4 + cordinates[i][0]], shape);
+            assertEquals(board[15 + cordinates[i][1]][4 + cordinates[i][0]], shape);
         }
     }
+
+    /**
+     * testaa, että täysinäiset rivit poistuvat oikein, (tätä toiminnallisuutta
+     * on testattu enemmän board luokan testeissä)
+     */
     @Test
-    public void testTakecareOfFullLinesWorks(){
+    public void testTakeCareOfFullLinesWorks() {
         GameLogic game = new GameLogic();
         Board board = game.getBoard();
         for (int i = 0; i < 10; i++) {
@@ -154,11 +186,91 @@ public class GameLogicTest {
                 assertEquals(boardStatus[i][j], 0);
             }
         }
-        assertEquals(game.getClearedRows(),1);
-        
+        assertEquals(game.getClearedRows(), 1);
+
     }
+
     /**
-     * 
+     * isMovePossiblea en testaa erikseen, sillä se testaantuu samalla
+     * dropOneLineDown moveTetromino ja rotateTetromino
+     */
+    /**
+     * Testaa moveTetromino kun liikkuminen on mahdollista
+     *
+     */
+    @Test
+    public void TestMovetetrominoRight() {
+        GameLogic game = new GameLogic();
+        game.setNewFallingTetromino();
+        game.setIsMoved(1);
+        game.moveTetromino();
+        assertEquals(game.getGlobalX(), 5);
+    }
+
+    @Test
+    public void TestMovetetrominoLeft() {
+        GameLogic game = new GameLogic();
+        game.setNewFallingTetromino();
+        game.setIsMoved(-1);
+        game.moveTetromino();
+        assertEquals(game.getGlobalX(), 3);
+    }
+
+    /**
+     * Testaa moveTetromino kun tetromino on jo pelilaudan reunassa
+     */
+    @Test
+    public void testMoveTetrominoWhenTetrominoIsAtLeftBorder() {
+        for (int j = 0; j < 100; j++) {
+            GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
+            for (int i = 0; i < 4; i++) {
+                game.setIsMoved(-1);
+                game.moveTetromino();
+            }
+            if (game.getFallingTetromino().getShape().ordinal() != 4) {
+                assertEquals(game.getGlobalX(), 0);
+                game.setIsMoved(-1);
+                game.moveTetromino();
+                assertEquals(game.getGlobalX(), 0);
+            }
+            else {
+                assertEquals(game.getGlobalX(), 1);
+                game.setIsMoved(-1);
+                game.moveTetromino();
+                assertEquals(game.getGlobalX(), 1);
+            }
+        }
+    }
+    @Test
+    public void testMoveTetrominoWhenTetrominoIsAtRightBorder() {
+        for (int j = 0; j < 100; j++) {
+            GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
+            for (int i = 0; i < 4; i++) {
+                game.setIsMoved(1);
+                game.moveTetromino();
+            }
+            if (game.getFallingTetromino().getShape().ordinal() != 3) {
+                assertEquals(game.getGlobalX(), 8);
+                game.setIsMoved(1);
+                game.moveTetromino();
+                assertEquals(game.getGlobalX(), 8);
+            }
+            
+            else {
+                game.setIsMoved(1);
+                game.moveTetromino();
+                assertEquals(game.getGlobalX(), 9);
+                game.setIsMoved(1);
+                game.moveTetromino();
+                assertEquals(game.getGlobalX(), 9);
+            }
+        }
+    }
+
+    /**
+     *
      * @param tetromino
      * @return tetrominon sisäiset kordinaatit taulukossa
      */
