@@ -189,13 +189,13 @@ public class GameLogic {
      */
     public void addScores(int removedLines){
         int scores=this.scoresFromRow[removedLines];
-        this.score+=this.softDropsDone+(this.level+1)*score;
+        this.score+=this.softDropsDone+((this.level+1)*scores);
     }
     /**
      * jos levelin vaihdon kriteeri täyttyy leveli vaihtuu ja vauti nopeutuu
      */
     public void seIfLevelChange(){
-        if(this.clearedRows>(this.level+1)/*10*/){
+        if(this.clearedRows>(this.level+1)*10){
             this.level++;
             this.dropIntervall-=50;
         }

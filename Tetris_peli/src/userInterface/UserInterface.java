@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import tetrisGame.GameLogic;
 import java.awt.Container;
+import java.awt.Font;
 import tetrisGame.ControllListener;
 
 /**
@@ -34,6 +35,7 @@ public class UserInterface implements Runnable{
          frame.setResizable(false);
          frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
          createComponent(frame.getContentPane());
+         
          frame.pack();
          frame.setVisible(true);
          frame.setFocusable(true);
