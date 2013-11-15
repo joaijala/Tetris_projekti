@@ -35,8 +35,8 @@ public class GameScreen extends JPanel {
         };
     public ControllListener listener;
 
-    public GameScreen() {
-        this.game=new GameLogic(this);
+    public GameScreen(GameLogic game) {
+        this.game=game;
 
         
     }

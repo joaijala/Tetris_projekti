@@ -39,14 +39,18 @@ public class UserInterface implements Runnable{
          frame.setFocusable(true);
          ControllListener listener=new ControllListener(gameScreen.game);
          frame.addKeyListener(listener);
-         gameScreen.game.GameLoop();
+        
          
     }
     public void createComponent(Container container){
-        this.gameScreen =new GameScreen();
-        //container.add(gameScreen);
+        GameLogic game=new GameLogic();
+        this.gameScreen=game.getGameScreen();
+        container.add(gameScreen);
     }
     public JFrame getFrame(){
         return frame;
+    }
+    public void startGame(){
+        gameScreen.game.GameLoop();
     }
 }

@@ -17,8 +17,8 @@ public class GameLogic {
     private static final double NANOSEC_TO_MILLISEC = 0.000001;
     private int globalX;
     private int globalY;
-    private Tetromino fallingTetromino;
-    private Board board;
+    private final Tetromino fallingTetromino;
+    private final Board board;
     private boolean isPaused = false;
     private boolean isTetrominoFalling = false;
     private boolean isGameRunning = false;
@@ -47,12 +47,12 @@ public class GameLogic {
     private GameScreen gameScreen;
     private ControllListener contollistener;
 
-    public GameLogic(GameScreen gameScreen) {
+    public GameLogic() {
         this.board = new Board();
         this.fallingTetromino = new Tetromino();
         this.cleardRows = 0;
         this.dropIntervall = 200;
-        this.gameScreen = gameScreen;
+        this.gameScreen = new GameScreen(this);
 
     }
 
@@ -117,7 +117,7 @@ public class GameLogic {
      * asettaa tetromiinolle uuden muodon ja laittaa sen pelikentän huipulle,
      * sekä nollaa liikuttamiseen liittyvät muututjat
      */
-    private void setNewFallingTetromino() {
+    public void setNewFallingTetromino() {
         this.globalX = 4;
         this.globalY = 1;
         this.fallingTetromino.setRandomShape();
@@ -378,6 +378,18 @@ public class GameLogic {
     }
     public boolean getDropDown(){
         return this.dropDown;
+    }
+    public GameScreen getGameScreen(){
+        return this.gameScreen;
+    }
+    public int getIsMoved(){
+        return this.isMoved;
+    }
+    public int getIsRotated(){
+        return this.isRotated;
+    }
+    public int getSoftDrop(){
+        return this.softDrop;
     }
 
     /**
