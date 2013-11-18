@@ -43,7 +43,7 @@ public class BoardScreen extends JPanel{
     @Override
     public void paint(Graphics graphics) {
         graphics.setColor(new Color(0,0,0));
-        graphics.fillRect(10, 10, 210, 410);
+        graphics.fillRect(15, 15, 210, 410);
         
         Tetromino tetromino = game.getFallingTetromino();
         int[][] boardStatus = game.getBoard().getBoardStatus();
@@ -53,8 +53,8 @@ public class BoardScreen extends JPanel{
             for (int j = 0; j < 10; ++j) {
                 int shape = boardStatus[i][j];
 
-                drawSquare(graphics,15+ j * 20,
-                      15+ i * 20, shape);
+                drawSquare(graphics,20+ j * 20,
+                      20+ i * 20, shape);
 
             }
         }
@@ -62,8 +62,8 @@ public class BoardScreen extends JPanel{
         for (int i = 0; i < 4; ++i) {
             int x = game.getGlobalX() + tetromino.getX(i);
             int y = game.getGlobalY() + tetromino.getY(i);
-            drawSquare(graphics,15+x * 20,
-                     15+y * 20,
+            drawSquare(graphics,20+x * 20,
+                     20+y * 20,
                     tetromino.getShape().ordinal());
 
         }

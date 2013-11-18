@@ -25,6 +25,8 @@ public class GameScreen extends JPanel {
     private NextTetrominoScreen nextTetrominoScreen;
     private GameBackgroundScreen backgroundScreene;
     private ScoreScreen pointScreen;
+    private LevelScreen levelScreen;
+    private RowsScreen rowsScreen;
     private final Color colors[] = {new Color(255, 255, 255), new Color(240, 0, 0),
                           new Color(0, 240,0), new Color(0, 240, 240),
                           new Color(160, 0, 240), new Color(240, 240, 0),
@@ -38,6 +40,8 @@ public class GameScreen extends JPanel {
         this.nextTetrominoScreen=new NextTetrominoScreen(game);
         this.backgroundScreene=new GameBackgroundScreen();
         this.pointScreen=new ScoreScreen(game);
+        this.levelScreen= new LevelScreen(game);
+        this.rowsScreen= new RowsScreen(game);
         
     }
     @Override
@@ -46,6 +50,8 @@ public class GameScreen extends JPanel {
         this.boardScreen.paint(graphics);
         this.nextTetrominoScreen.paint(graphics);
         this.pointScreen.paint(graphics);
+        this.levelScreen.paint(graphics);
+        this.rowsScreen.paint(graphics);
     }
 
 

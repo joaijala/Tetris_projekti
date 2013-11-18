@@ -70,7 +70,7 @@ public class GameLogic {
     /**
      * gameloop pyöeittää itse pelin pelilooppia
      */
-    public void GameLoop() {
+    public void gameLoop() {
 
         this.isGameRunning = true;
         
@@ -195,7 +195,7 @@ public class GameLogic {
      * jos levelin vaihdon kriteeri täyttyy leveli vaihtuu ja vauti nopeutuu
      */
     public void seIfLevelChange(){
-        if(this.clearedRows>(this.level+1)*10){
+        if(this.clearedRows>=(this.level+1)*10&&this.level<11){
             this.level++;
             this.dropIntervall-=50;
         }
@@ -256,7 +256,7 @@ public class GameLogic {
                 this.isRotated--;
                 return;
             }
-            else if (!doWallKick()) {
+            else if (!manageWallKick()) {
                 this.fallingTetromino.rotateLeft();
             }
             this.gameScreen.repaint();
@@ -270,7 +270,7 @@ public class GameLogic {
                 this.isRotated++;
                 return;
             }
-            else if (!doWallKick()) {
+            else if (!manageWallKick()) {
                 this.fallingTetromino.rotateRight();
             }
             this.gameScreen.repaint();
@@ -279,31 +279,29 @@ public class GameLogic {
         }
 
     }
-
-    private boolean doWallKick() {
-        /*try wallKick right*/
-        if (tryWallKick(1)) {
-            this.globalX++;
+    private boolean doWallKick(int amount){
+       /*try wallKick right*/
+        if (tryWallKick(amount)) {
+            this.globalX+=amount;
             return true;
 
         }
         /*try wallKick left*/
-        if (tryWallKick(-1)) {
-            this.globalX--;
+        else if (tryWallKick(-amount)) {
+            this.globalX-=amount;
             return true;
         }
-        /* if the tetromino is I shape try wallKick with 2*/
+        return false;
+    }
 
-        if (this.fallingTetromino.getShape().ordinal() == 3 && tryWallKick(2)) {
-            this.globalX += 2;
+    private boolean manageWallKick() {
+        
+        if(doWallKick(1)){
             return true;
         }
-
-        if (this.fallingTetromino.getShape().ordinal() == 3 && tryWallKick(-2)) {
-            this.globalX -= 2;
+        else if(this.fallingTetromino.getShape().ordinal() == 3 && doWallKick(2)){
             return true;
         }
-
         return false;
     }
 

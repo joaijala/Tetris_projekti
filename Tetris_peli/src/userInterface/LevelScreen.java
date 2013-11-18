@@ -16,31 +16,31 @@ import tetrisGame.GameLogic;
  *
  * @author Johanna
  */
-public class ScoreScreen extends JPanel{
+public class LevelScreen extends JPanel{
+    
     
     private final GameLogic game;
     
     
-    public ScoreScreen(GameLogic game){
+    public LevelScreen(GameLogic game){
         this.game=game;
         
     }
     
     @Override
     public void paint(Graphics graphics){
-        int score=this.game.getScore();
+        int level=this.game.getLevel();
         
         graphics.setColor(new Color(0,0,0));
-        graphics.fillRoundRect(254, 184, 122, 52, 25, 25);
+        graphics.fillRoundRect(264, 259, 102, 52, 25, 25);
         graphics.setColor(new Color(255, 255, 255));
-        graphics.fillRoundRect(255, 185, 120, 50, 25, 25);
+        graphics.fillRoundRect(265, 260, 100, 50, 25, 25);
         graphics.setColor(new Color(0,0,0));
         graphics.setFont(new Font("Verdet",0,25));
-        graphics.drawString(Integer.toString(score),265,225);
+        graphics.drawString(Integer.toString(level),305,300);
         graphics.setFont(new Font ("Arial",1,18));
-        graphics.drawString("Score", 290, 200 );
+        graphics.drawString("Level", 290, 275 );
         
         
     }
-    
 }

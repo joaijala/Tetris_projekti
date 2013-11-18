@@ -7,6 +7,7 @@ package userInterface;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import tetrisGame.GameLogic;
@@ -35,9 +36,9 @@ public class NextTetrominoScreen extends JPanel {
     @Override
     public void paint(Graphics graphics) {
         graphics.setColor(new Color(0,0,0));
-        graphics.fillRoundRect(249, 24, 122, 122, 25, 25);
+        graphics.fillRoundRect(254, 39, 122, 122, 25, 25);
         graphics.setColor(new Color(255, 255, 255));
-        graphics.fillRoundRect(250, 25, 120, 120, 25, 25);
+        graphics.fillRoundRect(255, 40, 120, 120, 25, 25);
 
         Tetromino tetromino = game.getNextTetromino();
 
@@ -45,21 +46,24 @@ public class NextTetrominoScreen extends JPanel {
             int x = tetromino.getX(i);
             int y = tetromino.getY(i);
             if (tetromino.getShape().ordinal() == 4||tetromino.getShape().ordinal() == 3) {
-                drawSquare(graphics, 300 + x * 20,
-                        65 + y * 20,
+                drawSquare(graphics, 305 + x * 20,
+                        80 + y * 20,
                         tetromino.getShape().ordinal());
             }
             else if(tetromino.getShape().ordinal() == 5){
-               drawSquare(graphics, 290 + x * 20,
-                        65 + y * 20,
+               drawSquare(graphics, 295 + x * 20,
+                        80+ y * 20,
                         tetromino.getShape().ordinal());
             
             }
             else {
-                drawSquare(graphics, 290 + x * 20,
-                        75 + y * 20,
+                drawSquare(graphics, 295 + x * 20,
+                        90 + y * 20,
                         tetromino.getShape().ordinal());
             }
+            graphics.setFont(new Font ("Arial",1,15));
+            graphics.drawString("Next Tetromino", 262, 58 );
+            
         }
     }
 

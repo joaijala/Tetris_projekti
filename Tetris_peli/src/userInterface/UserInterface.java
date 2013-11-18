@@ -31,7 +31,7 @@ public class UserInterface implements Runnable{
     @Override
     public void run() {
          frame =new JFrame("Tetris");
-         frame.setPreferredSize(new Dimension(500,500));
+         frame.setPreferredSize(new Dimension(430,480));
          frame.setResizable(false);
          frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
          createComponent(frame.getContentPane());
@@ -53,6 +53,6 @@ public class UserInterface implements Runnable{
         return frame;
     }
     public void startGame(){
-        gameScreen.game.GameLoop();
+        gameScreen.game.gameLoop();
     }
 }

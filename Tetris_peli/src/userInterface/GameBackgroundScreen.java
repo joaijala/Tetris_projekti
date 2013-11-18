@@ -25,8 +25,8 @@ public class GameBackgroundScreen extends JPanel {
     @Override
     public void paint(Graphics graphics){
         
-        double height =500;
-        double width =500;
+        double height =480;
+        double width =430;
         for(int x=0;x<(width/20);x++){
             for(int y=0; y<(height/20);y++){
                 drawSquare(graphics,x*20,y*20);
@@ -35,7 +35,7 @@ public class GameBackgroundScreen extends JPanel {
     }
     
     private void drawSquare(Graphics graphics, int x, int y) {
-        Color color = new Color(150, 150, 125);
+        Color color = new Color(149, 218, 225);
         graphics.setColor(color);
         graphics.fillRect(x + 1, y , 20 - 1, 20 - 1);
         
