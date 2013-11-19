@@ -13,7 +13,8 @@ import userInterface.GameScreen;
  * pelin pyörittäminen
  */
 public class GameLogic {
-    private final int[] scoresFromRow={0,40,100,300,1200};
+
+    private final int[] scoresFromRow = {0, 40, 100, 300, 1200};
     private static final double NANOSEC_TO_MILLISEC = 0.000001;
     private int globalX;
     private int globalY;
@@ -62,8 +63,8 @@ public class GameLogic {
         this.clearedRows = 0;
         this.dropIntervall = 500;
         this.gameScreen = new GameScreen(this);
-        this.level=0;
-        this.score=0;
+        this.level = 0;
+        this.score = 0;
 
     }
 
@@ -73,7 +74,7 @@ public class GameLogic {
     public void gameLoop() {
 
         this.isGameRunning = true;
-        
+
         setNewFallingTetromino();
         /*Pelilooppi*/
         while (this.isGameRunning) {
@@ -144,7 +145,7 @@ public class GameLogic {
         this.isMoved = 0;
         this.isRotated = 0;
         this.softDrop = 0;
-        this.softDropsDone=0;
+        this.softDropsDone = 0;
         this.dropDown = false;
         this.isTetrominoFalling = true;
         this.timeOfLastDrop = getCurrentTimeInMilliseconds();
@@ -160,8 +161,7 @@ public class GameLogic {
             this.globalY++;
             this.timeOfLastDrop = getCurrentTimeInMilliseconds();
             gameScreen.repaint();
-        }
-        else {
+        } else {
             this.isTetrominoFalling = false;
             this.board.setTetrominoToBoard(globalX, globalY, this.fallingTetromino);
             takeCareOfFullLines();
@@ -172,7 +172,7 @@ public class GameLogic {
 
     /**
      * Huolehtii täysinäisten rivien tarkistamisesta ja niiden poistamisesta
-     * 
+     *
      */
     public void takeCareOfFullLines() {
         int fullLines = this.board.checkWhatLinesAreFull();
@@ -183,21 +183,24 @@ public class GameLogic {
             seIfLevelChange();
         }
     }
+
     /**
      * Antaa pisteitä aina kun pala on tippunut valmiiksi
-     * @param removedLines 
+     *
+     * @param removedLines
      */
-    public void addScores(int removedLines){
-        int scores=this.scoresFromRow[removedLines];
-        this.score+=this.softDropsDone+((this.level+1)*scores);
+    public void addScores(int removedLines) {
+        int scores = this.scoresFromRow[removedLines];
+        this.score += this.softDropsDone + ((this.level + 1) * scores);
     }
+
     /**
      * jos levelin vaihdon kriteeri täyttyy leveli vaihtuu ja vauti nopeutuu
      */
-    public void seIfLevelChange(){
-        if(this.clearedRows>=(this.level+1)*10&&this.level<11){
+    public void seIfLevelChange() {
+        if (this.clearedRows >= (this.level + 1) * 10 && this.level < 11) {
             this.level++;
-            this.dropIntervall-=50;
+            this.dropIntervall -= 50;
         }
     }
 
@@ -251,55 +254,79 @@ public class GameLogic {
 
         if (this.isRotated > 0) {
             this.fallingTetromino.rotateRight();
-            if (isMovePossible(fallingTetromino, globalX, globalY)) {
-                this.gameScreen.repaint();
-                this.isRotated--;
-                return;
+            if (!isMovePossible(fallingTetromino, globalX, globalY)) {
+                if (!manageWallKick()) {
+                    this.fallingTetromino.rotateLeft();
+                } 
             }
-            else if (!manageWallKick()) {
-                this.fallingTetromino.rotateLeft();
-            }
-            this.gameScreen.repaint();
             this.isRotated--;
-
         }
         else if (this.isRotated < 0) {
             this.fallingTetromino.rotateLeft();
-            if (isMovePossible(fallingTetromino, globalX, globalY)) {
-                this.gameScreen.repaint();
-                this.isRotated++;
-                return;
+            if (!isMovePossible(fallingTetromino, globalX, globalY)) {
+                if (!manageWallKick()) {
+                    this.fallingTetromino.rotateRight();
+                }
             }
-            else if (!manageWallKick()) {
-                this.fallingTetromino.rotateRight();
-            }
-            this.gameScreen.repaint();
             this.isRotated++;
-
         }
+        this.gameScreen.repaint();
 
     }
-    private boolean doWallKick(int amount){
-       /*try wallKick right*/
+    /*    /**
+     * käsittelee tetrominon pyörittämistä
+     /
+     public void rotateTetromino() {
+
+     if (this.isRotated > 0) {
+     this.fallingTetromino.rotateRight();
+     if (isMovePossible(fallingTetromino, globalX, globalY)) {
+     this.gameScreen.repaint();
+     this.isRotated--;
+     return;
+     }
+     else if (!manageWallKick()) {
+     this.fallingTetromino.rotateLeft();
+     }
+     this.gameScreen.repaint();
+     this.isRotated--;
+
+     }
+     else if (this.isRotated < 0) {
+     this.fallingTetromino.rotateLeft();
+     if (isMovePossible(fallingTetromino, globalX, globalY)) {
+     this.gameScreen.repaint();
+     this.isRotated++;
+     return;
+     }
+     else if (!manageWallKick()) {
+     this.fallingTetromino.rotateRight();
+     }
+     this.gameScreen.repaint();
+     this.isRotated++;
+
+     }
+
+     }*/
+
+    private boolean doWallKick(int amount) {
+        /*try wallKick right*/
         if (tryWallKick(amount)) {
-            this.globalX+=amount;
+            this.globalX += amount;
             return true;
 
-        }
-        /*try wallKick left*/
-        else if (tryWallKick(-amount)) {
-            this.globalX-=amount;
+        } /*try wallKick left*/ else if (tryWallKick(-amount)) {
+            this.globalX -= amount;
             return true;
         }
         return false;
     }
 
     private boolean manageWallKick() {
-        
-        if(doWallKick(1)){
+
+        if (doWallKick(1)) {
             return true;
-        }
-        else if(this.fallingTetromino.getShape().ordinal() == 3 && doWallKick(2)){
+        } else if (this.fallingTetromino.getShape().ordinal() == 3 && doWallKick(2)) {
             return true;
         }
         return false;
@@ -334,23 +361,13 @@ public class GameLogic {
 
     /**
      *
-     * Tulostaa tippuvan tetrominon kordinaatit pelikentässä, *
-     * private void printFallingTetromino(){
-     * for(int i=0;i<4;i++){
+     * Tulostaa tippuvan tetrominon kordinaatit pelikentässä, * private void
+     * printFallingTetromino(){ for(int i=0;i<4;i++){
      * System.out.println((this.fallingTetromino.getX(i)+globalX)+",
-     * "+(this.fallingTetromino.getY(i)+globalY));
-     * }
-     * System.out.println("");
-     * }
-     * private void printBoard(){
-     * int [][] boardStatus=board.getBoardStatus();
-     * for (int i=0;i<20;i++){
-     * for(int j=0;j<10;j++){
-     * System.out.print(boardStatus[i][j]+", ");
-     * }
-     * System.out.println("");
-     * }
-     * }
+     * "+(this.fallingTetromino.getY(i)+globalY)); } System.out.println(""); }
+     * private void printBoard(){ int [][] boardStatus=board.getBoardStatus();
+     * for (int i=0;i<20;i++){ for(int j=0;j<10;j++){
+     * System.out.print(boardStatus[i][j]+", "); } System.out.println(""); } }
      */
     /**
      *
@@ -359,11 +376,12 @@ public class GameLogic {
     public Tetromino getFallingTetromino() {
         return this.fallingTetromino;
     }
+
     /**
-     * 
+     *
      * @return palauttaa seuraavan tetorminon
      */
-    public Tetromino getNextTetromino(){
+    public Tetromino getNextTetromino() {
         return this.nextTetromino;
     }
 
@@ -391,8 +409,6 @@ public class GameLogic {
         return this.globalY;
     }
 
-   
-
     /**
      * returns wheter the game is paused or not
      *
@@ -419,58 +435,68 @@ public class GameLogic {
     public boolean getIsTetrominoFalling() {
         return this.isTetrominoFalling;
     }
+
     /**
      * returns status of drop down
+     *
      * @return dropDown
      */
     public boolean getDropDown() {
         return this.dropDown;
     }
+
     /**
      * returns game screen
+     *
      * @return gameScreen
      */
 
     public GameScreen getGameScreen() {
         return this.gameScreen;
     }
+
     /**
-     * 
+     *
      * @return isMoved
      */
     public int getIsMoved() {
         return this.isMoved;
     }
+
     /**
-     * 
+     *
      * @return isRotated
      */
 
     public int getIsRotated() {
         return this.isRotated;
     }
+
     /**
-     * 
-     * @return softDrop 
+     *
+     * @return softDrop
      */
 
     public int getSoftDrop() {
         return this.softDrop;
     }
+
     /**
-     * 
-     * @return getlevel 
+     *
+     * @return getlevel
      */
-    public int getLevel(){
+    public int getLevel() {
         return this.level;
     }
+
     /**
-     * 
-     * @return getScore 
+     *
+     * @return getScore
      */
-    public int getScore(){
+    public int getScore() {
         return this.score;
     }
+
     /**
      * returns the amount of cleared rows
      *
