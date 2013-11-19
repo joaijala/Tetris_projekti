@@ -248,6 +248,7 @@ public class GameLogic {
     }
 
     /**
+     * uusi rotate tetromino
      * käsittelee tetrominon pyörittämistä
      */
     public void rotateTetromino() {
@@ -274,7 +275,7 @@ public class GameLogic {
 
     }
     /*    /**
-     * käsittelee tetrominon pyörittämistä
+     * vanha rotatetetromino
      /
      public void rotateTetromino() {
 
