@@ -61,7 +61,7 @@ public class GameLogic {
         this.nextTetromino = new Tetromino();
         this.nextTetromino.setRandomShape();
         this.clearedRows = 0;
-        this.dropIntervall = 500;
+        this.dropIntervall = 5000;
         this.gameScreen = new GameScreen(this);
         this.level = 0;
         this.score = 0;
@@ -236,7 +236,10 @@ public class GameLogic {
         }
         for (int i = 0; i < 4; i++) {
 
-            if (((tetromino.getY(i) + origoY) > 19) || ((tetromino.getX(i) + origoX) > 9) || ((tetromino.getX(i) + origoX) < 0)) {
+            if (((tetromino.getY(i) + origoY) > 19)||((tetromino.getY(i) + origoY) <0)){
+                return false;
+            }
+            if(((tetromino.getX(i) + origoX) > 9) || ((tetromino.getX(i) + origoX) < 0)){
                 return false;
             }
             if (boardStatus[(tetromino.getY(i) + origoY)][(tetromino.getX(i) + origoX)] != 0) {
@@ -247,68 +250,41 @@ public class GameLogic {
         return isTrue;
     }
 
-    /**
-     * uusi rotate tetromino
-     * käsittelee tetrominon pyörittämistä
+ 
+    /*    /**
+     * vanha rotatetetromino
      */
+
     public void rotateTetromino() {
 
         if (this.isRotated > 0) {
             this.fallingTetromino.rotateRight();
-            if (!isMovePossible(fallingTetromino, globalX, globalY)) {
-                if (!manageWallKick()) {
-                    this.fallingTetromino.rotateLeft();
-                } 
+            if (isMovePossible(fallingTetromino, globalX, globalY)) {
+                this.gameScreen.repaint();
+                this.isRotated--;
+                return;
+            } 
+            else if (!manageWallKick()) {
+                this.fallingTetromino.rotateLeft();
             }
+            this.gameScreen.repaint();
             this.isRotated--;
-        }
-        else if (this.isRotated < 0) {
+
+        } else if (this.isRotated < 0) {
             this.fallingTetromino.rotateLeft();
-            if (!isMovePossible(fallingTetromino, globalX, globalY)) {
-                if (!manageWallKick()) {
-                    this.fallingTetromino.rotateRight();
-                }
+            if (isMovePossible(fallingTetromino, globalX, globalY)) {
+                this.gameScreen.repaint();
+                this.isRotated++;
+                return;
+            } else if (!manageWallKick()) {
+                this.fallingTetromino.rotateRight();
             }
+            this.gameScreen.repaint();
             this.isRotated++;
+
         }
-        this.gameScreen.repaint();
 
     }
-    /*    /**
-     * vanha rotatetetromino
-     /
-     public void rotateTetromino() {
-
-     if (this.isRotated > 0) {
-     this.fallingTetromino.rotateRight();
-     if (isMovePossible(fallingTetromino, globalX, globalY)) {
-     this.gameScreen.repaint();
-     this.isRotated--;
-     return;
-     }
-     else if (!manageWallKick()) {
-     this.fallingTetromino.rotateLeft();
-     }
-     this.gameScreen.repaint();
-     this.isRotated--;
-
-     }
-     else if (this.isRotated < 0) {
-     this.fallingTetromino.rotateLeft();
-     if (isMovePossible(fallingTetromino, globalX, globalY)) {
-     this.gameScreen.repaint();
-     this.isRotated++;
-     return;
-     }
-     else if (!manageWallKick()) {
-     this.fallingTetromino.rotateRight();
-     }
-     this.gameScreen.repaint();
-     this.isRotated++;
-
-     }
-
-     }*/
 
     private boolean doWallKick(int amount) {
         /*try wallKick right*/
@@ -354,7 +330,6 @@ public class GameLogic {
         double time = getCurrentTimeInMilliseconds();
         while (isPaused) {
             while (getCurrentTimeInMilliseconds() < time + 10) {
-
             }
             time = getCurrentTimeInMilliseconds();
         }
@@ -451,7 +426,6 @@ public class GameLogic {
      *
      * @return gameScreen
      */
-
     public GameScreen getGameScreen() {
         return this.gameScreen;
     }
@@ -468,7 +442,6 @@ public class GameLogic {
      *
      * @return isRotated
      */
-
     public int getIsRotated() {
         return this.isRotated;
     }
@@ -477,7 +450,6 @@ public class GameLogic {
      *
      * @return softDrop
      */
-
     public int getSoftDrop() {
         return this.softDrop;
     }
@@ -556,5 +528,4 @@ public class GameLogic {
     public synchronized void setDropDownTrue() {
         this.dropDown = true;
     }
-
 }
