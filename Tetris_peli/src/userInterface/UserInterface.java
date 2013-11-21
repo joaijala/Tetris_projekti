@@ -25,10 +25,8 @@ public class UserInterface extends JFrame implements Runnable{
     private GameLogic game;
     public Container container;
     private MenuScreen menuScreen;
-    public boolean isGameOn=false;
-    
-    
-            
+    private boolean GameOn=false;
+    private boolean isProgramOn=true;
     
     public UserInterface(){
          setTitle("Tetris");
@@ -43,50 +41,74 @@ public class UserInterface extends JFrame implements Runnable{
          setFocusable(true);
          
          
+         
     }
+    /**
+     * tässä on toteutettu ohjelmalooppi
+     */
     @Override
     public void run(){
-        while(true){
-            if(isGameOn){
-                game.gameLoop();
-                isGameOn=false;
+        while(isProgramOn){
+            if(GameOn){
+                startGame();
+                GameOn=false;
                 setContentPane(menuScreen);
                 setVisible(true);
             }
             delay(10);
         }
     }
+    /**
+     * laittaa kutsujathreadin odottamaan looppiin kunnes aika on kulunut
+     * @param delay -aika miten kauan pitäisi odottaa
+     */
     private void delay(int delay){
         double time=getCurrentTimeInMilliseconds();
         while(getCurrentTimeInMilliseconds()<time+delay){
             //wait;
         }
     }
+    /**
+     * 
+     * @return javan virtuaalikoneen tämänhetkinen aika millisekunneissa
+     */
     private double getCurrentTimeInMilliseconds() {
         return System.nanoTime() * 0.000001;
     }
-
+    /**
+     * luo kaikki komponentit, mitkä pitäisi olla kun ohjelma käynistyy
+     */
     
     public void createComponent(){
-        game=new GameLogic();
-        this.gameScreen=game.getGameScreen();
         menuScreen=new MenuScreen(this);
         
     }
+    /**
+     * 
+     * @return palautta userInterface JFramen
+     */
     public JFrame getFrame(){
         return this;
     }
     
-    
+    /**
+     * luo uuden pelin, laittaa sen näkyville ruutuun ja käynnistää peliloopin
+     */
     public void startGame(){
         
         game=new GameLogic();
         this.gameScreen=game.getGameScreen();
         setContentPane(gameScreen);
         setVisible(true);
-        
         ControllListener listener=new ControllListener(gameScreen.game);
         addKeyListener(listener);
-        this.isGameOn=true;
+        game.gameLoop();
     }
+    /*
+     * asettaa GameOn trueks jotta runin ohjelmalooppi voi käynnistää pelin
+     */
+    public void setGameOn(){
+        this.GameOn=true;
+    }
+    
 }

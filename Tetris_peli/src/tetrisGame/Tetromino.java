@@ -3,15 +3,49 @@ package tetrisGame;
 import java.util.Random;
 
 /**
- *
- * @author joaijala Tämä luokka hoitaa tippuvien tetromiinojen toteutuksen ja
- * pitää huolen tetromiinon palikoiden siäisistä palikoista
+ * Tämä luokka hoitaa tippuvien tetromiinojen toteutuksen ja
+ * pitää huolen tetromiinon palikoiden sisäisten palikoiden kordinaatistoista
+ * @author joaijala 
  */
 public class Tetromino {
 
+    /**
+     * Eunumi, joka sisältää kaikki tetrominojen maholliset muodot
+     */
     public enum Shape {
 
-        Empty, ZShape, SShape, IShape, TShape, OShape, LShape, JShape
+        /**
+         *
+         */
+        Empty,
+        /**
+         *
+         */
+        ZShape,
+        /**
+         *
+         */
+        SShape,
+        /**
+         *
+         */
+        IShape,
+        /**
+         *
+         */
+        TShape,
+        /**
+         *
+         */
+        OShape,
+        /**
+         *
+         */
+        LShape,
+        /**
+         *
+         */
+        JShape
     }
 
     /**
@@ -52,6 +86,7 @@ public class Tetromino {
     /**
      * Konstruktori, joka luo uuden tetrominon, jonka muoto on annettu
      * parametrina (shape)
+     * @param shape -uuden tetromiinon muoto
      */
     public Tetromino(Shape shape) {
         this.tetrominoCords = new int[4][2];
@@ -61,6 +96,7 @@ public class Tetromino {
     /**
      * Konstruktori, joka luo uuden tetrominon, jonka muoto on annettu shape
      * eunumin valuena
+     * @param shape -uuden tetrominon muoto
      */
     public Tetromino(int shape) {
         if (shape > 7 || shape < 0) {
@@ -73,6 +109,7 @@ public class Tetromino {
 
     /**
      * Asettaa tetrominolle palojen kordinaatit sen muodon mukaan
+     * @param shape -tetrominon muoto
      */
     private void setTetrominoCords(Shape shape) {
 
@@ -96,9 +133,9 @@ public class Tetromino {
 
     /**
      * asettaa tetrominolle halutun muodon tarvitaan kun laitetaan uudeksi
-     * tippubvaksi tetromiinoksi vanha seuraavaTetromino
+     * tippuvaksi tetromiinoksi vanha seuraavaTetromino
      *
-     * @param shape uusi tetrominon muoto
+     * @param shape -uusi tetrominon muoto
      */
     public void setShape(Shape shape) {
         
@@ -108,8 +145,8 @@ public class Tetromino {
     /**
      * Palauttaa tetrominon osan x kordinaatin
      *
-     * @param index
-     * @return
+     * @param index -monesko tetromiinon palikoist on kyseessä
+     * @return palauttaa halutun tetromiinopalan sisäisen kordinaatiston x arvon
      */
     public int getX(int index) {
         return this.tetrominoCords[index][0];
@@ -118,8 +155,8 @@ public class Tetromino {
     /**
      * Palauttaa tetrominon osan y kordinaatin
      *
-     * @param index
-     * @return
+     * @param index -monesko tetromiinon palikoist on kyseessä
+     * @return palauttaa halutun tetromiinopalan sisäisen kordinaatiston y arvon
      */
     public int getY(int index) {
         return this.tetrominoCords[index][1];
@@ -128,7 +165,7 @@ public class Tetromino {
     /**
      * Palauttaa tetrominon muodon
      *
-     * @return
+     * @return this.tetrominoShape
      */
     public Shape getShape() {
         return this.tetrominoShape;
@@ -146,66 +183,6 @@ public class Tetromino {
      */
     private void setY(int index, int y) {
         this.tetrominoCords[index][1] = y;
-    }
-
-    /**
-     * palauttaa tetrominon pienimmän x kordinaatin
-     *
-     * @return
-     */
-    public int getMinX() {
-        int min = this.tetrominoCords[0][0];
-        for (int i = 0; i > 4; i++) {
-            int thisX = this.tetrominoCords[i][0];
-            if (thisX < min) {
-                min = thisX;
-            }
-        }
-        return min;
-    }
-
-    /**
-     * palauttaa tetriminon suurimman x kordinaatin
-     *
-     * @return
-     */
-    public int getMaxX() {
-        int max = this.tetrominoCords[0][0];
-        for (int i = 0; i > 4; i++) {
-            int thisX = this.tetrominoCords[i][0];
-            if (thisX > max) {
-                max = thisX;
-            }
-        }
-        return max;
-    }
-
-    /**
-     * palauttaa tetrominon pienimmän y kordinaatin
-     */
-    public int getMinY() {
-        int min = this.tetrominoCords[0][1];
-        for (int i = 0; i > 4; i++) {
-            int thisY = this.tetrominoCords[i][1];
-            if (thisY < min) {
-                min = thisY;
-            }
-        }
-        return min;
-    }
-
-    /**
-     * palauttaa tetrominon suurimman y kordinaatin
-     */
-    public int getMaxY() {
-        int max = this.tetrominoCords[0][1];
-        for (int i = 0; i > 4; i++) {
-            int thisY = this.tetrominoCords[i][1];
-            if (thisY > max) {
-                max = thisY;
-            }
-        }
-        return max;
     }
 
     /**

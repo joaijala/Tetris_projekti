@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 public class MenuScreen extends JPanel {
     private UserInterface frame;
     private Button startButton;
+    private Button quitButton;
     
     public MenuScreen(UserInterface frame){
         this.frame=frame;
@@ -28,20 +29,36 @@ public class MenuScreen extends JPanel {
     }
     private void makeButtons(){
         startButton = new Button("Start Game");
+        startButton.setFont(new Font("Arial",0,20));
         startButton.addActionListener(new ActionListener() {
  
            
             @Override
             public void actionPerformed(ActionEvent ae) {
                 
-                frame.startGame();
+                frame.setGameOn();
                 
             }
         });
-        startButton.setFont(new Font("Arial",0,20));
+        quitButton=new Button ("Quit Game");
+        quitButton.setFont(new Font("Arial",0,20));
+       
+        quitButton.addActionListener(new ActionListener() {
+            
+ 
+           
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+                System.exit(0);
+                
+                
+            }
+        });
         
         
         add(startButton); 
+        add(quitButton);
         
     }
    
