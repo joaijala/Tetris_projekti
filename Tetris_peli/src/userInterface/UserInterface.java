@@ -17,7 +17,7 @@ import javax.swing.JComponent;
 import tetrisGame.ControllListener;
 
 /**
- *
+ * Käyttöliittymän perusta, joka hoitaa ohjelman pyörittämisen
  * @author Johanna
  */
 public class UserInterface extends JFrame implements Runnable{

@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
+ * Tämä luokka on pelin controllisteneri, joka kuuntelee pelaajan
+ * näppäimistöpainalluksiia ja kertoo niistä GameLogikille
  *
  * @author Johanna
  */
@@ -33,7 +35,6 @@ public class ControllListener implements KeyListener {
      *
      * @param ke =painettu näppäin
      */
-
     @Override
     public void keyPressed(KeyEvent ke) {
         if (game.getIsGameRunning()) {

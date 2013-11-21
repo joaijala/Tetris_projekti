@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- *
+ *  Ruutu, joka näkyy kun ollaa mainMenu screenissa
  * @author Johanna
  */
 public class MenuScreen extends JPanel {

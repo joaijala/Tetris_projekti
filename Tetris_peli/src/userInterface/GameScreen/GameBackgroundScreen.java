@@ -13,7 +13,7 @@ import tetrisGame.GameLogic;
 
 
 /**
- *
+ * Tämä luokka hoitaa peliruudun taustan piirtämisen.
  * @author Johanna
  */
 public class GameBackgroundScreen extends JPanel {

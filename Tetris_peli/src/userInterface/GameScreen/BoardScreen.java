@@ -15,7 +15,7 @@ import tetrisGame.GameLogic;
 import tetrisGame.Tetromino;
 
 /**
- *
+ *  Tämä on osa gameScreenia, jossa itse pelilauta näkyy
  * @author Johanna
  */
 public class BoardScreen extends JPanel{

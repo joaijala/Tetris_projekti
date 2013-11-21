@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import tetrisGame.GameLogic;
 
 /**
- *
+ *  Tämä luokka piirtää pelikenttään ruudun jossa näkyy leveli
  * @author Johanna
  */
 public class LevelScreen extends JPanel{

@@ -13,13 +13,13 @@ import javax.swing.JPanel;
 import tetrisGame.GameLogic;
 
 /**
- *
+ * tämä luokka piirtää pelikenttään ruudun, jossa näkyy tyhjennettyjen rivien määrä
  * @author Johanna
  */
 public class RowsScreen extends JPanel {
    
     
-    private GameLogic game;
+    private final GameLogic game;
     
     
     public RowsScreen(GameLogic game){

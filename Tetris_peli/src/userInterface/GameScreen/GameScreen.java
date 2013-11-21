@@ -15,7 +15,7 @@ import tetrisGame.GameLogic;
         
 
 /**
- *
+ * GameScreen pitää sisällään kaikki peliruudun osat, jotka kaikki piirtyy kun gameScreenin repainttia kutsutaan
  * @author Johanna
  */
 public class GameScreen extends JPanel {

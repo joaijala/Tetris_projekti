@@ -13,7 +13,7 @@ import tetrisGame.GameLogic;
 import tetrisGame.Tetromino;
 
 /**
- *
+ * Tämä luokka hoitaa tippuvan tetrominon piirtämisen pelilaaudalle
  * @author Johanna
  */
 public class FallingTetrominoScreen extends JPanel{

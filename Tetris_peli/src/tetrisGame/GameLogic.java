@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tetrisGame;
 
 import userInterface.GameScreen.GameScreen;
 
 /**
- *
- * @author Järjestelmänvalvoja Tässä luokassa tapahtuu itse pelilooppi ja koko
+ * Tässä luokassa tapahtuu itse pelilooppi ja koko
  * pelin pyörittäminen
+ * @author Järjestelmänvalvoja 
  */
 public class GameLogic {
 
@@ -253,10 +249,10 @@ public class GameLogic {
             if (((tetromino.getY(i) + origoY) > 19)||((tetromino.getY(i) + origoY) <0)){
                 return false;
             }
-            if(((tetromino.getX(i) + origoX) > 9) || ((tetromino.getX(i) + origoX) < 0)){
+            else if(((tetromino.getX(i) + origoX) > 9) || ((tetromino.getX(i) + origoX) < 0)){
                 return false;
             }
-            if (boardStatus[(tetromino.getY(i) + origoY)][(tetromino.getX(i) + origoX)] != 0) {
+            else if (boardStatus[(tetromino.getY(i) + origoY)][(tetromino.getX(i) + origoX)] != 0) {
                 return false;
             }
 

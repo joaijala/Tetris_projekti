@@ -6,7 +6,6 @@
 package userInterface.GameScreen;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.JPanel;
@@ -14,7 +13,7 @@ import tetrisGame.GameLogic;
 import tetrisGame.Tetromino;
 
 /**
- *
+ *  Tämä luokka piirtää pelikenttään ruudun, jossa seuraava tetromiino näkyy
  * @author Johanna
  */
 public class NextTetrominoScreen extends JPanel {
@@ -24,7 +23,7 @@ public class NextTetrominoScreen extends JPanel {
                                     new Color(160, 0, 240), new Color(240, 240, 0),
                                     new Color(240, 160, 0), new Color(0, 0, 240)
     };
-    private GameLogic game;
+    private final GameLogic game;
 
     public NextTetrominoScreen(GameLogic game) {
         this.game = game;

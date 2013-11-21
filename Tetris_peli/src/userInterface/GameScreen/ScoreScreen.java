@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import tetrisGame.GameLogic;
 
 /**
- *
+ *  tämä luokka piirtää pelikenttään ruudun, jossa näkyy pelaajan pisteet
  * @author Johanna
  */
 public class ScoreScreen extends JPanel{
