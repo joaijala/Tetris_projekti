@@ -11,7 +11,7 @@ package tetrisGame;
  * @author Johanna
  */
 import tetrisGame.Tetromino.Shape;
-import userInterface.GameScreen;
+import userInterface.GameScreen.GameScreen;
 import userInterface.UserInterface;
 public class Main {
   

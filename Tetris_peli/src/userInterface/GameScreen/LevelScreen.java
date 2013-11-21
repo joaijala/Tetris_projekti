@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package userInterface;
+package userInterface.GameScreen;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,37 +16,30 @@ import tetrisGame.GameLogic;
  *
  * @author Johanna
  */
-public class RowsScreen extends JPanel {
-   
-    
-    private GameLogic game;
+public class LevelScreen extends JPanel{
     
     
-    public RowsScreen(GameLogic game){
+    private final GameLogic game;
+    
+    
+    public LevelScreen(GameLogic game){
         this.game=game;
         
     }
     
     @Override
     public void paint(Graphics graphics){
-        int rows=this.game.getClearedRows();
+        int level=this.game.getLevel();
+        
         graphics.setColor(new Color(0,0,0));
-        graphics.fillRoundRect(254, 334, 122, 52, 25, 25);
+        graphics.fillRoundRect(264, 259, 102, 52, 25, 25);
         graphics.setColor(new Color(255, 255, 255));
-        graphics.fillRoundRect(255, 335, 120, 50, 25, 25);
+        graphics.fillRoundRect(265, 260, 100, 50, 25, 25);
         graphics.setColor(new Color(0,0,0));
         graphics.setFont(new Font("Verdet",0,25));
-        if(rows<10){
-           graphics.drawString(Integer.toString(rows),305,375); 
-        }
-        else if(rows<100){
-            graphics.drawString(Integer.toString(rows),300,375);
-        }
-        else{
-            graphics.drawString(Integer.toString(rows),290,375);
-        }
+        graphics.drawString(Integer.toString(level),305,300);
         graphics.setFont(new Font ("Arial",1,18));
-        graphics.drawString("Rows", 290, 350);
+        graphics.drawString("Level", 290, 275 );
         
         
     }

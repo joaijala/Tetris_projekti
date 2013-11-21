@@ -14,6 +14,11 @@ Tuntikirjanpito
 13.11  8 h  pelilogiikkaa, näppäimistökuuntelua ja käyttöliittymää
 14.11  30 min pajassa kysymyksiä, pari pelilogiikka testiä
 14.11  1 h luokkakaavio, tuntikirjanpito.
+15.11  6 h gamelogic testausta + muuta.
+16.11  2 h käyttöliittymän muokkausta
+17.11  1 h käyttöliittymän mukkausta
+18.11  1h bugin löytyminen, testausta
+19.11  1 h pajassa, mm bugi korjattu
+20.11  6h  loput pelin käyttöliittymästä. menuuta
+21.11	2 h menuun käyttöliittymä, dokumentointi, sekvenssikaaviot mm.
 
-Suunnitteilla
-Perjantai 15.11 gameLogic testaus ajan tasalle

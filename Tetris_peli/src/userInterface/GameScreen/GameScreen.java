@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userInterface;
+package userInterface.GameScreen;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
+import tetrisGame.ControllListener;
 
 import tetrisGame.GameLogic;
-import tetrisGame.ControllListener;
+
+        
 
 /**
  *

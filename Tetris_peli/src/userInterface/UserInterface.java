@@ -6,6 +6,7 @@
 
 package userInterface;
 
+import userInterface.GameScreen.GameScreen;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;

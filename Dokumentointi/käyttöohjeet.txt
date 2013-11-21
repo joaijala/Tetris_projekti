@@ -1,3 +1,6 @@
+Aloita peli painamalla "start Game"
+
+
 Siirrä tetrominoa sivulle vasen ja oikea nuolinäppäin
 pyörritä tetrominoa oikeaan nuoli ylös tai x
 pyörritä tetrominoa vasempaan z

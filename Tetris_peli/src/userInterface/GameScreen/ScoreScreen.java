@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package userInterface;
+package userInterface.GameScreen;
 
 import java.awt.Color;
 import java.awt.Font;

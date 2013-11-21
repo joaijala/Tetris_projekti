@@ -5,7 +5,7 @@
  */
 package tetrisGame;
 
-import userInterface.GameScreen;
+import userInterface.GameScreen.GameScreen;
 
 /**
  *
@@ -72,7 +72,7 @@ public class GameLogic {
      */
     public void gameLoop() {
         this.gameScreen.repaint();
-        delay(200);
+        delay(2000);
         this.isGameRunning = true;
         setNewFallingTetromino();
         setNewFallingTetromino();
