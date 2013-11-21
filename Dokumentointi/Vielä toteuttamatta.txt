@@ -1,0 +1,3 @@
+Testaus
+gameLoopin manuaalinen testaus texti. tässä jotain itse game loopin toimimisesta sekä addScoren, pausen ja vikanrotaation testaus
+Olenko unohtanut jotain oleellisia testejä?

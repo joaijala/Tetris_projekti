@@ -52,29 +52,29 @@ public class GameLogic {
     private int level;
     private int score;
     private double timeOfLastDrop;
-    private GameScreen gameScreen;
+    private final GameScreen gameScreen;
     private ControllListener contollistener;
 
     public GameLogic() {
         this.board = new Board();
         this.fallingTetromino = new Tetromino();
         this.nextTetromino = new Tetromino();
-        this.nextTetromino.setRandomShape();
         this.clearedRows = 0;
-        this.dropIntervall = 5000;
+        this.dropIntervall = 500;
         this.gameScreen = new GameScreen(this);
         this.level = 0;
         this.score = 0;
-
+        
     }
 
     /**
      * gameloop pyöeittää itse pelin pelilooppia
      */
     public void gameLoop() {
-
+        this.gameScreen.repaint();
+        delay(200);
         this.isGameRunning = true;
-
+        setNewFallingTetromino();
         setNewFallingTetromino();
         /*Pelilooppi*/
         while (this.isGameRunning) {
@@ -125,6 +125,10 @@ public class GameLogic {
             }
 
         }
+        
+        delay(2000);
+        
+
 
     }
 
@@ -166,8 +170,9 @@ public class GameLogic {
             this.board.setTetrominoToBoard(globalX, globalY, this.fallingTetromino);
             takeCareOfFullLines();
             setNewFallingTetromino();
-            gameScreen.repaint();
+            
         }
+        
     }
 
     /**
@@ -175,13 +180,21 @@ public class GameLogic {
      *
      */
     public void takeCareOfFullLines() {
+        this.gameScreen.repaint();
+        delay(5);
         int fullLines = this.board.checkWhatLinesAreFull();
-        addScores(fullLines);
         if (fullLines != 0) {
+            delay(200);
+            this.gameScreen.repaint();
+            delay(300);
             this.board.removeFullLines();
             this.clearedRows += fullLines;
             seIfLevelChange();
+            
         }
+        addScores(fullLines);
+        this.gameScreen.repaint();
+        
     }
 
     /**
@@ -212,16 +225,17 @@ public class GameLogic {
             if (isMovePossible(this.fallingTetromino, this.globalX + 1, this.globalY)) {
                 this.globalX++;
                 this.isMoved--;
-                gameScreen.repaint();
+                
             }
         }
         if (this.isMoved < 0) {
             if (isMovePossible(this.fallingTetromino, this.globalX - 1, this.globalY)) {
                 this.globalX--;
                 this.isMoved++;
-                gameScreen.repaint();
+                
             }
         }
+        gameScreen.repaint();
     }
 
     /**
@@ -267,7 +281,6 @@ public class GameLogic {
             else if (!manageWallKick()) {
                 this.fallingTetromino.rotateLeft();
             }
-            this.gameScreen.repaint();
             this.isRotated--;
 
         } else if (this.isRotated < 0) {
@@ -279,10 +292,11 @@ public class GameLogic {
             } else if (!manageWallKick()) {
                 this.fallingTetromino.rotateRight();
             }
-            this.gameScreen.repaint();
+            
             this.isRotated++;
 
         }
+        this.gameScreen.repaint();
 
     }
 
@@ -334,21 +348,13 @@ public class GameLogic {
             time = getCurrentTimeInMilliseconds();
         }
     }
+    private void delay(int delay){
+        double time=getCurrentTimeInMilliseconds();
+        while(getCurrentTimeInMilliseconds()<time+delay){
+            //wait;
+        }
+    }
 
-    /**
-     *
-     * Tulostaa tippuvan tetrominon kordinaatit pelikentässä, * private void
-     * printFallingTetromino(){ for(int i=0;i<4;i++){
-     * System.out.println((this.fallingTetromino.getX(i)+globalX)+",
-     * "+(this.fallingTetromino.getY(i)+globalY)); } System.out.println(""); }
-     * private void printBoard(){ int [][] boardStatus=board.getBoardStatus();
-     * for (int i=0;i<20;i++){ for(int j=0;j<10;j++){
-     * System.out.print(boardStatus[i][j]+", "); } System.out.println(""); } }
-     */
-    /**
-     *
-     * @return palauttaa juuri tippuvan tetrominon
-     */
     public Tetromino getFallingTetromino() {
         return this.fallingTetromino;
     }

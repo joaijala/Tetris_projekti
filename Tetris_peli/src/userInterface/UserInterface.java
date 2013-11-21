@@ -12,47 +12,81 @@ import javax.swing.WindowConstants;
 import tetrisGame.GameLogic;
 import java.awt.Container;
 import java.awt.Font;
+import javax.swing.JComponent;
 import tetrisGame.ControllListener;
 
 /**
  *
  * @author Johanna
  */
-public class UserInterface implements Runnable{
-    private JFrame frame;
+public class UserInterface extends JFrame implements Runnable{
+    
     private GameScreen gameScreen;
+    private GameLogic game;
+    public Container container;
+    private MenuScreen menuScreen;
+    public boolean isGameOn=false;
+    
     
             
     
     public UserInterface(){
-
+         setTitle("Tetris");
+         setPreferredSize(new Dimension(430,480));
+         setResizable(false);
+         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+         createComponent();
+         
+         setContentPane(menuScreen);
+         pack();
+         setVisible(true);
+         setFocusable(true);
+         
+         
     }
-
     @Override
-    public void run() {
-         frame =new JFrame("Tetris");
-         frame.setPreferredSize(new Dimension(430,480));
-         frame.setResizable(false);
-         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-         createComponent(frame.getContentPane());
-         
-         frame.pack();
-         frame.setVisible(true);
-         frame.setFocusable(true);
-         ControllListener listener=new ControllListener(gameScreen.game);
-         frame.addKeyListener(listener);
-        
-         
+    public void run(){
+        while(true){
+            if(isGameOn){
+                game.gameLoop();
+                isGameOn=false;
+                setContentPane(menuScreen);
+                setVisible(true);
+            }
+            delay(10);
+        }
     }
-    public void createComponent(Container container){
-        GameLogic game=new GameLogic();
+    private void delay(int delay){
+        double time=getCurrentTimeInMilliseconds();
+        while(getCurrentTimeInMilliseconds()<time+delay){
+            //wait;
+        }
+    }
+    private double getCurrentTimeInMilliseconds() {
+        return System.nanoTime() * 0.000001;
+    }
+
+    
+    public void createComponent(){
+        game=new GameLogic();
         this.gameScreen=game.getGameScreen();
-        container.add(gameScreen);
+        menuScreen=new MenuScreen(this);
+        
     }
     public JFrame getFrame(){
-        return frame;
+        return this;
     }
+    
+    
     public void startGame(){
-        gameScreen.game.gameLoop();
+        
+        game=new GameLogic();
+        this.gameScreen=game.getGameScreen();
+        setContentPane(gameScreen);
+        setVisible(true);
+        
+        ControllListener listener=new ControllListener(gameScreen.game);
+        addKeyListener(listener);
+        this.isGameOn=true;
     }
 }

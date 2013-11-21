@@ -21,27 +21,27 @@ public class GameScreen extends JPanel {
     
     
     public GameLogic game;
-    private BoardScreen boardScreen;
-    private NextTetrominoScreen nextTetrominoScreen;
-    private GameBackgroundScreen backgroundScreene;
-    private ScoreScreen pointScreen;
-    private LevelScreen levelScreen;
-    private RowsScreen rowsScreen;
-    private final Color colors[] = {new Color(255, 255, 255), new Color(240, 0, 0),
-                          new Color(0, 240,0), new Color(0, 240, 240),
-                          new Color(160, 0, 240), new Color(240, 240, 0),
-                          new Color(240, 160, 0), new Color(0, 0, 240)
-        };
+    private final BoardScreen boardScreen;
+    private final NextTetrominoScreen nextTetrominoScreen;
+    private final GameBackgroundScreen backgroundScreene;
+    private final ScoreScreen pointScreen;
+    private final LevelScreen levelScreen;
+    private final RowsScreen rowsScreen;
+    private final FallingTetrominoScreen fallingTetromino;
+    
+    
     public ControllListener listener;
 
     public GameScreen(GameLogic game) {
         this.game=game;
         this.boardScreen=new BoardScreen(game);
         this.nextTetrominoScreen=new NextTetrominoScreen(game);
-        this.backgroundScreene=new GameBackgroundScreen();
+        this.backgroundScreene=new GameBackgroundScreen(game);
         this.pointScreen=new ScoreScreen(game);
         this.levelScreen= new LevelScreen(game);
         this.rowsScreen= new RowsScreen(game);
+        this.fallingTetromino=new FallingTetrominoScreen(game);
+        
         
     }
     @Override
@@ -52,7 +52,12 @@ public class GameScreen extends JPanel {
         this.pointScreen.paint(graphics);
         this.levelScreen.paint(graphics);
         this.rowsScreen.paint(graphics);
+        this.fallingTetromino.paint(graphics);
+        
     }
-
+    
+    
+    
+    
 
 }

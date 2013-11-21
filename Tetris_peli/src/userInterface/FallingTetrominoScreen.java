@@ -7,10 +7,8 @@
 package userInterface;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
-import tetrisGame.ControllListener;
 import tetrisGame.GameLogic;
 import tetrisGame.Tetromino;
 
@@ -18,7 +16,7 @@ import tetrisGame.Tetromino;
  *
  * @author Johanna
  */
-public class BoardScreen extends JPanel{
+public class FallingTetrominoScreen extends JPanel{
     
     
     
@@ -30,7 +28,7 @@ public class BoardScreen extends JPanel{
         };
     
 
-    public BoardScreen(GameLogic game) {
+    public FallingTetrominoScreen(GameLogic game) {
         this.game=game;
 
         
@@ -43,26 +41,17 @@ public class BoardScreen extends JPanel{
     @Override
     public void paint(Graphics graphics) {
         
-        
         Tetromino tetromino = game.getFallingTetromino();
-        int[][] boardStatus = game.getBoard().getBoardStatus();
-        boolean[] fullRows=game.getBoard().getIsRowFilledStatus();
+        if(game.getIsTetrominoFalling()){
+            for (int i = 0; i < 4; ++i) {
+            int x = game.getGlobalX() + tetromino.getX(i);
+            int y = game.getGlobalY() + tetromino.getY(i);
+            drawSquare(graphics,20+x * 20,
+                     20+y * 20,
+                    tetromino.getShape().ordinal());
 
-        for (int i = 0; i < 20; ++i) {
-            if(fullRows[i]){
-                graphics.setColor(colors[0]);
-                graphics.fillRect(20, (20+i*20), 200, 20);
-            }
-            else{
-                for (int j = 0; j < 10; ++j) {
-                    int shape = boardStatus[i][j];
-
-                    drawSquare(graphics,20+ j * 20,
-                      20+ i * 20, shape);
-                }
-            }
         }
-        
+        }
         
     }
     /**

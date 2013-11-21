@@ -36,7 +36,25 @@ public class ScoreScreen extends JPanel{
         graphics.fillRoundRect(255, 185, 120, 50, 25, 25);
         graphics.setColor(new Color(0,0,0));
         graphics.setFont(new Font("Verdet",0,25));
-        graphics.drawString(Integer.toString(score),265,225);
+        if(score<10){
+           graphics.drawString(Integer.toString(score),305,225); 
+        }
+        else if(score<100){
+           graphics.drawString(Integer.toString(score),300,225); 
+        }
+        else if(score<1000){
+           graphics.drawString(Integer.toString(score),290,225); 
+        }
+        else if(score<10000){
+            graphics.drawString(Integer.toString(score),285,225);
+        }
+        else if(score<100000){
+           graphics.drawString(Integer.toString(score),280,225); 
+        }
+        else {
+           graphics.drawString(Integer.toString(score),270,225); 
+        }
+        
         graphics.setFont(new Font ("Arial",1,18));
         graphics.drawString("Score", 290, 200 );
         

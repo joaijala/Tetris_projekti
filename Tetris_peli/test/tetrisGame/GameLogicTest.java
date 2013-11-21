@@ -5,6 +5,7 @@
 package tetrisGame;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -17,9 +18,51 @@ import tetrisGame.Tetromino.Shape;
  * @author joaijala
  */
 public class GameLogicTest {
+    
 
     public GameLogicTest() {
     }
+        private final int[][][] cordinateTable = new int[][][]{ /*muotojen kordinaatit alutilassa*/
+        {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
+        {{1, -1}, {1, 0}, {0, 0}, {0, 1}},
+        {{0, -1}, {0, 0}, {1, 0}, {1, 1}},
+        {{0, -1}, {0, 0}, {0, 1}, {0, 2}},
+        {{-1, 0}, {0, 0}, {1, 0}, {0, 1}},
+        {{0, 0}, {1, 0}, {0, 1}, {1, 1}},
+        {{0, -1}, {1, -1}, {1, 0}, {1, 1}},
+        {{1, -1}, {0, -1}, {0, 0}, {0, 1}}
+    };
+
+    private final int[][][] cordinateTable1Left = new int[][][]{ /*muotojen kordinaatit yhden vasemmalle kierron jälkeen (tai 3 oikelle)*/
+        {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
+        {{-1, -1}, {0, -1}, {0, 0}, {1, 0}},
+        {{-1, 0}, {0, 0}, {0, -1}, {1, -1}},
+        {{-1, 0}, {0, 0}, {1, 0}, {2, 0}},
+        {{0, 1}, {0, 0}, {0, -1}, {1, 0}},
+        {{0, 0}, {1, 0}, {0, 1}, {1, 1}},
+        {{-1, 0}, {-1, -1}, {0, -1}, {1, -1}},
+        {{-1, -1}, {-1, 0}, {0, 0}, {1, 0}}
+    };
+    private final int[][][] cordinateTable2Left = new int[][][]{ /*muotojen kordinaatit kahden vasemmalle kierron jälkeen (tai 2 oikealle)*/
+        {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
+        {{-1, 1}, {-1, 0}, {0, 0}, {0, -1}},
+        {{0, 1}, {0, 0}, {-1, 0}, {-1, -1}},
+        {{0, 1}, {0, 0}, {0, -1}, {0, -2}},
+        {{1, 0}, {0, 0}, {-1, 0}, {0, -1}},
+        {{0, 0}, {1, 0}, {0, 1}, {1, 1}},
+        {{0, 1}, {-1, 1}, {-1, 0}, {-1, -1}},
+        {{-1, 1}, {0, 1}, {0, 0}, {0, -1}}
+    };
+    private final int[][][] cordinateTable3Left = new int[][][]{ /*muotojen kordinaatit kolmen vasemmalle kierron jälkeen (tai 1 oikelle)*/
+        {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
+        {{1, 1}, {0, 1}, {0, 0}, {-1, 0}},
+        {{1, 0}, {0, 0}, {0, 1}, {-1, 1}},
+        {{1, 0}, {0, 0}, {-1, 0}, {-2, 0}},
+        {{0, -1}, {0, 0}, {0, 1}, {-1, 0}},
+        {{0, 0}, {1, 0}, {0, 1}, {1, 1}},
+        {{1, 0}, {1, 1}, {0, 1}, {-1, 1}},
+        {{1, 1}, {1, 0}, {0, 0}, {-1, 0}}
+    };
 
     @Before
     public void setUp() {
@@ -189,6 +232,35 @@ public class GameLogicTest {
         assertEquals(game.getClearedRows(), 1);
 
     }
+    /**
+     * Testataan, että leveli on 1 kun poistetaan 10 riviä
+     * Huom kaikkii 10 rivii ei voi poistaa kerralla
+     */
+    @Test
+    public void TestIfLevelChangeWhen10RowsAreRemoved(){
+        GameLogic game = new GameLogic();
+        Board board = game.getBoard();
+        for (int i = 15; i < 19; i++) {
+            for(int j=0;j<10;j++){
+                board.setNumberToBoard(j, i, 1);
+            }
+        }
+        game.takeCareOfFullLines();
+        for (int i = 15; i < 19; i++) {
+            for(int j=0;j<10;j++){
+                board.setNumberToBoard(j, i, 1);
+            }
+        }
+        game.takeCareOfFullLines();
+        for (int i = 17; i < 19; i++) {
+            for(int j=0;j<10;j++){
+                board.setNumberToBoard(j, i, 1);
+            }
+        }
+        game.takeCareOfFullLines();
+        assertEquals(game.getLevel(),1);
+        assertEquals(game.getClearedRows(),10);
+    }
 
     /**
      * isMovePossiblea en testaa erikseen, sillä se testaantuu samalla
@@ -224,21 +296,12 @@ public class GameLogicTest {
         for (int j = 0; j < 100; j++) {
             GameLogic game = new GameLogic();
             game.setNewFallingTetromino();
-            for (int i = 0; i < 4; i++) {
-                game.setIsMoved(-1);
-                game.moveTetromino();
-            }
+            moveTetrominoToBorder(game,-1);
             if (game.getFallingTetromino().getShape().ordinal() != 4) {
-                assertEquals(game.getGlobalX(), 0);
-                game.setIsMoved(-1);
-                game.moveTetromino();
-                assertEquals(game.getGlobalX(), 0);
+                testMoveTetrominoAtBoarder(game,-1,0);
             }
             else {
-                assertEquals(game.getGlobalX(), 1);
-                game.setIsMoved(-1);
-                game.moveTetromino();
-                assertEquals(game.getGlobalX(), 1);
+                testMoveTetrominoAtBoarder(game,-1,1);
             }
         }
     }
@@ -247,27 +310,121 @@ public class GameLogicTest {
         for (int j = 0; j < 100; j++) {
             GameLogic game = new GameLogic();
             game.setNewFallingTetromino();
-            for (int i = 0; i < 4; i++) {
-                game.setIsMoved(1);
-                game.moveTetromino();
-            }
+            moveTetrominoToBorder(game,1);
             if (game.getFallingTetromino().getShape().ordinal() != 3) {
-                assertEquals(game.getGlobalX(), 8);
-                game.setIsMoved(1);
-                game.moveTetromino();
-                assertEquals(game.getGlobalX(), 8);
+                testMoveTetrominoAtBoarder(game,1,8);
             }
             
             else {
                 game.setIsMoved(1);
                 game.moveTetromino();
-                assertEquals(game.getGlobalX(), 9);
-                game.setIsMoved(1);
-                game.moveTetromino();
-                assertEquals(game.getGlobalX(), 9);
+                testMoveTetrominoAtBoarder(game,1,9);
             }
         }
     }
+    /**
+     * seuraavaksi testauksia joistakin tetrominon pyöritystapauksista
+     */
+    /**
+     * testaa, että rotaatio toimii kun paliikkaa pyöritetään oikealle spavnauskohdassa
+     */
+    @Test
+    public void testRotateTetrominoRight(){
+        for(int i=0;i<100;i++){
+            GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
+            testRotatingTetromino(game,1,3);
+            if(game.getFallingTetromino().getShape().ordinal()!=3){
+                testRotatingTetromino(game,1,2);
+            }
+            else{// jos tetromino on spawnauskohdassa sitä ei voi pyörittää 2 kertaa oikealle ilman, että se osuu kattoon
+                testRotatingTetromino(game,1,3);
+            }
+        }
+    }
+    /**
+     * testaa, että rotaatio toimii spavnauspaikassa vasemmalle
+     */
+    @Test
+    public void testRotateTetrominoLeft(){
+        for(int i=0;i<100;i++){
+            GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
+            testRotatingTetromino(game,-1,1);
+            if(game.getFallingTetromino().getShape().ordinal()!=3){
+                testRotatingTetromino(game,-1,2);
+            }
+            else{// jos tetromino on spawnauskohdassa sitä ei voi pyörittää 2 kertaa oikealle ilman, että se osuu kattoon
+                testRotatingTetromino(game,-1,1);
+            }
+        }
+    }
+    /**
+     * testaa, että pyöritys oikealle toimii oikean seinän vieressä
+     * samalla wallKick testaantuu
+     * 
+     */
+    @Test
+    public void TestRotatingRightAtRightBorder(){
+        for (int j = 0; j < 100; j++) {
+            GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
+            moveTetrominoToBorder(game,1);
+            game.dropOneLineDown();
+            testRotatingTetromino(game,1,3);
+            testRotatingTetromino(game,1,2);
+            
+        }
+    }
+    /**
+     * testaa, että pyöritys vasemmalle toimii oikean seinän vieressä
+     * samalla wallKick testaantuu
+     */
+    @Test
+    public void TestRotatingLeftAtRightBorder(){
+        for (int j = 0; j < 100; j++) {
+            GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
+            moveTetrominoToBorder(game,1);
+            game.dropOneLineDown();
+            testRotatingTetromino(game,-1,1);
+            testRotatingTetromino(game,-1,2);
+            
+        }
+    }
+        /**
+     * testaa, että pyöritys oikealle toimii vasemman seinän vieressä
+     * 
+     */
+    @Test
+    public void TestRotatingRightAtLeftBorder(){
+        for (int j = 0; j < 100; j++) {
+            GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
+            moveTetrominoToBorder(game,-1);
+            game.dropOneLineDown();
+            testRotatingTetromino(game,1,3);
+            testRotatingTetromino(game,1,2);
+            
+        }
+    }
+    /**
+     * testaa, että pyöritys vasemmalle toimii vasemman seinän vieressä
+     * 
+     */
+    @Test
+    public void TestRotatingLeftAtLeftBorder(){
+        for (int j = 0; j < 100; j++) {
+            GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
+            moveTetrominoToBorder(game,-1);
+            game.dropOneLineDown();
+            testRotatingTetromino(game,-1,1);
+            testRotatingTetromino(game,-1,2);
+            
+        }
+    }
+  
 
     /**
      *
@@ -281,5 +438,61 @@ public class GameLogicTest {
             cordinates[i][1] = tetromino.getY(i);
         }
         return cordinates;
+    }
+        /*
+     *palauttaa halutun rivin halutusta vastaustaulukosta
+     */
+    private int[][] getCordinatesOfRow(int rowNumber, int[][][] table) {
+        int[][] row = new int[4][2];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 2; j++) {
+                row[i][j] = table[rowNumber][i][j];
+            }
+        }
+        return row;
+    }
+    /**
+     * apumetodi, joka siirtää tetromiinon reunaan
+     * @param game
+     * @param direction 
+     */
+    private void moveTetrominoToBorder(GameLogic game, int direction){
+        for (int i = 0; i < 4; i++) {//tetromino liikutettu laitaan
+                game.setIsMoved(direction);
+                game.moveTetromino();
+            }
+    }
+    /**
+     * apumetodi, joka poistaa copypastea movetetromino testeistä 
+     * @param game
+     * @param direction on 1 tai -1 riippuen liikuttamissuunnast
+     * @param expectedX on oletettu X kordinaatti
+     */
+    private void testMoveTetrominoAtBoarder(GameLogic game,int direction, int expectedX){
+        assertEquals(game.getGlobalX(), expectedX);
+        game.setIsMoved(direction);
+        game.moveTetromino();
+        assertEquals(game.getGlobalX(),expectedX);
+    }
+    /**
+     * apumetodi, joka poistaa copy pastea rotateTetromino testeistä
+     * @param game
+     * @param direction on 1 tai -1 riippuen rotaatiosuunnasta
+     * @param usedCheckTable kertoo mitä tarkistustaulukkoa kuuluu käyttää
+     */
+    private void testRotatingTetromino(GameLogic game, int direction, int usedCheckTable){
+            game.setIsRotated(direction);
+            game.rotateTetromino();
+            int [][] tetromino=getCordinateTableOfTetromino(game.getFallingTetromino());
+            if(usedCheckTable==1){
+                Assert.assertArrayEquals(tetromino,getCordinatesOfRow(game.getFallingTetromino().getShape().ordinal(),this.cordinateTable1Left));
+            }
+            else if(usedCheckTable==2){
+                Assert.assertArrayEquals(tetromino,getCordinatesOfRow(game.getFallingTetromino().getShape().ordinal(),this.cordinateTable2Left));
+            }
+            else{
+                Assert.assertArrayEquals(tetromino,getCordinatesOfRow(game.getFallingTetromino().getShape().ordinal(),this.cordinateTable3Left));
+            }
+            
     }
 }
