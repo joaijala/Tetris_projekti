@@ -5,7 +5,7 @@ import userInterface.GameScreen.GameScreen;
 
 /**
  * Tässä luokassa tapahtuu itse pelilooppi ja koko
- * pelin pyörittäminen
+ * pelin pyörittäminen.
  * @author Järjestelmänvalvoja 
  */
 public class GameLogic {
@@ -22,24 +22,24 @@ public class GameLogic {
     private boolean isGameRunning = false;
     /**
      * Pitää kirjaa onko pelaaja liikuttanut palikkaa. Se on positiivinen jos
-     * liikutettu oikealle, negatiivinen jos vasemmalle ja 0 ei ole liikutettu
+     * liikutettu oikealle, negatiivinen jos vasemmalle ja 0 ei ole liikutettu.
      */
     private int isMoved;
     /**
      * Pitää kirjaa onko pelaaja pyörittänyt palikkaa. Se on poitiivinen jos on
-     * pyöritetty oikealle ja neggatiivinen jos on pyöritetty oikealle
+     * pyöritetty oikealle ja neggatiivinen jos on pyöritetty oikealle.
      */
     private int isRotated;
     /**
-     * softDrop antaa peliaajan tiputtaa tetrominon yhden alaspäin
+     * softDrop antaa peliaajan tiputtaa tetrominon yhden alaspäin.
      */
     private int softDrop;
     /**
-     * tells the number of soft drops done for tetormino
+     * tells the number of soft drops done for tetormino.
      */
     private int softDropsDone;
     /**
-     * dropDown antaa pelaajan tiputtaa tetrominon kokonaan alas
+     * dropDown antaa pelaajan tiputtaa tetrominon kokonaan alas.
      *
      */
     private boolean dropDown;
@@ -51,6 +51,9 @@ public class GameLogic {
     private final GameScreen gameScreen;
     private ControllListener contollistener;
 
+    /**
+     * construktori alustaa uuden tyhjän pelin.
+     */
     public GameLogic() {
         this.board = new Board();
         this.fallingTetromino = new Tetromino();
@@ -64,7 +67,7 @@ public class GameLogic {
     }
 
     /**
-     * gameloop pyöeittää itse pelin pelilooppia
+     * gameloop pyöeittää itse pelin pelilooppia.
      */
     public void gameLoop() {
         this.gameScreen.repaint();
@@ -130,8 +133,8 @@ public class GameLogic {
 
     /**
      * asettaa fallingTetromiinolle seuraavan Tetrominon muodon,
-     * nexttetrominolle uuden random muodon sekä nollaa liikuttamiseen liittyvät
-     * muututjat
+     * nextTetrominolle uuden random muodon sekä nollaa liikuttamiseen liittyvät
+     * muututjat.
      */
     public void setNewFallingTetromino() {
         this.globalX = 4;
@@ -153,8 +156,8 @@ public class GameLogic {
     }
 
     /**
-     * dropOneLineDown pudottaa tetrominon alaspäin jos se on mahdollista,
-     * muuten asettaa uuden tetrominon
+     * DropOneLineDown pudottaa tetrominon alaspäin jos se on mahdollista,
+     * muuten asettaa uuden tetrominon pelilaudan huipulle.
      */
     public void dropOneLineDown() {
         if (isMovePossible(this.fallingTetromino, this.globalX, this.globalY + 1)) {
@@ -172,7 +175,7 @@ public class GameLogic {
     }
 
     /**
-     * Huolehtii täysinäisten rivien tarkistamisesta ja niiden poistamisesta
+     * Huolehtii täysinäisten rivien tarkistamisesta ja niiden poistamisesta.
      *
      */
     public void takeCareOfFullLines() {
@@ -196,7 +199,7 @@ public class GameLogic {
     /**
      * Antaa pisteitä aina kun pala on tippunut valmiiksi
      *
-     * @param removedLines
+     * @param removedLines poistettujen rivien määrä
      */
     public void addScores(int removedLines) {
         int scores = this.scoresFromRow[removedLines];
@@ -204,7 +207,7 @@ public class GameLogic {
     }
 
     /**
-     * jos levelin vaihdon kriteeri täyttyy leveli vaihtuu ja vauti nopeutuu
+     * Jos levelin vaihdon kriteeri täyttyy, leveli vaihtuu ja dropIntervall pienenee.
      */
     public void seIfLevelChange() {
         if (this.clearedRows >= (this.level + 1) * 10 && this.level < 11) {
@@ -214,7 +217,7 @@ public class GameLogic {
     }
 
     /**
-     * MoveTetromino hoitaa tetrominon liikuttamisen
+     * MoveTetromino hoitaa tetrominon liikuttamisen sivulle.
      */
     public void moveTetromino() {
         if (this.isMoved > 0) {
@@ -235,8 +238,8 @@ public class GameLogic {
     }
 
     /**
-     * isMovePossible tarkistaa, onko aijottu siirto mahdollinen, jos se ei ole
-     * mallinen palautuu false muuten true
+     * isMovePossible tarkistaa, onko aijottu siirto mahdollinen. Jos se ei ole
+     * mahdollinen palautuu false, muuten true,
      */
     private boolean isMovePossible(Tetromino tetromino, int origoX, int origoY) {
         int[][] boardStatus = board.getBoardStatus();
@@ -261,10 +264,10 @@ public class GameLogic {
     }
 
  
-    /*    /**
-     * vanha rotatetetromino
-     */
 
+    /**
+     *Hoitaa tetrominon pyörittämisen, jos se on mahdollista.
+     */
     public void rotateTetromino() {
 
         if (this.isRotated > 0) {
@@ -295,20 +298,29 @@ public class GameLogic {
         this.gameScreen.repaint();
 
     }
-
+/**
+ * Liikuttaa tetromiinon pois esteen vierestä, jos mahdollista, niin että pyörittäminen on mahdollista.
+ * 
+ * @param amount määrä paljonko siirretään sivulle
+ * @return true jos wallKick on mahdollista, muuten false
+ */
     private boolean doWallKick(int amount) {
         /*try wallKick right*/
         if (tryWallKick(amount)) {
             this.globalX += amount;
             return true;
 
-        } /*try wallKick left*/ else if (tryWallKick(-amount)) {
+        } /*try wallKick left*/ 
+        else if (tryWallKick(-amount)) {
             this.globalX -= amount;
             return true;
         }
         return false;
     }
-
+/**
+ * Ohjaa doWallKickiä.
+ * @return true jos onnistuu, muuten false
+ */
     private boolean manageWallKick() {
 
         if (doWallKick(1)) {
@@ -320,10 +332,9 @@ public class GameLogic {
     }
 
     /**
-     * Tries wallKick. WallKick means it when the tetromino can rotate when it
-     * is against the wall by kicking of the wall
+     * Selvittää, onko wall kick mahdollinen
      *
-     * @param direction and amount of wall kick;
+     * @param i wall kickin määrä ja suunta
      */
     private boolean tryWallKick(int i) {
         if (isMovePossible(this.fallingTetromino, globalX + i, globalY)) {
@@ -333,17 +344,18 @@ public class GameLogic {
     }
 
     /**
-     * ei tee mitään niin kauan kuin peli on tauolla. Odottamisen tarkoitus on,
+     * Ei tee mitään niin kauan kuin peli on tauolla. Odottamisen tarkoitus on,
      * että näppäinkuuntelija pääsee väliin reagoimaan
      */
     public void waitUntillNotPaused() {
-        double time = getCurrentTimeInMilliseconds();
         while (isPaused) {
-            while (getCurrentTimeInMilliseconds() < time + 10) {
-            }
-            time = getCurrentTimeInMilliseconds();
+            delay(10);
         }
     }
+    /**
+     * Hoitaa pelissä tapahtuvat tauot
+     * @param delay tauon kesto millisekunneissa
+     */
     private void delay(int delay){
         double time=getCurrentTimeInMilliseconds();
         while(getCurrentTimeInMilliseconds()<time+delay){
@@ -351,13 +363,17 @@ public class GameLogic {
         }
     }
 
+    /**
+     *
+     * @return fallingTetromino
+     */
     public Tetromino getFallingTetromino() {
         return this.fallingTetromino;
     }
 
     /**
      *
-     * @return palauttaa seuraavan tetorminon
+     * @return nextTetromino
      */
     public Tetromino getNextTetromino() {
         return this.nextTetromino;
@@ -365,7 +381,7 @@ public class GameLogic {
 
     /**
      *
-     * @return palauttaa pelin Boardin
+     * @return board
      */
     public Board getBoard() {
         return this.board;
@@ -388,7 +404,7 @@ public class GameLogic {
     }
 
     /**
-     * returns wheter the game is paused or not
+     * Kertoo, onko peli pausella
      *
      * @return isPaused
      */
@@ -397,7 +413,7 @@ public class GameLogic {
     }
 
     /**
-     * returns if the game is running
+     * Kertoo, onko peli käynnissä
      *
      * @return isGameRunning
      */
@@ -406,7 +422,7 @@ public class GameLogic {
     }
 
     /**
-     * returns wheter the tetromino is falling
+     * 
      *
      * @return isTetrominoFalling
      */
@@ -415,7 +431,7 @@ public class GameLogic {
     }
 
     /**
-     * returns status of drop down
+     * 
      *
      * @return dropDown
      */
@@ -424,7 +440,7 @@ public class GameLogic {
     }
 
     /**
-     * returns game screen
+     * 
      *
      * @return gameScreen
      */
@@ -458,7 +474,7 @@ public class GameLogic {
 
     /**
      *
-     * @return getlevel
+     * @return level
      */
     public int getLevel() {
         return this.level;
@@ -473,7 +489,7 @@ public class GameLogic {
     }
 
     /**
-     * returns the amount of cleared rows
+     * 
      *
      * @return clearedRows
      */
@@ -484,14 +500,14 @@ public class GameLogic {
     /**
      *
      * @return palauttaa javan virtuaalikoneen tämänhetkisen ajan
-     * millisekuntteina
+     * millisekuntteina.
      */
     private double getCurrentTimeInMilliseconds() {
         return System.nanoTime() * NANOSEC_TO_MILLISEC;
     }
 
     /**
-     * controllListener muuttaa tämän avulla isMoved arvoa
+     * controllListener muuttaa tämän avulla isMoved arvoa.
      *
      * @param i liikuttamisen määrä ja suunta
      */
@@ -500,7 +516,7 @@ public class GameLogic {
     }
 
     /**
-     * controllListener muuttaa tämän avulla isRotated arvoa
+     * controllListener muuttaa tämän avulla isRotated arvoa.
      *
      * @param i pyörittämisen määrä ja suunta
      */
@@ -509,23 +525,23 @@ public class GameLogic {
     }
 
     /**
-     * controllListener muuttaa tämän avulla softDrop arvoa
+     * controllListener muuttaa tämän avulla softDrop arvoa.
      *
-     * @param i
+     * @param i soft droppien määrä
      */
     public synchronized void setSoftDrop(int i) {
         this.softDrop = i;
     }
 
     /**
-     * controllListener muuttaa tämän avulla onko peli pausella
+     * ControllListener muuttaa tämän avulla onko peli pausella.
      */
     public synchronized void setIsPaused() {
         this.isPaused = !this.isPaused;
     }
 
     /**
-     * ControllListener muuttaa tämän avulla tartteeko pala tiputtaa alas
+     * ControllListener muuttaa tämän avulla tartteeko pala tiputtaa alas.
      */
     public synchronized void setDropDownTrue() {
         this.dropDown = true;

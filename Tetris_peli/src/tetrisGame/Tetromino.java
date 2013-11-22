@@ -17,34 +17,42 @@ public class Tetromino {
         /**
          *
          */
+        Emp,
         Empty,
         /**
          *
          */
+        ZSh,
         ZShape,
         /**
          *
          */
+        SSh,
         SShape,
         /**
          *
          */
+        ISh,
         IShape,
         /**
          *
          */
+        TSh,
         TShape,
         /**
          *
          */
+        OSh,
         OShape,
         /**
          *
          */
+        LSh
         LShape,
         /**
          *
          */
+        JSh,
         JShape
     }
 

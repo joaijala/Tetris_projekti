@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tetrisGame;
 
 import java.awt.event.KeyEvent;
@@ -12,18 +7,26 @@ import java.awt.event.KeyListener;
  * Tämä luokka on pelin controllisteneri, joka kuuntelee pelaajan
  * näppäimistöpainalluksiia ja kertoo niistä GameLogikille
  *
- * @author Johanna
+ * @author Josse
  */
 public class ControllListener implements KeyListener {
 
     private int isMoved;
-    private GameLogic game;
+    private final GameLogic game;
 
+    /**
+     *
+     * @param game GameLogic, jota ohjataan
+     */
     public ControllListener(GameLogic game) {
         this.game = game;
 
     }
 
+    /**
+     *
+     * @param ke
+     */
     @Override
     public void keyTyped(KeyEvent ke) {
 
@@ -33,7 +36,7 @@ public class ControllListener implements KeyListener {
      * Jos peli on pällä se kuuntelee aina pausen painamista, jos peli ei ole
      * pausella se kuuntelee myös pelin ohjauspainkikkeita.
      *
-     * @param ke =painettu näppäin
+     * @param ke painettu näppäin
      */
     @Override
     public void keyPressed(KeyEvent ke) {
@@ -66,13 +69,13 @@ public class ControllListener implements KeyListener {
 
     }
 
+    /**
+     *
+     * @param ke
+     */
     @Override
     public void keyReleased(KeyEvent ke) {
 
-    }
-
-    public int getIsMoved() {
-        return this.isMoved;
     }
 
 }
