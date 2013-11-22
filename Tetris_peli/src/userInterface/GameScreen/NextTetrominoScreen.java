@@ -33,7 +33,7 @@ public class NextTetrominoScreen extends JPanel {
      * @param graphics 
      */
     @Override
-    public void paint(Graphics graphics) {
+    public void paintComponents(Graphics graphics) {
         graphics.setColor(new Color(0,0,0));
         graphics.fillRoundRect(254, 39, 122, 122, 25, 25);
         graphics.setColor(new Color(255, 255, 255));

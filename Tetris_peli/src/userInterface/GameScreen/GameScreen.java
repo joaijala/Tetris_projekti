@@ -5,7 +5,13 @@
  */
 package userInterface.GameScreen;
 
+import java.awt.Button;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import tetrisGame.ControllListener;
@@ -20,7 +26,8 @@ import tetrisGame.GameLogic;
  */
 public class GameScreen extends JPanel {
     
-    
+   Button resume;
+    private GridBagConstraints container; 
     public GameLogic game;
     private final BoardScreen boardScreen;
     private final NextTetrominoScreen nextTetrominoScreen;
@@ -44,23 +51,45 @@ public class GameScreen extends JPanel {
         this.rowsScreen= new RowsScreen(game);
         this.fallingTetromino=new FallingTetrominoScreen(game);
         this.pauseScreen=new PauseScreen(game);
+        makeButton();
+        
         
         
     }
     @Override
     public void paint(Graphics graphics){
+        resume.setVisible(false);
         this.backgroundScreene.paintComponents(graphics);
-        this.boardScreen.paint(graphics);
-        this.nextTetrominoScreen.paint(graphics);
-        this.pointScreen.paint(graphics);
-        this.levelScreen.paint(graphics);
-        this.rowsScreen.paint(graphics);
-        this.fallingTetromino.paint(graphics);
+        this.boardScreen.paintComponents(graphics);
+        this.nextTetrominoScreen.paintComponents(graphics);
+        this.pointScreen.paintComponents(graphics);
+        this.levelScreen.paintComponents(graphics);
+        this.rowsScreen.paintComponents(graphics);
+        this.fallingTetromino.paintComponents(graphics);
         if(this.game.getIsPaused()){
-            this.pauseScreen=new PauseScreen(game);
+            resume.setVisible(true);
             this.pauseScreen.paintComponents(graphics);
             
         }
+        
+    }
+    public void makeButton(){
+        this.setLayout(new GridBagLayout());
+        container = new GridBagConstraints();
+        resume=new Button("Resume");
+        resume.setFont(new Font("Arial", 0, 30));
+        resume.setBounds(100, 100, 100, 20);
+        resume.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+
+                game.setIsPaused();
+
+            }
+        });
+        add(resume, container);
+        
         
     }
     

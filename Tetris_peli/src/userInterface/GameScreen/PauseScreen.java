@@ -23,12 +23,11 @@ import tetrisGame.GameLogic;
  */
 public class PauseScreen extends JPanel {
     GameLogic game;
-    Button resume;
-    private GridBagConstraints container;
+    
     
     public PauseScreen(GameLogic game){
         this.game=game;
-        makeButton();
+        
     }
     
     @Override
@@ -43,21 +42,5 @@ public class PauseScreen extends JPanel {
         
     }
     
-    public void makeButton(){
-        this.setLayout(new GridBagLayout());
-        container = new GridBagConstraints();
-        resume=new Button("Resume");
-        resume.setFont(new Font("Arial", 0, 30));
-        resume.setBounds(100, 100, 100, 20);
-        resume.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-
-                game.setIsPaused();
-
-            }
-        });
-        add(resume, container);
-    }
+    
 }

@@ -28,7 +28,7 @@ public class LevelScreen extends JPanel{
     }
     
     @Override
-    public void paint(Graphics graphics){
+    public void paintComponents(Graphics graphics){
         int level=this.game.getLevel();
         
         graphics.setColor(new Color(0,0,0));

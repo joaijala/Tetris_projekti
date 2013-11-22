@@ -27,7 +27,7 @@ public class ScoreScreen extends JPanel{
     }
     
     @Override
-    public void paint(Graphics graphics){
+    public void paintComponents(Graphics graphics){
         int score=this.game.getScore();
         
         graphics.setColor(new Color(0,0,0));

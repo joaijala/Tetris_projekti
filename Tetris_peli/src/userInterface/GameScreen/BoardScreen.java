@@ -41,7 +41,7 @@ public class BoardScreen extends JPanel{
      */
     
     @Override
-    public void paint(Graphics graphics) {
+    public void paintComponents(Graphics graphics) {
         graphics.setColor(new Color(0,0,0));
         graphics.fillRect(15, 15, 210, 410);
         

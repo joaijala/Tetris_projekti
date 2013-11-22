@@ -110,10 +110,11 @@ public class UserInterface extends JFrame implements Runnable{
         
         game=new GameLogic();
         this.gameScreen=game.getGameScreen();
-        setContentPane(gameScreen);
-        setVisible(true);
+        
         ControllListener listener=new ControllListener(gameScreen.game);
         addKeyListener(listener);
+        setContentPane(gameScreen);
+        setVisible(true);
         game.gameLoop();
     }
     /*

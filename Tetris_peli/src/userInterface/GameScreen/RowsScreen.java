@@ -28,7 +28,7 @@ public class RowsScreen extends JPanel {
     }
     
     @Override
-    public void paint(Graphics graphics){
+    public void paintComponents(Graphics graphics){
         int rows=this.game.getClearedRows();
         graphics.setColor(new Color(0,0,0));
         graphics.fillRoundRect(254, 334, 122, 52, 25, 25);

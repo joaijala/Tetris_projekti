@@ -39,7 +39,7 @@ public class FallingTetrominoScreen extends JPanel{
      */
     
     @Override
-    public void paint(Graphics graphics) {
+    public void paintComponents(Graphics graphics) {
         
         Tetromino tetromino = game.getFallingTetromino();
         if(game.getIsTetrominoFalling()){
