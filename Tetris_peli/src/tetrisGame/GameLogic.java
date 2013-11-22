@@ -80,7 +80,9 @@ public class GameLogic {
 
             /*jos peli on pausella pelilooppi odottaa että peli ei ole enää pausella*/
             if (this.isPaused) {
+                gameScreen.repaint();
                 waitUntillNotPaused();
+                gameScreen.repaint();
             }
             /**
              * jos on kulunut tarpeeksi aikaa edellisestä tetrominon

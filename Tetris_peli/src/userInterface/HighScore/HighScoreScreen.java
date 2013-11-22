@@ -9,6 +9,7 @@ package userInterface.HighScore;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
+import userInterface.MenuScreen;
 
 /**
  *
@@ -16,13 +17,15 @@ import javax.swing.JPanel;
  */
 public class HighScoreScreen extends JPanel{
     HighScoreManager highScore;
-    
-    public HighScoreScreen(HighScoreManager manager){
+    MenuScreen menuScreen;
+    public HighScoreScreen(HighScoreManager manager,MenuScreen screen){
         highScore=manager;
+        menuScreen=screen;
+        
     }
     
     @Override
-    public void paint(Graphics graphics){
+    public void paintComponent(Graphics graphics){
         paintBackground(graphics);
     }
     
@@ -34,6 +37,10 @@ public class HighScoreScreen extends JPanel{
                 drawSquare(graphics,x*20,y*20);
             }
         }
+        graphics.setColor(Color.black);
+        graphics.fillRect(15, 15, 210, 410);
+        graphics.setColor(Color.white);
+        graphics.fillRect(20, 20, 200, 400);
         
     }
     private void drawSquare(Graphics graphics, int x, int y) {

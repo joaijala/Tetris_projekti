@@ -93,7 +93,7 @@ public class UserInterface extends JFrame implements Runnable{
     public void createComponent(){
         menuScreen=new MenuScreen(this);
         highScores=new HighScoreManager();
-        highScoreScreen=new HighScoreScreen(highScores);
+        highScoreScreen=new HighScoreScreen(highScores,menuScreen);
     }
     /**
      * 

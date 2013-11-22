@@ -33,7 +33,7 @@ public class GameBackgroundScreen extends JPanel {
     }
     
     @Override
-    public void paint(Graphics graphics){
+    public void paintComponents(Graphics graphics){
         
         double height =480;
         double width =430;

@@ -29,6 +29,7 @@ public class GameScreen extends JPanel {
     private final LevelScreen levelScreen;
     private final RowsScreen rowsScreen;
     private final FallingTetrominoScreen fallingTetromino;
+    PauseScreen pauseScreen;
     
     
     public ControllListener listener;
@@ -42,18 +43,24 @@ public class GameScreen extends JPanel {
         this.levelScreen= new LevelScreen(game);
         this.rowsScreen= new RowsScreen(game);
         this.fallingTetromino=new FallingTetrominoScreen(game);
+        this.pauseScreen=new PauseScreen(game);
         
         
     }
     @Override
     public void paint(Graphics graphics){
-        this.backgroundScreene.paint(graphics);
+        this.backgroundScreene.paintComponents(graphics);
         this.boardScreen.paint(graphics);
         this.nextTetrominoScreen.paint(graphics);
         this.pointScreen.paint(graphics);
         this.levelScreen.paint(graphics);
         this.rowsScreen.paint(graphics);
         this.fallingTetromino.paint(graphics);
+        if(this.game.getIsPaused()){
+            this.pauseScreen=new PauseScreen(game);
+            this.pauseScreen.paintComponents(graphics);
+            
+        }
         
     }
     
