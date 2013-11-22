@@ -1,4 +1,3 @@
-
 package tetrisGame;
 
 import userInterface.GameScreen.GameScreen;
@@ -6,7 +5,8 @@ import userInterface.GameScreen.GameScreen;
 /**
  * Tässä luokassa tapahtuu itse pelilooppi ja koko
  * pelin pyörittäminen.
- * @author Järjestelmänvalvoja 
+ *
+ * @author Järjestelmänvalvoja
  */
 public class GameLogic {
 
@@ -63,7 +63,7 @@ public class GameLogic {
         this.gameScreen = new GameScreen(this);
         this.level = 0;
         this.score = 0;
-        
+
     }
 
     /**
@@ -124,10 +124,8 @@ public class GameLogic {
             }
 
         }
-        
-        delay(2000);
-        
 
+        delay(2000);
 
     }
 
@@ -164,14 +162,15 @@ public class GameLogic {
             this.globalY++;
             this.timeOfLastDrop = getCurrentTimeInMilliseconds();
             gameScreen.repaint();
-        } else {
+        }
+        else {
             this.isTetrominoFalling = false;
             this.board.setTetrominoToBoard(globalX, globalY, this.fallingTetromino);
             takeCareOfFullLines();
             setNewFallingTetromino();
-            
+
         }
-        
+
     }
 
     /**
@@ -189,11 +188,11 @@ public class GameLogic {
             this.board.removeFullLines();
             this.clearedRows += fullLines;
             seIfLevelChange();
-            
+
         }
         addScores(fullLines);
         this.gameScreen.repaint();
-        
+
     }
 
     /**
@@ -207,7 +206,8 @@ public class GameLogic {
     }
 
     /**
-     * Jos levelin vaihdon kriteeri täyttyy, leveli vaihtuu ja dropIntervall pienenee.
+     * Jos levelin vaihdon kriteeri täyttyy, leveli vaihtuu ja dropIntervall
+     * pienenee.
      */
     public void seIfLevelChange() {
         if (this.clearedRows >= (this.level + 1) * 10 && this.level < 11) {
@@ -224,14 +224,14 @@ public class GameLogic {
             if (isMovePossible(this.fallingTetromino, this.globalX + 1, this.globalY)) {
                 this.globalX++;
                 this.isMoved--;
-                
+
             }
         }
         if (this.isMoved < 0) {
             if (isMovePossible(this.fallingTetromino, this.globalX - 1, this.globalY)) {
                 this.globalX--;
                 this.isMoved++;
-                
+
             }
         }
         gameScreen.repaint();
@@ -249,10 +249,10 @@ public class GameLogic {
         }
         for (int i = 0; i < 4; i++) {
 
-            if (((tetromino.getY(i) + origoY) > 19)||((tetromino.getY(i) + origoY) <0)){
+            if (((tetromino.getY(i) + origoY) > 19) || ((tetromino.getY(i) + origoY) < 0)) {
                 return false;
             }
-            else if(((tetromino.getX(i) + origoX) > 9) || ((tetromino.getX(i) + origoX) < 0)){
+            else if (((tetromino.getX(i) + origoX) > 9) || ((tetromino.getX(i) + origoX) < 0)) {
                 return false;
             }
             else if (boardStatus[(tetromino.getY(i) + origoY)][(tetromino.getX(i) + origoX)] != 0) {
@@ -263,10 +263,8 @@ public class GameLogic {
         return isTrue;
     }
 
- 
-
     /**
-     *Hoitaa tetrominon pyörittämisen, jos se on mahdollista.
+     * Hoitaa tetrominon pyörittämisen, jos se on mahdollista.
      */
     public void rotateTetromino() {
 
@@ -276,56 +274,64 @@ public class GameLogic {
                 this.gameScreen.repaint();
                 this.isRotated--;
                 return;
-            } 
+            }
             else if (!manageWallKick()) {
                 this.fallingTetromino.rotateLeft();
             }
             this.isRotated--;
 
-        } else if (this.isRotated < 0) {
+        }
+        else if (this.isRotated < 0) {
             this.fallingTetromino.rotateLeft();
             if (isMovePossible(fallingTetromino, globalX, globalY)) {
                 this.gameScreen.repaint();
                 this.isRotated++;
                 return;
-            } else if (!manageWallKick()) {
+            }
+            else if (!manageWallKick()) {
                 this.fallingTetromino.rotateRight();
             }
-            
+
             this.isRotated++;
 
         }
         this.gameScreen.repaint();
 
     }
-/**
- * Liikuttaa tetromiinon pois esteen vierestä, jos mahdollista, niin että pyörittäminen on mahdollista.
- * 
- * @param amount määrä paljonko siirretään sivulle
- * @return true jos wallKick on mahdollista, muuten false
- */
+
+    /**
+     * Liikuttaa tetromiinon pois esteen vierestä, jos mahdollista, niin että
+     * pyörittäminen on mahdollista.
+     *
+     * @param amount määrä paljonko siirretään sivulle
+     * @return true jos wallKick on mahdollista, muuten false
+     */
     private boolean doWallKick(int amount) {
         /*try wallKick right*/
         if (tryWallKick(amount)) {
             this.globalX += amount;
             return true;
 
-        } /*try wallKick left*/ 
+        } /*try wallKick left*/
+
         else if (tryWallKick(-amount)) {
             this.globalX -= amount;
             return true;
         }
         return false;
     }
-/**
- * Ohjaa doWallKickiä.
- * @return true jos onnistuu, muuten false
- */
+
+    /**
+     * Ohjaa doWallKickiä.
+     *
+     * @return true jos onnistuu, muuten false
+     */
     private boolean manageWallKick() {
 
         if (doWallKick(1)) {
             return true;
-        } else if (this.fallingTetromino.getShape().ordinal() == 3 && doWallKick(2)) {
+        }
+        else if (this.fallingTetromino.getShape().ordinal() == 3 && doWallKick(2)) {
             return true;
         }
         return false;
@@ -352,13 +358,15 @@ public class GameLogic {
             delay(10);
         }
     }
+
     /**
      * Hoitaa pelissä tapahtuvat tauot
+     *
      * @param delay tauon kesto millisekunneissa
      */
-    private void delay(int delay){
-        double time=getCurrentTimeInMilliseconds();
-        while(getCurrentTimeInMilliseconds()<time+delay){
+    private void delay(int delay) {
+        double time = getCurrentTimeInMilliseconds();
+        while (getCurrentTimeInMilliseconds() < time + delay) {
             //wait;
         }
     }
@@ -422,7 +430,7 @@ public class GameLogic {
     }
 
     /**
-     * 
+     *
      *
      * @return isTetrominoFalling
      */
@@ -431,7 +439,7 @@ public class GameLogic {
     }
 
     /**
-     * 
+     *
      *
      * @return dropDown
      */
@@ -440,7 +448,7 @@ public class GameLogic {
     }
 
     /**
-     * 
+     *
      *
      * @return gameScreen
      */
@@ -489,7 +497,7 @@ public class GameLogic {
     }
 
     /**
-     * 
+     *
      *
      * @return clearedRows
      */

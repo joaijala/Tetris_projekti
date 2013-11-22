@@ -5,70 +5,29 @@ import java.util.Random;
 /**
  * Tämä luokka hoitaa tippuvien tetromiinojen toteutuksen ja
  * pitää huolen tetromiinon palikoiden sisäisten palikoiden kordinaatistoista
- * @author joaijala 
+ * @author Josse
  */
 public class Tetromino {
 
     /**
-     * Eunumi, joka sisältää kaikki tetrominojen maholliset muodot
+     * Eunumi, joka sisältää kaikki tetrominojen maholliset muodot.
      */
-    public enum Shape {
-
-        /**
-         *
-         */
-        Emp,
-        Empty,
-        /**
-         *
-         */
-        ZSh,
-        ZShape,
-        /**
-         *
-         */
-        SSh,
-        SShape,
-        /**
-         *
-         */
-        ISh,
-        IShape,
-        /**
-         *
-         */
-        TSh,
-        TShape,
-        /**
-         *
-         */
-        OSh,
-        OShape,
-        /**
-         *
-         */
-        LSh
-        LShape,
-        /**
-         *
-         */
-        JSh,
-        JShape
+    public enum Shape {Empty,ZShape,SShape,IShape,TShape,OShape,LShape,JShape
     }
 
     /**
-     * Tetromiinon muoto (Shape)
+     * Tetromiinon muoto (Shape).
      */
     private Shape tetrominoShape;
     /**
      * sisältää tetromiinon sisäiset kordinaatit oman origon suhteen (esim
-     * pyörittäessä)
+     * pyörittäessä).
      */
     private int[][] tetrominoCords;
 
     /**
      * Taulukko jossa on kaikkien tetrominon palojen alkukordinaatit sisäisen
-     * origon suteen
+     * origon suteen.
      */
     private final int[][][] cordinateTable = new int[][][]{
         {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
@@ -82,7 +41,7 @@ public class Tetromino {
     };
 
     /**
-     * Konstruktori, joka luo uuden tyhjän tetrominon
+     * Konstruktori, joka luo uuden tyhjän tetrominon.
      */
     public Tetromino() {
 
@@ -93,8 +52,8 @@ public class Tetromino {
 
     /**
      * Konstruktori, joka luo uuden tetrominon, jonka muoto on annettu
-     * parametrina (shape)
-     * @param shape -uuden tetromiinon muoto
+     * parametrina (shape).
+     * @param shape uuden tetromiinon muoto
      */
     public Tetromino(Shape shape) {
         this.tetrominoCords = new int[4][2];
@@ -103,8 +62,8 @@ public class Tetromino {
 
     /**
      * Konstruktori, joka luo uuden tetrominon, jonka muoto on annettu shape
-     * eunumin valuena
-     * @param shape -uuden tetrominon muoto
+     * eunumin valuena.
+     * @param shape uuden tetrominon muoto
      */
     public Tetromino(int shape) {
         if (shape > 7 || shape < 0) {
@@ -116,8 +75,8 @@ public class Tetromino {
     }
 
     /**
-     * Asettaa tetrominolle palojen kordinaatit sen muodon mukaan
-     * @param shape -tetrominon muoto
+     * Asettaa tetrominolle palojen kordinaatit sen muodon mukaan.
+     * @param shape tetrominon muoto
      */
     private void setTetrominoCords(Shape shape) {
 
@@ -130,7 +89,7 @@ public class Tetromino {
     }
 
     /**
-     * Muuttaa tetrominon muotoa satunnaiseksi ei Empty muodoksi
+     * Muuttaa tetrominon muotoa satunnaiseksi ei Empty muodoksi.
      */
     public void setRandomShape() {
         Random random = new Random();
@@ -140,10 +99,10 @@ public class Tetromino {
     }
 
     /**
-     * asettaa tetrominolle halutun muodon tarvitaan kun laitetaan uudeksi
-     * tippuvaksi tetromiinoksi vanha seuraavaTetromino
+     * Asettaa tetrominolle halutun muodon. Tarvitaan kun laitetaan uudeksi
+     * tippuvaksi tetromiinoksi vanha seuraavaTetromino.
      *
-     * @param shape -uusi tetrominon muoto
+     * @param shape uusi tetrominon muoto
      */
     public void setShape(Shape shape) {
         
@@ -151,9 +110,9 @@ public class Tetromino {
     }
 
     /**
-     * Palauttaa tetrominon osan x kordinaatin
+     * Palauttaa tetrominon osan x kordinaatin.
      *
-     * @param index -monesko tetromiinon palikoist on kyseessä
+     * @param index monesko tetromiinon palikoist on kyseessä
      * @return palauttaa halutun tetromiinopalan sisäisen kordinaatiston x arvon
      */
     public int getX(int index) {
@@ -161,9 +120,9 @@ public class Tetromino {
     }
 
     /**
-     * Palauttaa tetrominon osan y kordinaatin
+     * Palauttaa tetrominon osan y kordinaatin.
      *
-     * @param index -monesko tetromiinon palikoist on kyseessä
+     * @param index monesko tetromiinon palikoist on kyseessä
      * @return palauttaa halutun tetromiinopalan sisäisen kordinaatiston y arvon
      */
     public int getY(int index) {
@@ -171,7 +130,7 @@ public class Tetromino {
     }
 
     /**
-     * Palauttaa tetrominon muodon
+     * Palauttaa tetrominon muodon.
      *
      * @return this.tetrominoShape
      */
@@ -180,14 +139,14 @@ public class Tetromino {
     }
 
     /**
-     * Asettaa tetrominontietyn palan x arvoksi halutun
+     * Asettaa tetrominontietyn palan x arvoksi halutun.
      */
     private void setX(int index, int x) {
         this.tetrominoCords[index][0] = x;
     }
 
     /**
-     * Asettaa tetrominon tietyn palan y arvoksi halutun
+     * Asettaa tetrominon tietyn palan y arvoksi halutun.
      */
     private void setY(int index, int y) {
         this.tetrominoCords[index][1] = y;
@@ -195,7 +154,7 @@ public class Tetromino {
 
     /**
      * Pyörittää tetrominoa vasemmalle (myötäpäivään) sen sisäisten
-     * kordinaatiston suhteen
+     * kordinaatiston suhteen.
      */
     public void rotateLeft() {
         if (this.tetrominoShape == Shape.OShape) {
@@ -213,7 +172,7 @@ public class Tetromino {
 
     /**
      * Pyörittää tetrominoa oikealle (vastpäivään) sen sisäisen kordinaatiston
-     * suhteen
+     * suhteen.
      */
     public void rotateRight() {
         if (this.tetrominoShape == Shape.OShape) {
