@@ -42,8 +42,7 @@ public class GameBackgroundScreen extends JPanel {
                 drawSquare(graphics,x*20,y*20);
             }
         }
-        graphics.setColor(new Color(0,0,0));
-        graphics.fillRect(15, 15, 210, 410);
+        
     }
     
     private void drawSquare(Graphics graphics, int x, int y) {

@@ -42,7 +42,8 @@ public class BoardScreen extends JPanel{
     
     @Override
     public void paint(Graphics graphics) {
-        
+        graphics.setColor(new Color(0,0,0));
+        graphics.fillRect(15, 15, 210, 410);
         
         Tetromino tetromino = game.getFallingTetromino();
         int[][] boardStatus = game.getBoard().getBoardStatus();

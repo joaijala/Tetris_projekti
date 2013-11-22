@@ -21,8 +21,8 @@ public class Main {
      */
     
     public static void main(String[] args) {
-        /*UserInterface UI =new UserInterface();
-        UI.run();*/
+        UserInterface UI =new UserInterface();
+        UI.run();/*
         HighScoreManager hm = new HighScoreManager();
         hm.addScore("Bart",240);
         hm.addScore("Marge",300);
@@ -30,7 +30,7 @@ public class Main {
         hm.addScore("Homer",100);
         hm.addScore("Lisa",270);
 
-        System.out.print(hm.getHighscoreString());
+       System.out.print(hm.getHighscoreString());*/
 
              
     }

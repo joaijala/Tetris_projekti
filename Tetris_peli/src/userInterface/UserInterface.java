@@ -15,6 +15,8 @@ import java.awt.Container;
 import java.awt.Font;
 import javax.swing.JComponent;
 import tetrisGame.ControllListener;
+import userInterface.HighScore.HighScoreManager;
+import userInterface.HighScore.HighScoreScreen;
 
 /**
  * Käyttöliittymän perusta, joka hoitaa ohjelman pyörittämisen
@@ -27,9 +29,12 @@ public class UserInterface extends JFrame implements Runnable{
     public Container container;
     private MenuScreen menuScreen;
     private boolean GameOn=false;
-    private boolean isProgramOn=true;
+    private boolean showHighscore=false;
+    private HighScoreManager highScores;
+    private HighScoreScreen highScoreScreen;
     
     public UserInterface(){
+        
          setTitle("Tetris");
          setPreferredSize(new Dimension(430,480));
          setResizable(false);
@@ -43,17 +48,22 @@ public class UserInterface extends JFrame implements Runnable{
          
          
          
+         
     }
     /**
      * tässä on toteutettu ohjelmalooppi
      */
     @Override
     public void run(){
-        while(isProgramOn){
+        while(true){
             if(GameOn){
                 startGame();
                 GameOn=false;
                 setContentPane(menuScreen);
+                setVisible(true);
+            }
+            if(showHighscore){
+                setContentPane(highScoreScreen);
                 setVisible(true);
             }
             delay(10);
@@ -82,7 +92,8 @@ public class UserInterface extends JFrame implements Runnable{
     
     public void createComponent(){
         menuScreen=new MenuScreen(this);
-        
+        highScores=new HighScoreManager();
+        highScoreScreen=new HighScoreScreen(highScores);
     }
     /**
      * 
@@ -110,6 +121,9 @@ public class UserInterface extends JFrame implements Runnable{
      */
     public void setGameOn(){
         this.GameOn=true;
+    }
+    public void setShowHighscore(boolean status){
+        this.showHighscore=status;
     }
     
 }
