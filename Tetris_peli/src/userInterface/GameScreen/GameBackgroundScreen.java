@@ -6,7 +6,6 @@
 package userInterface.GameScreen;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import tetrisGame.GameLogic;
@@ -14,10 +13,13 @@ import tetrisGame.GameLogic;
 
 /**
  * Tämä luokka hoitaa peliruudun taustan piirtämisen.
- * @author Johanna
+ * @author Josse
  */
 public class GameBackgroundScreen extends JPanel {
         GameLogic game;
+        /**
+         * Sisältää tiedon eri pelin leveleiden taustan väreistä.
+         */
         private final Color colors[] = {new Color(149, 218, 225),new Color(124, 255,121),
                           new Color(194, 149,255),new Color(119, 170,255),
                           new Color(149, 213,103),new Color(220, 219,111),
@@ -27,42 +29,50 @@ public class GameBackgroundScreen extends JPanel {
                           
         };
     
+    /**
+     *
+     * @param game
+     */
     public GameBackgroundScreen(GameLogic game){
         this.game=game;
         
     }
     
+    /**
+     * Piitää pelilaudan taustan.
+     * @param graphics
+     */
     @Override
     public void paintComponents(Graphics graphics){
         
-        double height =480;
-        double width =430;
-        for(int x=0;x<(width/20);x++){
-            for(int y=0; y<(height/20);y++){
-                drawSquare(graphics,x*20,y*20);
+        double screenHeight =480;
+        double screenWidth =430;
+        int squareSize=20;
+        for(int x=0;x<(screenWidth/squareSize);x++){
+            for(int y=0; y<(screenHeight/squareSize);y++){
+                drawSquare(graphics,x*squareSize,y*squareSize);
             }
         }
         
     }
-    
+    /**
+     * Piirtää yhden pelilaudan taustan ruuduista.
+     *
+     * @param graphics
+     * @param x ruudun ylä vasemman kulman x kordinaatti
+     * @param y ruudun ylä vasemman kulman y kordinaatto
+     */
     private void drawSquare(Graphics graphics, int x, int y) {
         
         graphics.setColor(colors[game.getLevel()]);
-        graphics.fillRect(x + 1, y , 20 - 1, 20 - 1);
+        graphics.fillRect(x + 1, y , 19, 19);
         
         graphics.setColor(colors[game.getLevel()].brighter());
         graphics.drawLine(x, y, x+19, y);
-        //graphics.drawLine(x+1, y+1, x+18, y+1);
         graphics.drawLine(x+19, y, x+19, y+19);
-        //graphics.drawLine(x+18, y+1, x+18, y+18);
 
         graphics.setColor(colors[game.getLevel()].darker());
         graphics.drawLine(x + 1, y + 19, x + 19, y + 19);
-        //graphics.drawLine(x + 2, y + 18, x + 18, y + 18);
         graphics.drawLine(x, y + 19, x, y + 1);
-        //graphics.drawLine(x + 1, y + 18, x + 1, y + 2);
-        
-       
-
     }
 }

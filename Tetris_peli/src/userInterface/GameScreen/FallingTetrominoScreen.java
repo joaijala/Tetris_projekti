@@ -14,20 +14,24 @@ import tetrisGame.Tetromino;
 
 /**
  * Tämä luokka hoitaa tippuvan tetrominon piirtämisen pelilaaudalle
- * @author Johanna
+ * @author Josse
  */
 public class FallingTetrominoScreen extends JPanel{
-    
-    
-    
-    public GameLogic game;
+
+    private final GameLogic game;
+    /**
+     * Sisältää tiedon eri tetrominojen väristä.
+     */
     private final Color colors[] = {new Color(255, 255, 255), new Color(240, 0, 0),
                           new Color(0, 240,0), new Color(0, 240, 240),
                           new Color(160, 0, 240), new Color(240, 240, 0),
                           new Color(240, 160, 0), new Color(0, 0, 240)
         };
-    
 
+    /**
+     * 
+     * @param game
+     */
     public FallingTetrominoScreen(GameLogic game) {
         this.game=game;
 
@@ -40,14 +44,14 @@ public class FallingTetrominoScreen extends JPanel{
     
     @Override
     public void paintComponents(Graphics graphics) {
-        
+        int squareSize=20;
         Tetromino tetromino = game.getFallingTetromino();
         if(game.getIsTetrominoFalling()){
             for (int i = 0; i < 4; ++i) {
             int x = game.getGlobalX() + tetromino.getX(i);
             int y = game.getGlobalY() + tetromino.getY(i);
-            drawSquare(graphics,20+x * 20,
-                     20+y * 20,
+            drawSquare(graphics,20+x * squareSize,
+                     20+y * squareSize,
                     tetromino.getShape().ordinal());
 
         }
@@ -55,11 +59,12 @@ public class FallingTetrominoScreen extends JPanel{
         
     }
     /**
-     * Piirtää yhsen tetromino ruudun sille annetulle kohdalle
+     * Piirtää yhden tetromino ruudun sille annetulle kohdalle
+     *
      * @param graphics
-     * @param x
-     * @param y
-     * @param shape 
+     * @param x ruudun ylävasemman kulman x kordinaatti.
+     * @param y ruudun ylävasemman kulman y kordinaatti.
+     * @param shape minkä tetrominon shape ruudussa on.
      */
     private void drawSquare(Graphics graphics, int x, int y, int shape) {
         Color color = colors[shape];

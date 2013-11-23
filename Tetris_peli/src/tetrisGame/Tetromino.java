@@ -5,6 +5,7 @@ import java.util.Random;
 /**
  * Tämä luokka hoitaa tippuvien tetromiinojen toteutuksen ja
  * pitää huolen tetromiinon palikoiden sisäisten palikoiden kordinaatistoista
+ *
  * @author Josse
  */
 public class Tetromino {
@@ -12,7 +13,9 @@ public class Tetromino {
     /**
      * Eunumi, joka sisältää kaikki tetrominojen maholliset muodot.
      */
-    public enum Shape {Empty,ZShape,SShape,IShape,TShape,OShape,LShape,JShape
+    public enum Shape {
+
+        Empty, ZShape, SShape, IShape, TShape, OShape, LShape, JShape
     }
 
     /**
@@ -53,6 +56,7 @@ public class Tetromino {
     /**
      * Konstruktori, joka luo uuden tetrominon, jonka muoto on annettu
      * parametrina (shape).
+     *
      * @param shape uuden tetromiinon muoto
      */
     public Tetromino(Shape shape) {
@@ -63,6 +67,7 @@ public class Tetromino {
     /**
      * Konstruktori, joka luo uuden tetrominon, jonka muoto on annettu shape
      * eunumin valuena.
+     *
      * @param shape uuden tetrominon muoto
      */
     public Tetromino(int shape) {
@@ -76,6 +81,7 @@ public class Tetromino {
 
     /**
      * Asettaa tetrominolle palojen kordinaatit sen muodon mukaan.
+     *
      * @param shape tetrominon muoto
      */
     private void setTetrominoCords(Shape shape) {
@@ -105,7 +111,7 @@ public class Tetromino {
      * @param shape uusi tetrominon muoto
      */
     public void setShape(Shape shape) {
-        
+
         setTetrominoCords(shape);
     }
 

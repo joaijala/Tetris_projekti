@@ -3,37 +3,55 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package userInterface.HighScore;
 
 import java.io.Serializable;
 
 /**
+ * Score on luokka, joka sisältää pisteet ja pisteen temijän nimen.
  *
- * @author Johanna
+ * @author Josse
  */
-public class Score implements  Serializable,Comparable<Score>{ 
-    
+public class Score implements Serializable, Comparable<Score> {
+
     private final int score;
     private final String name;
-    
-    public Score(int score,String name){
-        this.score=score;
-        this.name=name;
+
+    /**
+     *
+     * @param score pelaajan pisteet
+     * @param name pelaajan nimi
+     */
+    public Score(int score, String name) {
+        this.score = score;
+        this.name = name;
     }
-    
-    
-    public int getScore(){
+
+    /**
+     *
+     * @return score
+     */
+    public int getScore() {
         return score;
     }
-    
-    public String getName(){
+
+    /**
+     *
+     * @return name
+     */
+    public String getName() {
         return name;
     }
 
+    /**
+     * Vertailee annettua pistettä tämän pisteen kanssa.
+     *
+     * @param score1 score johon verrataan
+     * @return 
+     */
     @Override
-    public int compareTo(Score score1) {              
-        return ((Integer)(score1.getScore())).compareTo(getScore());
+    public int compareTo(Score score1) {
+        return ((Integer) (score1.getScore())).compareTo(getScore());
     }
-    
+
 }

@@ -13,11 +13,15 @@ import tetrisGame.GameLogic;
 import tetrisGame.Tetromino;
 
 /**
- *  Tämä luokka piirtää pelikenttään ruudun, jossa seuraava tetromiino näkyy
- * @author Johanna
+ * Tämä luokka piirtää pelikenttään ruudun, jossa seuraava tetromiino näkyy.
+ *
+ * @author Josse
  */
 public class NextTetrominoScreen extends JPanel {
 
+    /**
+     * Sisältää tiedon tetrominon väreistä.
+     */
     private final Color colors[] = {new Color(255, 255, 255), new Color(240, 0, 0),
                                     new Color(0, 240, 0), new Color(0, 240, 240),
                                     new Color(160, 0, 240), new Color(240, 240, 0),
@@ -28,13 +32,15 @@ public class NextTetrominoScreen extends JPanel {
     public NextTetrominoScreen(GameLogic game) {
         this.game = game;
     }
+
     /**
-     * piirtää ruudun jossa näkyy seuraava tetromiino keskellä ruutua
-     * @param graphics 
+     * Piirtää ruudun jossa näkyy seuraava tetromiino keskellä ruutua
+     *
+     * @param graphics
      */
     @Override
     public void paintComponents(Graphics graphics) {
-        graphics.setColor(new Color(0,0,0));
+        graphics.setColor(new Color(0, 0, 0));
         graphics.fillRoundRect(254, 39, 122, 122, 25, 25);
         graphics.setColor(new Color(255, 255, 255));
         graphics.fillRoundRect(255, 40, 120, 120, 25, 25);
@@ -44,28 +50,36 @@ public class NextTetrominoScreen extends JPanel {
         for (int i = 0; i < 4; ++i) {
             int x = tetromino.getX(i);
             int y = tetromino.getY(i);
-            if (tetromino.getShape().ordinal() == 4||tetromino.getShape().ordinal() == 3) {
+            if (tetromino.getShape().ordinal() == 4 || tetromino.getShape().ordinal() == 3) {
                 drawSquare(graphics, 305 + x * 20,
                         80 + y * 20,
                         tetromino.getShape().ordinal());
             }
-            else if(tetromino.getShape().ordinal() == 5){
-               drawSquare(graphics, 295 + x * 20,
-                        80+ y * 20,
+            else if (tetromino.getShape().ordinal() == 5) {
+                drawSquare(graphics, 295 + x * 20,
+                        80 + y * 20,
                         tetromino.getShape().ordinal());
-            
+
             }
             else {
                 drawSquare(graphics, 295 + x * 20,
                         90 + y * 20,
                         tetromino.getShape().ordinal());
             }
-            graphics.setFont(new Font ("Arial",1,15));
-            graphics.drawString("Next Tetromino", 262, 58 );
-            
+            graphics.setFont(new Font("Arial", 1, 15));
+            graphics.drawString("Next Tetromino", 262, 58);
+
         }
     }
 
+    /**
+     * Piirtää yhden tetromino ruudun sille annetulle kohdalle
+     *
+     * @param graphics
+     * @param x ruudun ylävasemman kulman x kordinaatti.
+     * @param y ruudun ylävasemman kulman y kordinaatti.
+     * @param shape minkä tetrominon shape ruudussa on.
+     */
     private void drawSquare(Graphics graphics, int x, int y, int shape) {
         Color color = colors[shape];
 

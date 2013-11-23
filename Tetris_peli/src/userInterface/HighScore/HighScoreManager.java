@@ -7,30 +7,36 @@ package userInterface.HighScore;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Koodikatselmoijalle, tämä on täysin työn alla joten se on hiukan sekasin
+ * Tämä luokka hallitsee highscorea.
  *
- * @author Johanna
+ * @author Josse
  */
 public class HighScoreManager {
 
+    /**
+     * ArrayLista, joka sisältää pelin high scoret.
+     */
     private ArrayList<Score> scores;
+    /**
+     * Tiedosto, mihin pisteet tallennetaan.
+     */
     private static final String HIGHSCORE_FILE = "scores.dat";
+    private ObjectOutputStream outputStream = null;
+    private ObjectInputStream inputStream = null;
 
-    ObjectOutputStream outputStream = null;
-    ObjectInputStream inputStream = null;
-
+    /**
+     * Luo scores arrayListin ja lataa siihen Highscoretiedoston sisällön.
+     */
     public HighScoreManager() {
 
         scores = new ArrayList<Score>(10);
@@ -42,30 +48,20 @@ public class HighScoreManager {
         }
     }
 
+    /**
+     * Järjestää scores listan.
+     */
     private void sort() {
         Collections.sort(scores);
 
     }
 
-    public int getSmallestScore() {
-        if(scores.size()<10){
-            return 0;
-        }
-        else{
-            return scores.get(9).getScore();
-        }
-    }
-
-    public ArrayList<Score> getScores() {
-        return scores;
-    }
-    public Score getScore(int i){
-        if(scores.size()<i-1){
-            return null;
-        }
-        return scores.get(i);
-    }
-
+    /**
+     * Lisää uuden scoren scores taulukkoon.
+     *
+     * @param name scoren nimi
+     * @param score scoren pistemäärä
+     */
     public void addScore(String name, int score) {
         if (scores.size() > 9) {
             scores.remove(9);
@@ -80,7 +76,11 @@ public class HighScoreManager {
         }
 
     }
-    public void clearScores(){
+
+    /**
+     * Tyhjentää scores taulukon ja tiedoston.
+     */
+    public void clearScores() {
         scores.removeAll(scores);
         try {
             updateScoreFile();
@@ -90,6 +90,11 @@ public class HighScoreManager {
         }
     }
 
+    /**
+     * Lataa pisteet tiedostosta.
+     *
+     * @throws IOException
+     */
     public void loadScoreFile() throws IOException {
         File file = new File(HIGHSCORE_FILE);
         if (!file.isFile()) {
@@ -114,6 +119,11 @@ public class HighScoreManager {
         }
     }
 
+    /**
+     * Kirjoittaa pisteet tiedostoon.
+     *
+     * @throws IOException
+     */
     public void updateScoreFile() throws IOException {
         File file = new File(HIGHSCORE_FILE);
         if (!file.isFile() && !file.createNewFile()) {
@@ -139,12 +149,16 @@ public class HighScoreManager {
         }
     }
 
-    public String getHighscoreString() {
+    /**
+     * Palauttaa kaikki highScoret yhtenä stringinä
+     *
+     * @return sores taulukon string esitys.
+     */
+    @Override
+    public String toString() {
         String highscoreString = "";
-
         ArrayList<Score> printedScores;
         printedScores = getScores();
-
         int i = 0;
         int x = printedScores.size();
 
@@ -153,6 +167,43 @@ public class HighScoreManager {
             i++;
         }
         return highscoreString;
+    }
+
+    /**
+     * Palauttaa highsscoren pienimmän pisteen. Jos highscoressa ei ole 10
+     * scorea palautetaan 0.
+     *
+     * @return Pienin piste.
+     */
+    public int getSmallestScore() {
+        if (scores.size() < 10) {
+            return 0;
+        }
+        else {
+            return scores.get(9).getScore();
+        }
+    }
+
+    /**
+     * Palauttaa scores listan.
+     *
+     * @return scores
+     */
+    public ArrayList<Score> getScores() {
+        return scores;
+    }
+
+    /**
+     * Palauttaa tietyllä sijalla ollut score.
+     *
+     * @param i monesko listan pisteistä palautetaan.
+     * @return halutun rivin score
+     */
+    public Score getScore(int i) {
+        if (scores.size() < i - 1) {
+            return null;
+        }
+        return scores.get(i);
     }
 
 }

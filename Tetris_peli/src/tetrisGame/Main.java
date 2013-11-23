@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package tetrisGame;
 
 /**
@@ -14,30 +13,25 @@ import tetrisGame.Tetromino.Shape;
 import userInterface.GameScreen.GameScreen;
 import userInterface.HighScore.HighScoreManager;
 import userInterface.UserInterface;
+
 public class Main {
-  
+
     /**
      * @param args the command line arguments
      */
-    
     public static void main(String[] args) {
-        UserInterface UI =new UserInterface();
+        UserInterface UI = new UserInterface();
         UI.run();/*
-        HighScoreManager hm = new HighScoreManager();
-        hm.addScore("Bart",100000);
-        hm.addScore("Marge",300);
-        hm.addScore("Maggie",220);
-        hm.addScore("Homer",100);
-        hm.addScore("Lisa",270);
+         HighScoreManager hm = new HighScoreManager();
+         hm.addScore("Bart",100000);
+         hm.addScore("Marge",300);
+         hm.addScore("Maggie",220);
+         hm.addScore("Homer",100);
+         hm.addScore("Lisa",270);
 
-       System.out.print(hm.getHighscoreString());*/
+         System.out.print(hm.getHighscoreString());*/
 
-             
+
     }
-        
-        
-        
 
 }
-    
-

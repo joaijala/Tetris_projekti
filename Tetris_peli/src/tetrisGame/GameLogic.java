@@ -6,21 +6,54 @@ import userInterface.GameScreen.GameScreen;
  * Tässä luokassa tapahtuu itse pelilooppi ja koko
  * pelin pyörittäminen.
  *
- * @author Järjestelmänvalvoja
+ * @author Josse
  */
 public class GameLogic {
 
+    /**
+     * Lista sisältää miten paljo pisteitä tulee mistäkin tyhjennetystä
+     * rivimäärästä.
+     */
     private final int[] scoresFromRow = {0, 40, 100, 300, 1200};
     private static final double NANOSEC_TO_MILLISEC = 0.000001;
+    /**
+     * Tippuvan tetrominon origon x kordinaatti.
+     */
     private int globalX;
+    /**
+     * Tippuvan tetrominon origon y kordinaatti.
+     */
     private int globalY;
+    /**
+     * Tetromino, joka on tippumassa pelikentällä.
+     */
     private final Tetromino fallingTetromino;
+    /**
+     * Seuraavaksi tippuva tetromino.
+     */
     private final Tetromino nextTetromino;
+    /**
+     * Pelin pelilaut.
+     */
     private final Board board;
+    /**
+     * Sisältää tiedon onko peli pausella. On true jos peli on pausella.
+     */
     private boolean isPaused = false;
+    /**
+     * Sisältää tiedon onko tetromino juuri tippumassa.
+     */
     private boolean isTetrominoFalling = false;
+    /**
+     * Sisältää tiedon, onko pelilooppi käynnissä. Se on false ennen pelin
+     * alkua,tai jos peli on päättynyt.
+     */
     private boolean isGameRunning = false;
-    private boolean endGame=false;
+    /**
+     * Sisältää tiedon, jos pelaaja on lopettanut pelin painamalla main menu
+     * nappia.
+     */
+    private boolean endGame = false;
     /**
      * Pitää kirjaa onko pelaaja liikuttanut palikkaa. Se on positiivinen jos
      * liikutettu oikealle, negatiivinen jos vasemmalle ja 0 ei ole liikutettu.
@@ -44,13 +77,30 @@ public class GameLogic {
      *
      */
     private boolean dropDown;
+    /**
+     * Tyhjennettyjen rivien määrä.
+     */
     private int clearedRows;
+    /**
+     * Nopeus, jolla tetromiinot tippuvat alaspäin.
+     */
     private double dropIntervall;
+    /**
+     * Pelin leveli. Alkaa nollasta korkein level on 11
+     */
     private int level;
+    /**
+     * Pelaajan pisteet tässä pelissä.
+     */
     private int score;
+    /**
+     * Sisältää ajan, jolloin tetromino tippui viimeksi yhden askelman alaspäin.
+     */
     private double timeOfLastDrop;
+    /**
+     * Pelin käyttämä peliruutu.
+     */
     private final GameScreen gameScreen;
-    private ControllListener contollistener;
 
     /**
      * construktori alustaa uuden tyhjän pelin.
@@ -69,8 +119,11 @@ public class GameLogic {
 
     /**
      * gameloop pyöeittää itse pelin pelilooppia.
+     *
+     * @return pelin pisteet
      */
     public int gameLoop() {
+        this.isGameRunning = true;
         this.gameScreen.repaint();
         delay(2000);
         this.isGameRunning = true;
@@ -127,10 +180,11 @@ public class GameLogic {
             }
 
         }
-        //jos peli lopetetaan paianmmalla main menu pause ruudussa pisteet häviää
-        if(endGame){
+        /*jos peli lopetetaan paianmmalla main menu pause ruudussa pisteet häviää*/
+        if (endGame) {
             return 0;
         }
+        /*Pelin loputtua peli viipyy hetken, jotta pelaaja ehtii nähdä, että kuoli*/
         delay(2000);
         return score;
     }
@@ -560,9 +614,13 @@ public class GameLogic {
     public synchronized void setDropDownTrue() {
         this.dropDown = true;
     }
-    public void setEndGame(boolean status){
-        this.isGameRunning=false;
-        this.endGame=true;
-        
+
+    /**
+     * Jos peli halutaan keskeyttää kesken suorituksen kutsutaan tätä.
+     */
+    public void setEndGame() {
+        this.isGameRunning = false;
+        this.endGame = true;
+
     }
 }
