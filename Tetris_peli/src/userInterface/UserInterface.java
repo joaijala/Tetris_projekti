@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import tetrisGame.GameLogic;
-import java.awt.Container;
 import tetrisGame.ControllListener;
 import userInterface.HighScore.HighScoreManager;
 import userInterface.HighScore.HighScoreScreen;
@@ -28,7 +27,11 @@ public final class UserInterface extends JFrame implements Runnable {
      */
     private GameScreen gameScreen;
     private GameLogic game;
+    private newHighScoreScreen newScoreScreen;
     private MenuScreen menuScreen;
+    private HighScoreManager highScores;
+    private HighScoreScreen highScoreScreen;
+    private HelpScreen helpScreen;
     /**
      * Jos tämä on true käynnistyy uusi peli.
      */
@@ -43,14 +46,15 @@ public final class UserInterface extends JFrame implements Runnable {
      * tulee näkyviin.
      */
     private boolean newHighScore = false;
-    private HighScoreManager highScores;
-    private HighScoreScreen highScoreScreen;
+    /**
+     * Jos tämä on true näytetään help screen.
+     */
+    private boolean showHelpScreen=false;
+    
     /**
      * edellisestä pelistä saadut pisteet. Kertoo tuleeko uusi high score.
      */
     private int score = 0;
-
-    private newHighScoreScreen newScoreScreen;
 
     /**
      * Luo uuden UserInterfacen ja kaikki tarvittavat komponentit, sekä laittaa
@@ -67,6 +71,7 @@ public final class UserInterface extends JFrame implements Runnable {
         pack();
         setVisible(true);
         setFocusable(true);
+        
 
     }
 
@@ -77,6 +82,7 @@ public final class UserInterface extends JFrame implements Runnable {
     public void run() {
         while (true) {
             if (startNewGame) {
+                
                 startGame();
             }
             if (newHighScore) {
@@ -84,6 +90,9 @@ public final class UserInterface extends JFrame implements Runnable {
             }
             if (showHighscore) {
                 manageShowHighScore();
+            }
+            if(showHelpScreen){
+                manageHelpScreen();
             }
             delay(10);
         }
@@ -96,9 +105,23 @@ public final class UserInterface extends JFrame implements Runnable {
         menuScreen = new MenuScreen(this);
         highScores = new HighScoreManager();
         highScoreScreen = new HighScoreScreen(highScores, this);
-
+        
+        
     }
 
+    /**
+     * Kun pelaaja on help screenissä tämä hallinnoi mitä ruutua näytretään.
+     */
+    public void manageHelpScreen(){
+        this.helpScreen=new HelpScreen(this);
+        setContentPane(this.helpScreen);
+        setVisible(true);
+        while (showHelpScreen) {
+            delay(10);
+        }
+        setContentPane(menuScreen);
+        setVisible(true);
+    }
     /**
      * Kun pelaaja saa uuden high scoren tämä hallinnoi mitä ruutua näytetään.
      */
@@ -109,6 +132,7 @@ public final class UserInterface extends JFrame implements Runnable {
         while (newHighScore) {
             delay(10);
         }
+        
     }
 
     /**
@@ -191,6 +215,14 @@ public final class UserInterface extends JFrame implements Runnable {
      */
     public void setStartnewGame() {
         this.startNewGame = true;
+    }
+    
+    /**
+     * Muttaa setShorHelpScreen arvon.
+     * @param status haluttu arvo
+     */
+    public void setShowHelpScreen(boolean status){
+        this.showHelpScreen=status;
     }
 
     /**

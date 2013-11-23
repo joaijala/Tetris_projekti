@@ -9,9 +9,6 @@ package tetrisGame;
  *
  * @author Johanna
  */
-import tetrisGame.Tetromino.Shape;
-import userInterface.GameScreen.GameScreen;
-import userInterface.HighScore.HighScoreManager;
 import userInterface.UserInterface;
 
 public class Main {
@@ -21,15 +18,7 @@ public class Main {
      */
     public static void main(String[] args) {
         UserInterface UI = new UserInterface();
-        UI.run();/*
-         HighScoreManager hm = new HighScoreManager();
-         hm.addScore("Bart",100000);
-         hm.addScore("Marge",300);
-         hm.addScore("Maggie",220);
-         hm.addScore("Homer",100);
-         hm.addScore("Lisa",270);
-
-         System.out.print(hm.getHighscoreString());*/
+        UI.run();
 
 
     }

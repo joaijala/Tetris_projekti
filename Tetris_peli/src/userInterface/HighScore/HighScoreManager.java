@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author Josse
  */
-public class HighScoreManager {
+public final class HighScoreManager {
 
     /**
      * ArrayLista, joka sisältää pelin high scoret.
@@ -39,7 +39,7 @@ public class HighScoreManager {
      */
     public HighScoreManager() {
 
-        scores = new ArrayList<Score>(10);
+        scores = new ArrayList<>(10);
         try {
             loadScoreFile();
         }

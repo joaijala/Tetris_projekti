@@ -39,7 +39,7 @@ public final class GameScreen extends JPanel {
     /**
      *
      */
-    private GameLogic game;
+    private final GameLogic game;
     private final BoardScreen boardScreen;
     private final NextTetrominoScreen nextTetrominoScreen;
     private final GameBackgroundScreen backgroundScreene;
@@ -47,7 +47,8 @@ public final class GameScreen extends JPanel {
     private final LevelScreen levelScreen;
     private final RowsScreen rowsScreen;
     private final FallingTetrominoScreen fallingTetromino;
-    PauseScreen pauseScreen;
+    private final PauseScreen pauseScreen;
+   
 
     /**
      * Luo kaikki pelinäytön osat.

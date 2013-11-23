@@ -7,7 +7,7 @@ package tetrisGame;
  * @author Josse
  *
  */
-public class Board {
+public final class Board {
 
     private final int[][] board;
     private final boolean[] isRowFilled;
