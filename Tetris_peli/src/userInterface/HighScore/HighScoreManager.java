@@ -47,12 +47,23 @@ public class HighScoreManager {
 
     }
 
-    private int getSmallestScore() {
-        return scores.get(9).getScore();
+    public int getSmallestScore() {
+        if(scores.size()<10){
+            return 0;
+        }
+        else{
+            return scores.get(9).getScore();
+        }
     }
 
     public ArrayList<Score> getScores() {
         return scores;
+    }
+    public Score getScore(int i){
+        if(scores.size()<i-1){
+            return null;
+        }
+        return scores.get(i);
     }
 
     public void addScore(String name, int score) {
@@ -143,4 +154,5 @@ public class HighScoreManager {
         }
         return highscoreString;
     }
+
 }

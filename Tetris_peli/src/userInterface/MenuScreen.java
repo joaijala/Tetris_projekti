@@ -57,7 +57,6 @@ public class MenuScreen extends JPanel {
     private void makeStartButton() {
         startButton = new Button("Start Game");
         startButton.setFont(new Font("Arial", 0, 30));
-        startButton.setBounds(100, 100, 100, 20);
         container.insets = new Insets(10, 40, 10, 10);
         container.gridy = 0;
         container.weightx=5;

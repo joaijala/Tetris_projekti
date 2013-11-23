@@ -20,6 +20,7 @@ public class GameLogic {
     private boolean isPaused = false;
     private boolean isTetrominoFalling = false;
     private boolean isGameRunning = false;
+    private boolean endGame=false;
     /**
      * Pitää kirjaa onko pelaaja liikuttanut palikkaa. Se on positiivinen jos
      * liikutettu oikealle, negatiivinen jos vasemmalle ja 0 ei ole liikutettu.
@@ -69,7 +70,7 @@ public class GameLogic {
     /**
      * gameloop pyöeittää itse pelin pelilooppia.
      */
-    public void gameLoop() {
+    public int gameLoop() {
         this.gameScreen.repaint();
         delay(2000);
         this.isGameRunning = true;
@@ -126,9 +127,12 @@ public class GameLogic {
             }
 
         }
-
+        //jos peli lopetetaan paianmmalla main menu pause ruudussa pisteet häviää
+        if(endGame){
+            return 0;
+        }
         delay(2000);
-
+        return score;
     }
 
     /**
@@ -555,5 +559,10 @@ public class GameLogic {
      */
     public synchronized void setDropDownTrue() {
         this.dropDown = true;
+    }
+    public void setEndGame(boolean status){
+        this.isGameRunning=false;
+        this.endGame=true;
+        
     }
 }

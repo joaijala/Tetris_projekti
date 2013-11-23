@@ -10,8 +10,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 
 import javax.swing.JPanel;
 import tetrisGame.ControllListener;
@@ -26,7 +28,8 @@ import tetrisGame.GameLogic;
  */
 public class GameScreen extends JPanel {
     
-   Button resume;
+    Button resumeButton;
+    Button mainMenuButton;
     private GridBagConstraints container; 
     public GameLogic game;
     private final BoardScreen boardScreen;
@@ -58,7 +61,8 @@ public class GameScreen extends JPanel {
     }
     @Override
     public void paint(Graphics graphics){
-        resume.setVisible(false);
+        resumeButton.setVisible(false);
+        this.mainMenuButton.setVisible(false);
         this.backgroundScreene.paintComponents(graphics);
         this.boardScreen.paintComponents(graphics);
         this.nextTetrominoScreen.paintComponents(graphics);
@@ -67,7 +71,8 @@ public class GameScreen extends JPanel {
         this.rowsScreen.paintComponents(graphics);
         this.fallingTetromino.paintComponents(graphics);
         if(this.game.getIsPaused()){
-            resume.setVisible(true);
+            resumeButton.setVisible(true);
+            this.mainMenuButton.setVisible(true);
             this.pauseScreen.paintComponents(graphics);
             
         }
@@ -76,10 +81,13 @@ public class GameScreen extends JPanel {
     public void makeButton(){
         this.setLayout(new GridBagLayout());
         container = new GridBagConstraints();
-        resume=new Button("Resume");
-        resume.setFont(new Font("Arial", 0, 30));
-        resume.setBounds(100, 100, 100, 20);
-        resume.addActionListener(new ActionListener() {
+        container.insets = new Insets(20, 40, 10, 20);
+        container.gridy=0;
+        resumeButton=new Button("Resume");
+        resumeButton.setFont(new Font("Arial", 0, 30));
+        resumeButton.setBounds(100, 100, 100, 20);
+        resumeButton.addActionListener(new ActionListener() {
+            
 
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -88,8 +96,27 @@ public class GameScreen extends JPanel {
 
             }
         });
-        add(resume, container);
         
+        add(resumeButton, container);
+        //resumeButton.setVisible(false);
+        
+        this.mainMenuButton=new Button("Main menu");
+        this.mainMenuButton.setFont(new Font("Arial", 0, 30));
+        container.gridy=1;
+        this.mainMenuButton.addActionListener(new ActionListener() {
+            
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+
+                game.setIsPaused();
+                game.setEndGame(false);
+
+            }
+        });
+        //this.mainMenuButton.setVisible(false);
+        add(this.mainMenuButton, container);
+          
         
     }
     

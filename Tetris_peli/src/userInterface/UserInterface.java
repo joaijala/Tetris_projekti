@@ -17,6 +17,7 @@ import javax.swing.JComponent;
 import tetrisGame.ControllListener;
 import userInterface.HighScore.HighScoreManager;
 import userInterface.HighScore.HighScoreScreen;
+import userInterface.HighScore.newHighScoreScreen;
 
 /**
  * Käyttöliittymän perusta, joka hoitaa ohjelman pyörittämisen
@@ -32,6 +33,9 @@ public class UserInterface extends JFrame implements Runnable{
     private boolean showHighscore=false;
     private HighScoreManager highScores;
     private HighScoreScreen highScoreScreen;
+    private int score;
+    private boolean newHighScore;
+    private newHighScoreScreen newScoreScreen;
     
     public UserInterface(){
         
@@ -58,12 +62,25 @@ public class UserInterface extends JFrame implements Runnable{
         while(true){
             if(GameOn){
                 startGame();
-                GameOn=false;
+                
                 setContentPane(menuScreen);
                 setVisible(true);
             }
+            if(newHighScore){
+                this.newScoreScreen=new newHighScoreScreen(this.score,this.highScores,this);
+                setContentPane(newScoreScreen);
+                setVisible(true);
+                while(newHighScore){
+                    delay(10);
+                }
+            }
             if(showHighscore){
                 setContentPane(highScoreScreen);
+                setVisible(true);
+                while(showHighscore){
+                    delay(10);
+                }
+                setContentPane(menuScreen);
                 setVisible(true);
             }
             delay(10);
@@ -93,7 +110,7 @@ public class UserInterface extends JFrame implements Runnable{
     public void createComponent(){
         menuScreen=new MenuScreen(this);
         highScores=new HighScoreManager();
-        highScoreScreen=new HighScoreScreen(highScores,menuScreen);
+        highScoreScreen=new HighScoreScreen(highScores,this);
     }
     /**
      * 
@@ -107,15 +124,15 @@ public class UserInterface extends JFrame implements Runnable{
      * luo uuden pelin, laittaa sen näkyville ruutuun ja käynnistää peliloopin
      */
     public void startGame(){
-        
         game=new GameLogic();
         this.gameScreen=game.getGameScreen();
-        
         ControllListener listener=new ControllListener(gameScreen.game);
         addKeyListener(listener);
         setContentPane(gameScreen);
         setVisible(true);
-        game.gameLoop();
+        GameOn=false;
+        this.score=game.gameLoop();
+        checkForHighScore();
     }
     /*
      * asettaa GameOn trueks jotta runin ohjelmalooppi voi käynnistää pelin
@@ -125,6 +142,21 @@ public class UserInterface extends JFrame implements Runnable{
     }
     public void setShowHighscore(boolean status){
         this.showHighscore=status;
+    }
+    public void checkForHighScore(){
+        if(this.score==0){
+            setContentPane(menuScreen);
+            setVisible(true);
+            return;
+        }
+        if (this.score>this.highScores.getSmallestScore()){
+            this.newHighScore=true;
+        }
+        this.showHighscore=true;
+        
+    }
+    public void setNewHighScore(boolean status){
+        this.newHighScore=status;
     }
     
 }

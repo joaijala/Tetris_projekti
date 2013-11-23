@@ -14,6 +14,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import tetrisGame.GameLogic;
 
@@ -28,6 +29,7 @@ public class PauseScreen extends JPanel {
     public PauseScreen(GameLogic game){
         this.game=game;
         
+        
     }
     
     @Override
@@ -39,8 +41,12 @@ public class PauseScreen extends JPanel {
         graphics.setColor(Color.BLACK);
         graphics.setFont(new Font ("Arial",0,40));
         graphics.drawString("Game Paused", 100, 50);
+        graphics.setFont(new Font ("Arial",0,20));
+        graphics.drawString("Resume game by pressing \"p\" or resume", 50, 140);
+        
         
     }
+    
     
     
 }

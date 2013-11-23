@@ -24,7 +24,7 @@ public class Main {
         UserInterface UI =new UserInterface();
         UI.run();/*
         HighScoreManager hm = new HighScoreManager();
-        hm.addScore("Bart",240);
+        hm.addScore("Bart",100000);
         hm.addScore("Marge",300);
         hm.addScore("Maggie",220);
         hm.addScore("Homer",100);
