@@ -21,4 +21,6 @@ Tuntikirjanpito
 19.11  1 h pajassa, mm bugi korjattu
 20.11  6h  loput pelin käyttöliittymästä. menuuta
 21.11	2 h menuun käyttöliittymä, dokumentointi, sekvenssikaaviot mm.
+22.11  8 h high score, käyttöliittymää.
+23.11  10 h käyttöliittymää, pelimusiikki, javadoc
 
