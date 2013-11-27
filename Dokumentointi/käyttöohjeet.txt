@@ -1,8 +1,37 @@
-Aloita peli painamalla "start Game"
+Käynnistä ohjelma tuplaklikkaamalla Tetris_peli.jar tai peli.bat tiedostosta
 
+Saat musiikin sammutettua painamalla soun off nappia. 
+
+Peliohjeet näkyy kun painaa help
+
+High Score näkyy kun painaa High Score
+
+Peli käynnistyy kun painat Start Game
+
+Pelissä:
 
 Siirrä tetrominoa sivulle vasen ja oikea nuolinäppäin
 pyörritä tetrominoa oikeaan nuoli ylös tai x
 pyörritä tetrominoa vasempaan z
 tiputa tetromino 1 askel alaspäin(soft drop) nuoli alas
-tiputa tetromino alas välilyönti
+tiputa tetromino kokonaan alas välilyönti
+Laita peli tauolle painamalla P
+
+Pausen Aikana:
+
+Palaa peliin painamalla resume tai p
+Palaa Main menuseen painammalla main menu
+Huom! jos palaat tässä vaiheessa main menuuseen pelitilanne unohtuu
+
+Pelin kulku:
+
+Yritä tyhjentää rivejä täyttämällä ne kokonaan tippuviilla palikoilla. 
+Saat pisteitä tyhjenetyistä riveistä sekä soft droppien määrästä.
+Peli nopeutuu ku leveli vaihtuu 
+Peli päättyy kun ei ole enää tilaa uusille tetrominoille
+
+Pelin loputtua:
+Peli menee loputtuaan high score ruutuun. 
+Jos sait uuden high scoren saat tilaisuuden antaa nimimerkin pisteellesi.
+
+Pidä hauskaa

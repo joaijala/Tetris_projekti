@@ -361,20 +361,20 @@ public class GameLogic {
 
     /**
      * Liikuttaa tetromiinon pois esteen vierestä, jos mahdollista, niin että
-     * pyörittäminen on mahdollista.
+     * pyörittäminen on mahdollista. 
      *
      * @param amount määrä paljonko siirretään sivulle
      * @return true jos wallKick on mahdollista, muuten false
      */
     private boolean doWallKick(int amount) {
         /*try wallKick right*/
-        if (tryWallKick(amount)) {
+        if (isMovePossible(this.fallingTetromino, globalX + amount, globalY)) {
             this.globalX += amount;
             return true;
 
         } /*try wallKick left*/
 
-        else if (tryWallKick(-amount)) {
+        else if (isMovePossible(this.fallingTetromino, globalX - amount, globalY)) {
             this.globalX -= amount;
             return true;
         }
@@ -382,7 +382,8 @@ public class GameLogic {
     }
 
     /**
-     * Ohjaa doWallKickiä.
+     * Ohjaa doWallKickiä. Tämä on mitä kutsutaan kun halutaan tehdä wallkikki.
+     * 
      *
      * @return true jos onnistuu, muuten false
      */
@@ -396,19 +397,6 @@ public class GameLogic {
         }
         return false;
     }
-
-    /**
-     * Selvittää, onko wall kick mahdollinen
-     *
-     * @param i wall kickin määrä ja suunta
-     */
-    private boolean tryWallKick(int i) {
-        if (isMovePossible(this.fallingTetromino, globalX + i, globalY)) {
-            return true;
-        }
-        return false;
-    }
-
     /**
      * Ei tee mitään niin kauan kuin peli on tauolla. Odottamisen tarkoitus on,
      * että näppäinkuuntelija pääsee väliin reagoimaan

@@ -44,10 +44,10 @@ public class Score implements Serializable, Comparable<Score> {
     }
 
     /**
-     * Vertailee annettua pistettä tämän pisteen kanssa.
+     * Vertailee annettua scorea tämän scoren kanssa.
      *
      * @param score1 score johon verrataan
-     * @return 
+     * @return palauttaa sen minkä compareTo:n kuuluukin palauttaa.
      */
     @Override
     public int compareTo(Score score1) {

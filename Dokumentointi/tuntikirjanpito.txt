@@ -23,4 +23,7 @@ Tuntikirjanpito
 21.11	2 h menuun käyttöliittymä, dokumentointi, sekvenssikaaviot mm.
 22.11  8 h high score, käyttöliittymää.
 23.11  10 h käyttöliittymää, pelimusiikki, javadoc
+24.11  1 h Ihan viimeiset pelin toiminnallisuudet kuntoon
+25.11  30 min Pelin testausta
+27.11  x h HighScoren testausta, lopullinen luokkakaavio, testausdokumentti, tuntikirjanpito, peliohje, sekvenssikaaviot, ohjelman rakenteen kuvaus...
 

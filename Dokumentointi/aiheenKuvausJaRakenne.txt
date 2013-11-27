@@ -1,3 +1,5 @@
+Aihem‰‰rittely
+
 Aihe: Tetris peli
 
 Tarkoitus olisi toteuttaa perinteinen tetris peli. 
@@ -15,13 +17,28 @@ Toiminnot:
 -pelaaja saa pisteit‰ jokaisesta palasta riippuen miten paljon k‰ytt‰‰ soft droppia
 -pelaaja n‰kee seuraavan palkin ruudun sivusta
 -pelaaja voi laittaa tauon p‰‰lle
--pelaaja n‰kee tason ja pisteens‰
-
-
-
-Toiminnot jos aika riitt‰‰:
+-pelaaja n‰kee tason,pisteens‰ ja tyhjent‰miens‰ rivien m‰‰r‰n
 -Highscore: 
 	-Pelaaja saa pelin j‰lkeen nimens‰ highscoreen jos tulos on tarpeeksi hyv‰.
 	-Higscoren voi tyhjent‰‰
+-pelimusiikin voi sammuttaa halutessaan
 
--Pelaaja voi alkaa milt‰ tahansa tasolta
+
+Rakenteen kuvaus:
+
+Pelin k‰ynnistyess‰ main luo uuden userInterfacen ja k‰ynnist‰‰ sen run metodin, joka on k‰ynniss‰ koko ohjelman k‰ynniss‰ olemisen ajan.
+Kulloinkin n‰kyviss‰ oleva ruutu on Userinterfacen contenPanessa. Pelin k‰ynnistess‰ contentPanessa on menuScreen. MenuScreenist‰ voi nappeja painamalla
+menn‰ muihin ruutuihin. T‰llˆin menuScreen ohjaa boolean muuttujilla Userinterfacea laittamaan contentPaneen halutun ruudun.
+
+UserInterfacella on muun muassa muuttuja HighScoreManager joka alustetaan UserInterfacen konstruktorissa. NewHighScore screen ohjaa t‰t‰ lis‰‰m‰ll‰
+uuden highScoren. HighScoreScreen saa HighScoreManagerilta tiedon sen hetkisest‰ highScore tilanteesta. HighScoreManager pit‰‰ kirjaa pisteist‰ enint‰‰n 10
+ykiskˆn pituisella Scoreja sis‰lt‰v‰ll‰ arrayListill‰.
+
+Kun peli k‰ynnistyy userInterface luo uudem ControllListenerin ja GameLogikin, ja k‰ynnist‰‰ gameLogikin gameLoopi():in. GamLogicin konstruktorissa luodaan 
+gameScreen. 
+
+GameScreen on JPaneli, joka koostuu useammasta JPanelista. Jokainen GameScreenin osa pit‰‰ huolta omasta psastaan k‰yttˆliittym‰n piirt‰mist‰.
+Kun gameScreeni piirret‰‰n uudestaan sen osat piirret‰‰n uudestaan. 
+
+GameLogic sis‰lt‰‰ 1 Boardin ja kaksi Tetrominoa (nykyinen ja seuraava tippuva tetromino). Peli toimii kun gameLoop() ihjauilee n‰it‰.  
+

@@ -1,0 +1,28 @@
+Pelin pelilooppia ja käyttöliittymä ei ole testattu auttomaattisesti sen hankaluuden takia.
+
+
+Olen testannut peliloopin (GameLogic luokan gameLoop()) toimintaa manuaalisesti. Kaikki näyttäisi toimivan toivotulla tapalla. 
+Kun tetrominoa liikuttaa sivuille se näyttäisi liikkuvan hyvin. Pyörittäminenkin toimii toivotulla tavalla. Tetromino ei liiku ulos
+pelikentältä tai muiden tetrominojen läpi. Tetromino osaa hyvin tehä wallKickin eli hypätä pois seinän vierestä jos on ahdasta. 
+Pyörittäminen voi välillä toimia jonkun mielestä yllättävällä tavalla, mutta tämä ei ole bugi vaan pyörimisen ominaisuus.
+
+Kun pelaaja tiputtaa palaa alaspäin manuaalisesti pelaaja saa oikean määrän pisteitä, eli ominaisuus toimii oikein.
+
+Tetromino ei liiku pausen aikana, eikä se ota pelaajan liikutusyrityksiä huomioon pausen aikana.
+
+Jos pelaaja palaa pelistä main menuun peli toimii toivotulla tavalla, eli menee suoraan main menuun ja unohtaa pelin tilanteen.
+
+Käyttöliittymä ja pelilaudan piirtäminen toimii toivotulla tavalla
+
+
+
+
+Pelin loputtua peli menee high scoreen pienen viiveen kautta. Jos tulee uusi high score ruutu menee add score ruudun kautta niin kuin pitääkin. 
+High score tallentaa 10 tulosta ja pelaajan nimestä max 8 kirjanta niin kuin kuuluukin.
+
+Kaikki buttonit näyttäisivät toimivan hyvin ja näkyvät myös hyvin pelikentällä. 
+
+Musiikki alkaa soimaan ohjelman käynnistyessä ja hiljenee jos käyttäjä sammuttaa musiikin painikkeesta. Kun musiikin laittaa uudestaan
+päälle se alkaa alusta.
+
+Tällä hetkellä ei ole tiedossa bugeja

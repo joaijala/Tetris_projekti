@@ -2,7 +2,7 @@ package tetrisGame;
 
 /**
  * Tämä luokka hoitaa pelilaudan toteutuksen. Pelilaudall on kaikki jo tippuneet
- * tetromiinot
+ * tetromiinot.
  *
  * @author Josse
  *
@@ -13,7 +13,7 @@ public final class Board {
     private final boolean[] isRowFilled;
 
     /**
-     * Construktori luo uuden tyhjän pelilaudan
+     * Construktori luo uuden tyhjän pelilaudan.
      */
     public Board() {
         this.board = new int[20][10];
@@ -23,7 +23,7 @@ public final class Board {
     }
 
     /**
-     * alustaa kaikki isRowFilled taulukon osat falseks;
+     * alustaa kaikki isRowFilled taulukon osat falseksi.
      */
     public void setIsRowFilledFalse() {
         for (int i = 0; i < 20; i++) {
@@ -32,7 +32,7 @@ public final class Board {
     }
 
     /**
-     * nolla koko talukon, niin että siinä on vain Empty tetromiinoja eli 0
+     * nollaa koko talukon, niin että siinä on vain Empty tetromiinoja eli 0.
      */
     public void setAllToZero() {
         for (int i = 0; i < 20; i++) {
@@ -43,7 +43,7 @@ public final class Board {
     }
 
     /**
-     * palauttaa boardin tilanteen
+     * palauttaa boardin tilanteen.
      *
      * @return board
      */
@@ -60,7 +60,7 @@ public final class Board {
     }
 
     /**
-     * asettaa boardin ruutuun halutun arvon
+     * asettaa boardin ruutuun halutun arvon.
      *
      * @param x boardin x kordinaatti
      * @param number luku, joka vastaa jotakin tetrominon muotoa
@@ -80,9 +80,8 @@ public final class Board {
     }
 
     /**
-     * asettaa annetun tetrominon boardiin niin, että tetrominon origo (pala
-     * 0,0)
-     * on kohdassa globalX,globalY
+     * asettaa annetun tetrominon boardiin niin, että tetrominon origo
+     * (pala0,0)on kohdassa globalX,globalY.
      *
      * @param globalX tetrominon origon x kordinaatti pelilaudalla
      * @param tetromino tetromiino, joka asetetaan pelilaudalle
@@ -101,7 +100,7 @@ public final class Board {
     }
 
     /**
-     * Tarkistaa, mitkä pelilaudan rivit ovat täynnä
+     * Tarkistaa, mitkä pelilaudan rivit ovat täynnä.
      *
      * @return täytettyjen rivien määrä
      */
@@ -124,7 +123,7 @@ public final class Board {
     }
 
     /**
-     * poistaa täysinäiset rivit jotka on määritelty isRowFilled talukossa
+     * poistaa täysinäiset rivit jotka on määritelty isRowFilled talukossa.
      *
      */
     public void removeFullLines() {
@@ -138,7 +137,7 @@ public final class Board {
     }
 
     /**
-     * tiputtaa alas rivit annetun rivin yläpuolelta (täten poistaa rivin)
+     * tiputtaa alas rivit annetun rivin yläpuolelta (täten poistaa rivin).
      *
      * @param line poistettava rivi
      */
