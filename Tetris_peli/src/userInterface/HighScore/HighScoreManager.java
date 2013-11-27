@@ -76,6 +76,28 @@ public final class HighScoreManager {
         }
 
     }
+    /**
+     * Poistaa halutun pisteen. Tämän avulla testin ajaminen ei vaikuta highscoreen.
+     * @param name poistettavan pisteen nimi
+     */
+    public void removeScore(String name){
+        Score score=new Score(0,null);
+        for(int i=0;i<scores.size()-1;i++){
+            if(scores.get(i).getName().equals(name)){
+                score=scores.get(i);
+            }
+        }
+        if(score.getName()!=null){
+          scores.remove(score);
+        }
+        try {
+            updateScoreFile();
+        }
+        catch (IOException ex) {
+            Logger.getLogger(HighScoreManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
     /**
      * Tyhjentää scores taulukon ja tiedoston.
@@ -95,7 +117,7 @@ public final class HighScoreManager {
      *
      * @throws IOException
      */
-    public void loadScoreFile() throws IOException {
+    private void loadScoreFile() throws IOException {
         File file = new File(HIGHSCORE_FILE);
         if (!file.isFile()) {
             if (!file.createNewFile()) {
@@ -124,7 +146,7 @@ public final class HighScoreManager {
      *
      * @throws IOException
      */
-    public void updateScoreFile() throws IOException {
+    private void updateScoreFile() throws IOException {
         File file = new File(HIGHSCORE_FILE);
         if (!file.isFile() && !file.createNewFile()) {
             throw new IOException("Error creating new file: " + file.getAbsolutePath());
