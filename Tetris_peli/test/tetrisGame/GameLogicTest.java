@@ -310,15 +310,13 @@ public class GameLogicTest {
         for (int j = 0; j < 100; j++) {
             GameLogic game = new GameLogic();
             game.setNewFallingTetromino();
+            game.setNewFallingTetromino();
             moveTetrominoToBorder(game,1);
-            if (game.getFallingTetromino().getShape().ordinal() != 3) {
-                testMoveTetrominoAtBoarder(game,1,8);
-            }
-            
-            else {
-                game.setIsMoved(1);
-                game.moveTetromino();
+            if (game.getFallingTetromino().getShape().ordinal() == 3) {
                 testMoveTetrominoAtBoarder(game,1,9);
+            }
+            else {
+                testMoveTetrominoAtBoarder(game,1,8);
             }
         }
     }
@@ -332,6 +330,7 @@ public class GameLogicTest {
     public void testRotateTetrominoRight(){
         for(int i=0;i<100;i++){
             GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
             game.setNewFallingTetromino();
             testRotatingTetromino(game,1,3);
             if(game.getFallingTetromino().getShape().ordinal()!=3){
@@ -349,6 +348,7 @@ public class GameLogicTest {
     public void testRotateTetrominoLeft(){
         for(int i=0;i<100;i++){
             GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
             game.setNewFallingTetromino();
             testRotatingTetromino(game,-1,1);
             if(game.getFallingTetromino().getShape().ordinal()!=3){
@@ -369,6 +369,7 @@ public class GameLogicTest {
         for (int j = 0; j < 100; j++) {
             GameLogic game = new GameLogic();
             game.setNewFallingTetromino();
+            game.setNewFallingTetromino();
             moveTetrominoToBorder(game,1);
             game.dropOneLineDown();
             testRotatingTetromino(game,1,3);
@@ -384,6 +385,7 @@ public class GameLogicTest {
     public void TestRotatingLeftAtRightBorder(){
         for (int j = 0; j < 100; j++) {
             GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
             game.setNewFallingTetromino();
             moveTetrominoToBorder(game,1);
             game.dropOneLineDown();
@@ -401,6 +403,7 @@ public class GameLogicTest {
         for (int j = 0; j < 100; j++) {
             GameLogic game = new GameLogic();
             game.setNewFallingTetromino();
+            game.setNewFallingTetromino();
             moveTetrominoToBorder(game,-1);
             game.dropOneLineDown();
             testRotatingTetromino(game,1,3);
@@ -416,6 +419,7 @@ public class GameLogicTest {
     public void TestRotatingLeftAtLeftBorder(){
         for (int j = 0; j < 100; j++) {
             GameLogic game = new GameLogic();
+            game.setNewFallingTetromino();
             game.setNewFallingTetromino();
             moveTetrominoToBorder(game,-1);
             game.dropOneLineDown();
@@ -457,7 +461,7 @@ public class GameLogicTest {
      * @param direction 
      */
     private void moveTetrominoToBorder(GameLogic game, int direction){
-        for (int i = 0; i < 4; i++) {//tetromino liikutettu laitaan
+        for (int i = 0; i < 5; i++) {//tetromino liikutettu laitaan
                 game.setIsMoved(direction);
                 game.moveTetromino();
             }
@@ -469,7 +473,7 @@ public class GameLogicTest {
      * @param expectedX on oletettu X kordinaatti
      */
     private void testMoveTetrominoAtBoarder(GameLogic game,int direction, int expectedX){
-        assertEquals(game.getGlobalX(), expectedX);
+        assertEquals(expectedX,game.getGlobalX());
         game.setIsMoved(direction);
         game.moveTetromino();
         assertEquals(game.getGlobalX(),expectedX);

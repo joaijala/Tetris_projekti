@@ -486,14 +486,6 @@ public class GameLogic {
         return this.isTetrominoFalling;
     }
 
-    /**
-     *
-     *
-     * @return dropDown
-     */
-    public boolean getDropDown() {
-        return this.dropDown;
-    }
 
     /**
      *

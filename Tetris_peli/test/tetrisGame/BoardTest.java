@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import tetrisGame.Board;
 
 /**
  *
@@ -21,12 +20,12 @@ public class BoardTest {
     }
     private final int[][][] cordinateTable = new int[][][]{ /*muotojen kordinaatit alutilassa*/
         {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
-        {{0, -1}, {0, 0}, {-1, 0}, {-1, 1}},
+        {{1, -1}, {1, 0}, {0, 0}, {0, 1}},
         {{0, -1}, {0, 0}, {1, 0}, {1, 1}},
         {{0, -1}, {0, 0}, {0, 1}, {0, 2}},
         {{-1, 0}, {0, 0}, {1, 0}, {0, 1}},
         {{0, 0}, {1, 0}, {0, 1}, {1, 1}},
-        {{-1, -1}, {0, -1}, {0, 0}, {0, 1}},
+        {{0, -1}, {1, -1}, {1, 0}, {1, 1}},
         {{1, -1}, {0, -1}, {0, 0}, {0, 1}}
     };
 
@@ -133,7 +132,7 @@ public class BoardTest {
      */
 
     @Test
-    public void testSetTetrominoToBoardVork() {
+    public void testSetTetrominoToBoardWork() {
         for (int i = 0; i < 8; i++) {
             Board board = new Board();
             Tetromino tetromino = new Tetromino(i);
