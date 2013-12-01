@@ -38,12 +38,11 @@ public class GameMusic {
     public void playMusic() {
         
         try {
-            
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(musicName + ".wav").getAbsoluteFile());
             if(System.getProperty("os.name").contains("Linux")){
                 AudioFormat format = audioInputStream.getFormat();
                 DataLine.Info info = new DataLine.Info(Clip.class, format);
-                Clip clip = (Clip)AudioSystem.getLine(info);
+                clip = (Clip)AudioSystem.getLine(info);
             }
             else{
                 clip = AudioSystem.getClip();

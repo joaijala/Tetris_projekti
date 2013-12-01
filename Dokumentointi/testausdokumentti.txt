@@ -25,4 +25,5 @@ Kaikki buttonit näyttäisivät toimivan hyvin ja näkyvät myös hyvin pelikentällä.
 Musiikki alkaa soimaan ohjelman käynnistyessä ja hiljenee jos käyttäjä sammuttaa musiikin painikkeesta. Kun musiikin laittaa uudestaan
 päälle se alkaa alusta.
 
-Tällä hetkellä ei ole tiedossa bugeja
+
+Linuxilla ohjalma ei näytä ihan oikeanlaiselta ja äänten soittamisen kanssa on ongelmaa. Windows toimii oikein
