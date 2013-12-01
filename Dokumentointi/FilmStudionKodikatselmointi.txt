@@ -1,0 +1,25 @@
+Projekti ladattu to 28.11 11.50
+
+-En ole ihan varma tajuanko ohjelman ideaa/käyttötarkoitusta, joten jos joku kommentti antaa virheellistä palautetta tämän takia jätä se vaan huommiotta. 
+
+-Projekti näyttäisi olevan hyvällä mallilla. Käyttöliittymä on toimiva ja selkeä ja hakutoiminto vaikuttaisi toimijan. Kaikki testit menivät myös läpi. Jän miettiään aijotko toteuttaa käyttäjälle mahdollisuutta lisätä lisää elokuvia/nimiä
+
+-Kun dokumentoinnissa sanot peli tarkoitatko itse ohjelmaa? Itse ehkä viittaisin dokumentoinissa ohjelmaan. Tämä selkeyttäisi hiukan dokumentoinnin lukemista jos ei tajua millä tapaa ohjelma on peli. 
+
+-Dokumentointi on selkeää ja hyvin kattavaa siltä osin kuin sitä on toteutettu. Private metodeille voisi lisätä dokumentointia niin koodia tutkivan olisi helpompi seurata mitä tapahtuu (tätä ei tosin ole kai vaadittu ainakaan vielä).
+
+-Main on hiukan pitkä voisiko sitä jotenkin paloitella? Esimerkiksi yksi metodi tiettyjen komponettien luomiseen.
+
+-Movie luokan metodin equals() viimeinen if voi laittaa suoraan returniin, niin netbeans ei valita, että vika if on turha (redudant).
+
+-Hyvin tehty pakkausjako
+
+-En ymmärää miksi sinolla on testausta resources osiossa. Tekevätkö ne jotain?
+
+-Jos haluat, että muoiden on helpompi ymmärtää testejä niin niitä voisi hiukan kommentoida. Tosin sun testit oli sen verran selkeitä, lyhyitä ja hyvin nimettyjä, että ne olivat tollasenaankin melko helppolukuisia.
+
+-MovieMaker luokan get metodit voisi nimetä getGenre ja getMovie genren ja movien sijaan
+
+-Testaus vaikuttaisi olevan hyvin kattavaa.
+
+-Siististi piirretyt luokka ja sekvenssikaaviot.

@@ -7,9 +7,11 @@ package sounds;
 
 import java.io.File;
 import java.io.IOException;
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -36,8 +38,16 @@ public class GameMusic {
     public void playMusic() {
         
         try {
+            
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(musicName + ".wav").getAbsoluteFile());
-            clip = AudioSystem.getClip();
+            if(System.getProperty("os.name").contains("Linux")){
+                AudioFormat format = audioInputStream.getFormat();
+                DataLine.Info info = new DataLine.Info(Clip.class, format);
+                Clip clip = (Clip)AudioSystem.getLine(info);
+            }
+            else{
+                clip = AudioSystem.getClip();
+            }
             clip.open(audioInputStream);
             clip.start();
             clip.loop(100);
