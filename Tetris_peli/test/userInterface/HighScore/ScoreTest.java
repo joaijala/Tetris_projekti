@@ -6,6 +6,7 @@
 
 package userInterface.HighScore;
 
+import userInterface.highscore.Score;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

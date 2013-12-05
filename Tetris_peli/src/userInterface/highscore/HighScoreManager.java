@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userInterface.HighScore;
+package userInterface.highscore;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,7 +44,7 @@ public final class HighScoreManager {
             loadScoreFile();
         }
         catch (IOException ex) {
-            Logger.getLogger(HighScoreManager.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error luoading high score");
         }
     }
 
@@ -72,7 +72,7 @@ public final class HighScoreManager {
             updateScoreFile();
         }
         catch (IOException ex) {
-            Logger.getLogger(HighScoreManager.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error uppdting score file");
         }
 
     }
@@ -94,7 +94,7 @@ public final class HighScoreManager {
             updateScoreFile();
         }
         catch (IOException ex) {
-            Logger.getLogger(HighScoreManager.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error updating High Score");
         }
         
     }
@@ -108,7 +108,7 @@ public final class HighScoreManager {
             updateScoreFile();
         }
         catch (IOException ex) {
-            Logger.getLogger(HighScoreManager.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error updating score file");
         }
     }
 

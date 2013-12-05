@@ -6,6 +6,8 @@
 
 package userInterface.HighScore;
 
+import userInterface.highscore.Score;
+import userInterface.highscore.HighScoreManager;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Before;

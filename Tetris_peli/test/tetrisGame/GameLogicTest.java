@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import tetrisGame.Tetromino.Shape;
 
 /**
  * tässä on testattuna gameLogikin metodit, jotia gameLoop käyttä. Itse
@@ -129,7 +128,6 @@ public class GameLogicTest {
         assertEquals(game.getGlobalX(), 4);
         assertEquals(game.getGlobalY(), 1);
         assertEquals(game.getIsMoved(), 0);
-        assertEquals(game.getDropDown(), false);
         assertEquals(game.getIsRotated(), 0);
         assertEquals(game.getSoftDrop(), 0);
         assertEquals(game.getIsTetrominoFalling(), true);
@@ -449,9 +447,7 @@ public class GameLogicTest {
     private int[][] getCordinatesOfRow(int rowNumber, int[][][] table) {
         int[][] row = new int[4][2];
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 2; j++) {
-                row[i][j] = table[rowNumber][i][j];
-            }
+            System.arraycopy(table[rowNumber][i], 0, row[i], 0, 2);
         }
         return row;
     }

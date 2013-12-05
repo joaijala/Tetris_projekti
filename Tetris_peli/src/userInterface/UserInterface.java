@@ -5,15 +5,15 @@
  */
 package userInterface;
 
-import userInterface.GameScreen.GameScreen;
+import userInterface.gamescreen.GameScreen;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import tetrisGame.GameLogic;
 import tetrisGame.ControllListener;
-import userInterface.HighScore.HighScoreManager;
-import userInterface.HighScore.HighScoreScreen;
-import userInterface.HighScore.newHighScoreScreen;
+import userInterface.highscore.HighScoreManager;
+import userInterface.highscore.HighScoreScreen;
+import userInterface.highscore.NewHighScoreScreen;
 
 /**
  * Käyttöliittymän perusta, joka hoitaa ohjelman pyörittämisen
@@ -27,7 +27,7 @@ public final class UserInterface extends JFrame implements Runnable {
      */
     private GameScreen gameScreen;
     private GameLogic game;
-    private newHighScoreScreen newScoreScreen;
+    private NewHighScoreScreen newScoreScreen;
     private MenuScreen menuScreen;
     private HighScoreManager highScores;
     private HighScoreScreen highScoreScreen;
@@ -126,7 +126,7 @@ public final class UserInterface extends JFrame implements Runnable {
      * Kun pelaaja saa uuden high scoren tämä hallinnoi mitä ruutua näytetään.
      */
     public void manageNewHighScore() {
-        this.newScoreScreen = new newHighScoreScreen(this.score, this.highScores, this);
+        this.newScoreScreen = new NewHighScoreScreen(this.score, this.highScores, this);
         setContentPane(newScoreScreen);
         setVisible(true);
         while (newHighScore) {

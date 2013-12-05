@@ -3,77 +3,74 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userInterface.GameScreen;
+package userInterface.gamescreen;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import tetrisGame.GameLogic;
 import tetrisGame.Tetromino;
 
 /**
- * Tämä luokka piirtää pelikenttään ruudun, jossa seuraava tetromiino näkyy.
+ * Tämä on osa gameScreenia, jossa itse pelilauta näkyy
  *
  * @author Josse
  */
-public class NextTetrominoScreen extends JPanel {
+public class BoardScreen extends JPanel {
 
+    private final GameLogic game;
     /**
-     * Sisältää tiedon tetrominon väreistä.
+     * Sisältää tiedon eri tetrominojen väristä.
      */
     private final Color colors[] = {new Color(255, 255, 255), new Color(240, 0, 0),
                                     new Color(0, 240, 0), new Color(0, 240, 240),
                                     new Color(160, 0, 240), new Color(240, 240, 0),
                                     new Color(240, 160, 0), new Color(0, 0, 240)
     };
-    private final GameLogic game;
 
-    public NextTetrominoScreen(GameLogic game) {
+    /**
+     * Luo uuden BoardScreenin.
+     *
+     * @param game peli, johon ruutu liittyy
+     */
+    public BoardScreen(GameLogic game) {
         this.game = game;
+
     }
 
     /**
-     * Piirtää ruudun jossa näkyy seuraava tetromiino keskellä ruutua
+     * PaintComponents piirtää pelilaudan.
      *
      * @param graphics
      */
     @Override
     public void paintComponents(Graphics graphics) {
         graphics.setColor(new Color(0, 0, 0));
-        graphics.fillRoundRect(254, 39, 122, 122, 25, 25);
-        graphics.setColor(new Color(255, 255, 255));
-        graphics.fillRoundRect(255, 40, 120, 120, 25, 25);
+        graphics.fillRect(15, 15, 210, 410);
 
-        Tetromino tetromino = game.getNextTetromino();
+        Tetromino tetromino = game.getFallingTetromino();
+        int[][] boardStatus = game.getBoard().getBoardStatus();
+        boolean[] fullRows = game.getBoard().getIsRowFilledStatus();
 
-        for (int i = 0; i < 4; ++i) {
-            int x = tetromino.getX(i);
-            int y = tetromino.getY(i);
-            if (tetromino.getShape().ordinal() == 4 || tetromino.getShape().ordinal() == 3) {
-                drawSquare(graphics, 305 + x * 20,
-                        80 + y * 20,
-                        tetromino.getShape().ordinal());
-            }
-            else if (tetromino.getShape().ordinal() == 5) {
-                drawSquare(graphics, 295 + x * 20,
-                        80 + y * 20,
-                        tetromino.getShape().ordinal());
-
+        for (int i = 0; i < 20; ++i) {
+            if (fullRows[i]) {
+                graphics.setColor(colors[0]);
+                graphics.fillRect(20, (20 + i * 20), 200, 20);
             }
             else {
-                drawSquare(graphics, 295 + x * 20,
-                        90 + y * 20,
-                        tetromino.getShape().ordinal());
-            }
-            graphics.setFont(new Font("Arial", 1, 15));
-            graphics.drawString("Next Tetromino", 262, 58);
+                for (int j = 0; j < 10; ++j) {
+                    int shape = boardStatus[i][j];
 
+                    drawSquare(graphics, 20 + j * 20,
+                            20 + i * 20, shape);
+                }
+            }
         }
+
     }
 
     /**
-     * Piirtää yhden tetromino ruudun sille annetulle kohdalle
+     * Piirtää yhden pelikentän ruudun sille annetulle kohdalle
      *
      * @param graphics
      * @param x ruudun ylävasemman kulman x kordinaatti.
@@ -103,4 +100,5 @@ public class NextTetrominoScreen extends JPanel {
         graphics.drawLine(x + 1, y + 18, x + 1, y + 2);
 
     }
+
 }

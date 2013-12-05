@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userInterface.HighScore;
+package userInterface.highscore;
 
 import java.awt.Button;
 import java.awt.Color;
@@ -24,7 +24,7 @@ import userInterface.UserInterface;
  *
  * @author Josse
  */
-public final class newHighScoreScreen extends JPanel {
+public final class NewHighScoreScreen extends JPanel {
 
     private final int score;
     private Button addScoreButton;
@@ -39,7 +39,7 @@ public final class newHighScoreScreen extends JPanel {
      * @param manager highScoreManager
      * @param frame UserInterface
      */
-    public newHighScoreScreen(int score, HighScoreManager manager, UserInterface frame) {
+    public NewHighScoreScreen(int score, HighScoreManager manager, UserInterface frame) {
         this.score = score;
         this.manager = manager;
         this.frame = frame;

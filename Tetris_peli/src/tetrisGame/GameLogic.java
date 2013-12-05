@@ -1,6 +1,6 @@
 package tetrisGame;
 
-import userInterface.GameScreen.GameScreen;
+import userInterface.gamescreen.GameScreen;
 
 /**
  * Tässä luokassa tapahtuu itse pelilooppi ja koko
