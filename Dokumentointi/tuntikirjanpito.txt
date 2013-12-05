@@ -27,4 +27,6 @@ Tuntikirjanpito
 25.11  30 min Pelin testausta
 27.11  8 h HighScoren testausta, lopullinen luokkakaavio, testausdokumentti, tuntikirjanpito, peliohje, sekvenssikaaviot, ohjelman rakenteen kuvaus...
 28.11  1 h koodikatelmointia
+1.12   1 h bugien korjausta
+5.12   1h demotilaisuus, bugien korjausta
 

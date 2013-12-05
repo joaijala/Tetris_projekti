@@ -1,0 +1,1 @@
+Java -jar Tetris_peli.jar

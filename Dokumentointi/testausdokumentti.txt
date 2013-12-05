@@ -26,4 +26,6 @@ Musiikki alkaa soimaan ohjelman k‰ynnistyess‰ ja hiljenee jos k‰ytt‰j‰ sammuttaa
 p‰‰lle se alkaa alusta.
 
 
-Linuxilla ohjalma ei n‰yt‰ ihan oikeanlaiselta ja ‰‰nten soittamisen kanssa on ongelmaa. Windows toimii oikein
+N‰ytt‰isi toimivan t‰ysin oikein windows 7 ja koulun linuxilla
+
+Bugi: Joissakin linuxeissa ‰‰net ei toimi ja k‰yttˆj‰rjestelm‰ vinoutuu niin, ett‰ tekstit menee ruutujen ulkopuolella
